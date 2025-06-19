@@ -1,27 +1,24 @@
 theme = "catppuccin_mocha"
 
 [editor]
-# rulers = [80]
-auto-save = true
-# line-number = "relative"
+line-number = "relative"
 cursorline = true
-color-modes = true
 bufferline = "multiple"
-# auto-pairs = false
-#true-color = true
+true-color = true
 completion-timeout = 5
 idle-timeout = 0
 completion-trigger-len = 1
+auto-format = true
+popup-border = "all"
+# end-of-line-diagnostics = "hint"
 
-[editor.indent-guides]
-render = true
+[editor.auto-save]
+auto-save = true
+after-delay.enable = true
 
-# [editor.cursor-shape]
-# insert = "bar"
-# select = "underline"
+# [editor.inline-diagnostics]
+# cursor-line = "warning"
 
 [keys.insert.j]
-k = "normal_mode" # Maps `jk` to exit insert mode
-[keys.select.j]
 k = "normal_mode" # Maps `jk` to exit insert mode
 

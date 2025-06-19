@@ -1,47 +1,25 @@
 [[language]]
 name = "c"
 indent = { tab-width = 4, unit = "    " }
+[[language]]
+name = "cpp"
+indent = { tab-width = 4, unit = "    " }
 
 [language-server.clangd]
 args = ["--function-arg-placeholders=0"]
-
-# [[language]]
-# name = "python"
-# language-servers = ["pyright", "ruff", "pylyzer"]
-# [language-server.pyright.config.python.analysis]
-# typeCheckingMode = "basic"
-# [language-server.ruff]
-# command = "ruff"
-# args = ["server"]
-# [language-server.pylyzer]
-# command = "pylyzer"
-# args = ["--server"]
-
-# [language.formatter]
-# command = "ruff"
-# args = ["format", "-"]
-# formatter = { command = "ruff", args = ["format"] }
-
-[[language]]
-name = "python"
-language-servers = ["pylsp"]
-
-[language-server.pylsp.config.pylsp]
-plugins.pylsp_mypy.enabled = true
-plugins.pylsp_mypy.live_mode = true
-
-
-[language-server.pyrefly]
-command = "pyrefly"
-args = [ "lsp" ]
-
-[[language]]
-name = "python"
-language-servers = [ "pyrefly" ]
-
 
 [[language]]
 name = "go"
 auto-format = true
 formatter = { command = "goimports" }
 
+[[language]]
+name = "python"
+language-servers = ["pylsp"]
+[language-server.pylsp.config.pylsp]
+plugins.pylsp_mypy.enabled = true
+plugins.pylsp_mypy.live_mode = true
+[language.formatter]
+command = "ruff"
+args = ["format", "-"]
+formatter = { command = "ruff", args = ["format"] }
