@@ -1,0 +1,46 @@
+# .clang-format file using Mozilla style as base
+BasedOnStyle: Mozilla
+
+# Indentation and spacing customization
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+
+# Improve readability with space adjustments
+SpaceAfterCStyleCast: true
+SpaceAfterTemplateKeyword: true
+SpaceBeforeAssignmentOperators: true
+SpacesBeforeTrailingComments: 1
+SpaceInEmptyBlock: true
+SpacesInAngles: false
+SpacesInContainerLiterals: true
+SpacesInCStyleCastParentheses: true
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
+
+# Function formatting
+AllowShortFunctionsOnASingleLine: None
+BreakBeforeBraces: Allman
+AlwaysBreakTemplateDeclarations: Yes
+BinPackParameters: false
+BinPackArguments: false
+
+# Pointer and reference alignment
+PointerAlignment: Left
+ReferenceAlignment: Left
+
+# Improve conditionals and control statements readability
+SpaceBeforeParens: ControlStatements
+
+# Line length and wrapping
+ColumnLimit: 100
+BreakConstructorInitializers: BeforeColon
+
+# Keep include statements clean
+SortIncludes: true
+IncludeBlocks: Preserve
+
+# Optional extras for further readability (optional)
+IndentCaseLabels: true
+AllowShortIfStatementsOnASingleLine: false
+

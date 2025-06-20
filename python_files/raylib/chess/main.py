@@ -32,7 +32,9 @@ def draw_pieces(
             if board_pieces[row][col] != "_":
                 current_piece: str = board_pieces[row][col]
 
-                current_texture: p.Texture = loaded_textures_array[current_piece]
+                current_texture: p.Texture = loaded_textures_array[
+                    current_piece
+                ]
                 source: p.Rectangle = p.Rectangle(
                     0, 0, current_texture.width, current_texture.height
                 )
@@ -118,7 +120,9 @@ def drag_and_drop_piece(
         rotation: float = 0.0
         tint: p.Color = p.WHITE
 
-        p.draw_texture_pro(current_texture, source, dest, origin, rotation, tint)
+        p.draw_texture_pro(
+            current_texture, source, dest, origin, rotation, tint
+        )
 
     if p.is_mouse_button_released(0) and drag_and_drop_piece.is_dragging:
         if board_pieces[row][col] == "_":

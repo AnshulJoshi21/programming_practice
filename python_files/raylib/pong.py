@@ -8,8 +8,8 @@ SCREEN_BACKGROUND: p.Color = p.LIGHTGRAY
 
 class Ball:
     def __init__(self) -> None:
-        self.initial_x: float = p.get_screen_width()/2
-        self.initial_y: float = p.get_screen_height()/2
+        self.initial_x: float = p.get_screen_width() / 2
+        self.initial_y: float = p.get_screen_height() / 2
         self.x: float = self.initial_x
         self.y: float = self.initial_y
         self.radius: float = 10.0
@@ -51,7 +51,10 @@ class Ball:
             self.direction = p.vector2_normalize(self.direction)
 
         # ball bounds
-        if self.y < self.radius or self.y > p.get_screen_height() - self.radius:
+        if (
+            self.y < self.radius
+            or self.y > p.get_screen_height() - self.radius
+        ):
             self.direction.y *= -1
 
 
@@ -60,7 +63,7 @@ class Paddle:
         self.width: float = 10.0
         self.height: float = 100.0
         self.initial_x: float = x
-        self.initial_y: float = p.get_screen_height()/2 - self.height/2
+        self.initial_y: float = p.get_screen_height() / 2 - self.height / 2
         self.x: float = self.initial_x
         self.y: float = self.initial_y
         self.speed: float = 300.0
@@ -71,19 +74,26 @@ class Paddle:
         self.y = self.initial_y
 
     def draw(self) -> None:
-        p.draw_rectangle_rec(p.Rectangle(
-            self.x, self.y, self.width, self.height), self.color)
+        p.draw_rectangle_rec(
+            p.Rectangle(self.x, self.y, self.width, self.height), self.color
+        )
 
     def update_player(self) -> None:
         if p.is_key_down(p.KeyboardKey.KEY_UP) and self.y > 0:
             self.y -= self.speed * p.get_frame_time()
-        if p.is_key_down(p.KeyboardKey.KEY_DOWN) and self.y < p.get_screen_height() - self.height:
+        if (
+            p.is_key_down(p.KeyboardKey.KEY_DOWN)
+            and self.y < p.get_screen_height() - self.height
+        ):
             self.y += self.speed * p.get_frame_time()
 
     def update_ai(self, ball_y: float) -> None:
-        if ball_y < self.y + self.height/2 and self.y > 0:
+        if ball_y < self.y + self.height / 2 and self.y > 0:
             self.y -= self.speed * p.get_frame_time()
-        if ball_y > self.y + self.height/2 and self.y < p.get_screen_height() - self.height:
+        if (
+            ball_y > self.y + self.height / 2
+            and self.y < p.get_screen_height() - self.height
+        ):
             self.y += self.speed * p.get_frame_time()
 
 
@@ -98,16 +108,23 @@ def main() -> None:
     ai: Paddle = Paddle(p.get_screen_width() - player.width - 10.0)
 
     while not p.window_should_close():
-
         ball.update()
         player.update_player()
         ai.update_ai(ball.y)
 
         # ball collision  paddle
-        if p.check_collision_circle_rec(p.Vector2(ball.x, ball.y), ball.radius, p.Rectangle(player.x, player.y, player.width, player.height)):
+        if p.check_collision_circle_rec(
+            p.Vector2(ball.x, ball.y),
+            ball.radius,
+            p.Rectangle(player.x, player.y, player.width, player.height),
+        ):
             ball.direction.x *= -1
             ball.speed += ball.speed_increment
-        if p.check_collision_circle_rec(p.Vector2(ball.x, ball.y), ball.radius, p.Rectangle(ai.x, ai.y, ai.width, ai.height)):
+        if p.check_collision_circle_rec(
+            p.Vector2(ball.x, ball.y),
+            ball.radius,
+            p.Rectangle(ai.x, ai.y, ai.width, ai.height),
+        ):
             ball.direction.x *= -1
             ball.speed += ball.speed_increment
 
@@ -128,8 +145,9 @@ def main() -> None:
 
         # draw scores
         p.draw_text(str(score_left), 200, 30, 40, p.DARKGRAY)
-        p.draw_text(str(score_right), p.get_screen_width() -
-                    200, 30, 40, p.DARKGRAY)
+        p.draw_text(
+            str(score_right), p.get_screen_width() - 200, 30, 40, p.DARKGRAY
+        )
 
         ball.draw()
         player.draw()

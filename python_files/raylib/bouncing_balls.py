@@ -13,14 +13,16 @@ NUM_OF_BALLS: int = 200
 class Ball:
     def __init__(self) -> None:
         self.radius: float = uniform(10, 30)
-        self.pos: p.Vector2 = p.Vector2(uniform(
-            self.radius, SCREEN_WIDTH - self.radius), uniform(self.radius, SCREEN_HEIGHT - self.radius))
+        self.pos: p.Vector2 = p.Vector2(
+            uniform(self.radius, SCREEN_WIDTH - self.radius),
+            uniform(self.radius, SCREEN_HEIGHT - self.radius),
+        )
         self.speed: float = uniform(100, 300)
         self.color: p.Color = p.Color(
             p.get_random_value(0, 255),
             p.get_random_value(0, 255),
             p.get_random_value(0, 255),
-            225
+            225,
         )
         self.direction: p.Vector2 = p.Vector2(
             -1 if p.get_random_value(0, 1) == 0 else 1,
@@ -39,7 +41,10 @@ class Ball:
 
         if self.pos.x < self.radius or self.pos.x > SCREEN_WIDTH - self.radius:
             self.direction.x *= -1
-        if self.pos.y < self.radius or self.pos.y > SCREEN_HEIGHT - self.radius:
+        if (
+            self.pos.y < self.radius
+            or self.pos.y > SCREEN_HEIGHT - self.radius
+        ):
             self.direction.y *= -1
 
 
@@ -51,7 +56,6 @@ def main() -> None:
         balls.append(Ball())
 
     while not p.window_should_close():
-
         for ball in balls:
             ball.udpate()
 
