@@ -3,22 +3,23 @@
 
 typedef struct Node
 {
-    int data;
+    char data;
     struct Node* next;
+
 } Node;
 
 Node*
-create_new_node(int data)
+create_node(char data)
 {
-    Node* new_node = ( Node* ) malloc(sizeof(Node));
+    Node* new_node = malloc(sizeof(Node));
     if (new_node == NULL)
     {
         fprintf(stderr, "Memory allocation failed\n");
+        exit(EXIT_FAILURE);
     }
+
     new_node->data = data;
     new_node->next = NULL;
-
-    return new_node;
 }
 
 typedef struct LinkedList
@@ -33,21 +34,55 @@ ll_init(LinkedList* ll)
     ll->head = NULL;
 }
 
-void
-ll_prepend(LinkedList* ll, int data)
+int
+ll_length(LinkedList* ll)
 {
-    Node* new_node = create_new_node(data);
-    new_node->next = ll->head;
-    ll->head = new_node;
+    if (!ll)
+    {
+        fprintf(stderr, "List not initialized\n");
+        exit(EXIT_FAILURE);
+    }
+
+    Node* current = ll->head;
+    int count = 0;
+    while (current)
+    {
+        count++;
+        current = current->next;
+    }
+
+    return count;
 }
 
 void
-ll_append(LinkedList* ll, int data)
+ll_prepend(LinkedList* ll, char data)
 {
-    Node* new_node = create_new_node(data);
+    if (!ll)
+    {
+        fprintf(stderr, "List not initialized\n");
+        exit(EXIT_FAILURE);
+    }
+
+    Node* new_node = create_node(data);
+    new_node->next = ll->head;
+    ll->head = new_node;
+    return;
+}
+
+void
+ll_append(LinkedList* ll, char data)
+{
+    if (!ll)
+    {
+        fprintf(stderr, "List not initialized\n");
+        exit(EXIT_FAILURE);
+    }
+
+    Node* new_node = create_node(data);
 
     if (!ll->head)
     {
+        new_node->next = ll->head;
         ll->head = new_node;
         return;
     }
@@ -57,15 +92,28 @@ ll_append(LinkedList* ll, int data)
     {
         current = current->next;
     }
+
     current->next = new_node;
 }
 
 void
-ll_insert_at_index(LinkedList* ll, int index, int data)
+ll_insert_at_index(LinkedList* ll, int index, char character)
 {
-    Node* new_node = create_new_node(data);
+    if (!ll)
+    {
+        fprintf(stderr, "List not initialized\n");
+        exit(EXIT_FAILURE);
+    }
 
-    if (!ll->head || index == 0)
+    if (index < 0)
+    {
+        fprintf(stderr, "Index %d invalid\n", index);
+        return;
+    }
+
+    Node* new_node = create_node(character);
+
+    if (index == 0)
     {
         new_node->next = ll->head;
         ll->head = new_node;
@@ -82,9 +130,9 @@ ll_insert_at_index(LinkedList* ll, int index, int data)
 
     if (!prev)
     {
-        fprintf(stderr, "Index out of bounds\n");
+        fprintf(stderr, "Index %d out of bounds\n", index);
         free(new_node);
-        exit(EXIT_FAILURE);
+        return;
     }
 
     new_node->next = prev->next;
@@ -94,10 +142,16 @@ ll_insert_at_index(LinkedList* ll, int index, int data)
 void
 ll_print_list(LinkedList* ll)
 {
+    if (!ll)
+    {
+        fprintf(stderr, "List not initialized\n");
+        exit(EXIT_FAILURE);
+    }
+
     Node* current = ll->head;
     while (current)
     {
-        printf("%d -> ", current->data);
+        printf("%c -> ", current->data);
         current = current->next;
     }
     printf("None\n");
@@ -106,6 +160,12 @@ ll_print_list(LinkedList* ll)
 void
 ll_free(LinkedList* ll)
 {
+    if (!ll)
+    {
+        fprintf(stderr, "List not initialized\n");
+        exit(EXIT_FAILURE);
+    }
+
     Node* current = ll->head;
     while (current)
     {
@@ -120,12 +180,15 @@ main(void)
 {
     LinkedList ll;
     ll_init(&ll);
-    ll_append(&ll, 1);
-    ll_append(&ll, 2);
-    ll_append(&ll, 3);
-    ll_prepend(&ll, 0);
-    ll_insert_at_index(&ll, -1, 10);
+    ll_append(&ll, 'b');
+    ll_append(&ll, 'c');
+    ll_append(&ll, 'd');
+    ll_prepend(&ll, 'a');
     ll_print_list(&ll);
+    printf("Length: %d\n", ll_length(&ll));
+    ll_insert_at_index(&ll, 2, 'f');
+    ll_print_list(&ll);
+    printf("Length: %d\n", ll_length(&ll));
 
     ll_free(&ll);
 
