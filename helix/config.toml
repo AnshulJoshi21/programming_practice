@@ -1,0 +1,23 @@
+theme = "catppuccin_mocha"
+
+[editor]
+line-number = "relative"
+cursorline = true
+bufferline = "multiple"
+true-color = true
+# completion-timeout = 5
+idle-timeout = 0
+completion-trigger-len = 1
+popup-border = "all"
+# end-of-line-diagnostics = "hint"
+
+[editor.auto-save]
+auto-save = true
+after-delay.enable = true
+
+# [editor.inline-diagnostics]
+# cursor-line = "warning"
+
+[keys.insert.j]
+k = "normal_mode" # Maps `jk` to exit insert mode
+
