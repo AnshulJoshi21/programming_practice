@@ -1,12 +1,12 @@
 theme = "catppuccin_mocha"
 
 [editor]
-line-number = "relative"
+# line-number = "relative"
 cursorline = true
 bufferline = "multiple"
 true-color = true
-# completion-timeout = 5
-idle-timeout = 0
+completion-timeout = 5
+idle-timeout = 100
 completion-trigger-len = 1
 popup-border = "all"
 # end-of-line-diagnostics = "hint"

@@ -19,9 +19,10 @@ args = ["--function-arg-placeholders=0","--header-insertion=never"]
 name = "python"
 formatter = { command = "ruff", args = ["format", "--line-length", "88", "-"] }
 auto-format = true
-language-servers = ["pyrefly"]
-# language-servers = ["basedpyright"]
+# language-servers = ["pyrefly"]
+language-servers = ["basedpyright"]
 # language-servers = ["pylsp"]
+# 
 
 [language-server.pylsp.config.pylsp]
 plugins.pylsp_mypy.enabled = true
