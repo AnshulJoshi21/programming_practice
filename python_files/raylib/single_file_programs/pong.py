@@ -1,7 +1,6 @@
-import pyray as p
 from random import randint
 
-from utils import center_and_draw_text
+import pyray as p
 
 SCREEN_WIDTH: int = 800
 SCREEN_HEIGHT: int = 600
@@ -135,7 +134,9 @@ def main() -> None:
 
         # draw scores
         p.draw_text(str(score_left), 200, 30, 30, p.BLACK)
-        p.draw_text(str(score_right), p.get_screen_width() - 200, 30, 30, p.BLACK)
+        p.draw_text(
+            str(score_right), p.get_screen_width() - 200, 30, 30, p.BLACK
+        )
 
         ball.draw()
         player.draw()

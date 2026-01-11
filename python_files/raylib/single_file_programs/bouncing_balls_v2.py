@@ -1,6 +1,7 @@
+from math import cos, pi, sin
+from random import randint, uniform
+
 import pyray as p
-from random import uniform, randint
-from math import pi, sin, cos
 
 SCREEN_WIDTH: int = 800
 SCREEN_HEIGHT: int = 600

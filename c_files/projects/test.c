@@ -5,6 +5,7 @@ typedef enum GameState {
     ST_MAIN_MENU,
     ST_CHARACTER_CREATION,
     ST_EXPLORE,
+    ST_COMBAT,
     ST_TOWN,
     ST_QUIT
 
@@ -18,14 +19,11 @@ typedef enum CharacterType {
 
 } CharacterType;
 
-typedef enum 
-
-    static void
-    main_menu(GameState *current_state)
+static void main_menu(GameState *current_state)
 {
     int command;
 
-    printf("\nDUNGEON DELVE\n\n");
+    printf("\nSimple Rpg\n\n");
     printf("1. New Game\n");
     printf("2. Quit\n\n");
 
@@ -66,6 +64,8 @@ int main(void)
         case ST_CHARACTER_CREATION:
             break;
         case ST_EXPLORE:
+            break;
+        case ST_COMBAT:
             break;
         case ST_TOWN:
             break;

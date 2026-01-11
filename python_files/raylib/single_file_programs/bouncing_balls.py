@@ -1,5 +1,6 @@
+from random import randint, uniform
+
 import pyray as p
-from random import uniform, randint
 
 SCREEN_WIDTH: int = 800
 SCREEN_HEIGHT: int = 600
@@ -43,7 +44,7 @@ class Ball:
             self.direction.x *= -1
         if (
             self.center.y < self.radius
-                or self.center.y > p.get_screen_height() - self.radius
+            or self.center.y > p.get_screen_height() - self.radius
         ):
             self.direction.y *= -1
 
