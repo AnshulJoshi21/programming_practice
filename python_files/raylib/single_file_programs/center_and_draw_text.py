@@ -3,10 +3,10 @@ import pyray as p
 
 def center_and_draw_text(
     text: str,
-    font_size: float,
-    spacing: float,
     layout_rect: p.Rectangle,
-    color: p.Color = p.BLACK,
+    font_size: float = 30.0,
+    spacing: float = 2.0,
+    color: p.Color = p.DARKGRAY,
 ):
     font: p.Font = p.get_font_default()
     text_size: p.Vector2 = p.measure_text_ex(font, text, font_size, spacing)

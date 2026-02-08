@@ -1,56 +1,55 @@
 from random import randint
 
 import pyray as p
+from center_and_draw_text import center_and_draw_text
 
 SCREEN_WIDTH: int = 800
 SCREEN_HEIGHT: int = 600
 SCREEN_TITLE: str = "Breakout"
 SCREEN_BACKGROUND: p.Color = p.RAYWHITE
 
-BRICK_ROWS: int = 5
-BRICK_COLS: int = 10
-BRICK_WIDTH: int = 79
-BRICK_HEIGHT: int = 30
-BRICK_GAP: int = 2
+ROWS: int = 8
+COLS: int = 10
+MARGIN: float = 10.0
+
+BRICK_HEIGHT: float = 25.0
+BRICK_GAP: float = 2.0
+
+
+def get_brick_width() -> float:
+    # horizontal
+    total_gaps: float = BRICK_GAP * (COLS - 1)
+    total_margin: float = MARGIN * 2
+    usable_screen_width: float = (
+        p.get_screen_width() - total_margin - total_gaps
+    )
+
+    return usable_screen_width / COLS
 
 
 class Brick:
-    def __init__(self, x: int, y: int) -> None:
-        self.x: int = x
-        self.y: int = y
-        self.is_active: bool = True
+    def __init__(self, x: float, y: float) -> None:
+        brick_width: float = get_brick_width()
+        self.rect: p.Rectangle = p.Rectangle(x, y, brick_width, BRICK_HEIGHT)
         self.color: p.Color = p.GRAY
 
     def draw(self) -> None:
-        p.draw_rectangle(self.x, self.y, BRICK_WIDTH, BRICK_HEIGHT, self.color)
-
-
-def bricks_init() -> list[Brick]:
-    bricks: list[Brick] = []
-
-    for i in range(BRICK_ROWS):
-        for j in range(BRICK_COLS):
-            x: int = j * (BRICK_WIDTH + BRICK_GAP)
-            y: int = i * (BRICK_HEIGHT + BRICK_GAP)
-
-            bricks.append(Brick(x, y))
-
-    return bricks
+        p.draw_rectangle_rec(self.rect, self.color)
 
 
 class Paddle:
     def __init__(self) -> None:
         width: float = 100.0
         height: float = 10.0
-        x: float = p.get_screen_width() / 2.0 - width / 2.0
-        y: float = p.get_screen_height() - height - 10.0
+        x: float = SCREEN_WIDTH / 2.0 - width / 2.0
+        y: float = SCREEN_HEIGHT - height - 10.0
 
         self.rect: p.Rectangle = p.Rectangle(x, y, width, height)
         self.speed: float = 300.0
         self.color: p.Color = p.BLACK
 
     def reset(self) -> None:
-        self.rect.x = p.get_screen_width() / 2.0 - self.rect.width / 2.0
+        self.rect.x = SCREEN_WIDTH / 2.0 - self.rect.width / 2.0
 
     def draw(self) -> None:
         p.draw_rectangle_rec(self.rect, self.color)
@@ -70,45 +69,45 @@ class Ball:
         self.radius: float = 10.0
         self.center: p.Vector2 = p.Vector2(
             paddle_rect.x + paddle_rect.width / 2.0,
-            paddle_rect.y - self.radius - 5.0,
+            paddle_rect.y - self.radius - 10.0,
         )
+        self.speed_initial: float = 400.0
+        self.speed: float = self.speed_initial
+        self.speed_increment: float = 10.0
         self.direction: p.Vector2 = p.Vector2(
-            -1 if randint(0, 1) == 0 else 1,
-            -1 if randint(0, 1) == 0 else 1,
+            -1 if randint(0, 1) == 0 else 1, -1
         )
         self.color: p.Color = p.RED
-        self.speed: float = 400.0
-        self.speed_increment: float = 10.0
-        self.is_active: bool = False
+        self.active: bool = False
 
     def reset(self, paddle_rect: p.Rectangle) -> None:
         self.center: p.Vector2 = p.Vector2(
             paddle_rect.x + paddle_rect.width / 2.0,
-            paddle_rect.y - self.radius - 5.0,
+            paddle_rect.y - self.radius - 10.0,
         )
+        self.speed: float = self.speed_initial
         self.direction: p.Vector2 = p.Vector2(
-            -1 if randint(0, 1) == 0 else 1,
-            -1 if randint(0, 1) == 0 else 1,
+            -1 if randint(0, 1) == 0 else 1, -1
         )
-        self.speed: float = 400.0
-        self.is_active: bool = False
+        self.active: bool = False
 
     def draw(self) -> None:
         p.draw_circle_v(self.center, self.radius, self.color)
 
     def update(self, dt: float, paddle_rect: p.Rectangle) -> None:
-        # update position when inactive
-        if not self.is_active:
+        # update when inactive
+        if not self.active:
             self.center: p.Vector2 = p.Vector2(
                 paddle_rect.x + paddle_rect.width / 2.0,
-                paddle_rect.y - self.radius - 5.0,
+                paddle_rect.y - self.radius - 10.0,
             )
 
-        # activate ball
+        # activate
         if p.is_key_pressed(p.KeyboardKey.KEY_SPACE):
-            self.is_active = True
+            self.active = True
 
-        if self.is_active:
+        # update
+        if self.active:
             self.direction = p.vector2_normalize(self.direction)
 
             # move
@@ -118,86 +117,120 @@ class Ball:
             # bounds
             if (
                 self.center.x < self.radius
-                or self.center.x > p.get_screen_width() - self.radius
+                or self.center.x > SCREEN_WIDTH - self.radius
             ):
                 self.direction.x *= -1
-            if (
-                self.center.y < self.radius
-                or self.center.y > p.get_screen_height() - self.radius
-            ):
+            if self.center.y < self.radius:
                 self.direction.y *= -1
 
 
-def ball_collision_paddle(ball: Ball, paddle: Paddle, dt: float) -> None:
-    if p.check_collision_circle_rec(ball.center, ball.radius, paddle.rect):
-        ball.direction.y *= -1
-        ball.speed += ball.speed_increment * dt
+class GameManager:
+    def reset(self) -> None:
+        self.lives: int = 5
+        self.game_over: bool = False
+        self.game_won: bool = False
 
+        self.paddle: Paddle = Paddle()
+        self.ball: Ball = Ball(self.paddle.rect)
 
-def ball_collision_bricks(ball: Ball, bricks: list[Brick]) -> None:
-    for brick in bricks:
-        if brick.is_active:
+        self.bricks: list[Brick] = []
+        brick_width: float = get_brick_width()
+
+        for i in range(ROWS):
+            for j in range(COLS):
+                x: float = j * (brick_width + BRICK_GAP) + MARGIN
+                y: float = i * (BRICK_HEIGHT + BRICK_GAP) + MARGIN
+
+                self.bricks.append(Brick(x, y))
+
+    def __init__(self) -> None:
+        self.reset()
+
+    def draw_game_status(self) -> None:
+        if self.game_over:
+            text: str = "GAME OVER"
+        elif self.game_won:
+            text: str = "YOU WIN"
+
+        # outline rect
+        width: float = 300.0
+        height: float = 150.0
+        x: float = SCREEN_WIDTH / 2.0 - width / 2.0
+        y: float = SCREEN_HEIGHT / 2.0 - height / 2.0
+        rect: p.Rectangle = p.Rectangle(x, y, width, height)
+        thickness: float = 5.0
+        color: p.Color = p.DARKGRAY
+
+        p.draw_rectangle_lines_ex(rect, thickness, color)
+
+        center_and_draw_text(text, rect)
+
+    def draw(self) -> None:
+        p.draw_text(str(self.lives), 20, SCREEN_HEIGHT - 50, 30, p.BLACK)
+
+        self.paddle.draw()
+        self.ball.draw()
+        for brick in self.bricks:
+            brick.draw()
+
+        if self.game_over or self.game_won:
+            self.draw_game_status()
+
+    def ball_collision_paddle(self, dt: float) -> None:
+        if p.check_collision_circle_rec(
+            self.ball.center, self.ball.radius, self.paddle.rect
+        ):
+            self.ball.direction.y *= -1
+            self.ball.speed += self.ball.speed_increment * dt
+
+    def update_lives(self) -> None:
+        if self.ball.center.y > SCREEN_HEIGHT + self.ball.radius:
+            self.lives -= 1
+            self.paddle.reset()
+            self.ball.reset(self.paddle.rect)
+
+    def ball_collision_bricks(self) -> None:
+        for brick in self.bricks:
             if p.check_collision_circle_rec(
-                ball.center,
-                ball.radius,
-                p.Rectangle(brick.x, brick.y, BRICK_WIDTH, BRICK_HEIGHT),
+                self.ball.center, self.ball.radius, brick.rect
             ):
-                ball.direction.y *= -1
-                brick.is_active = False
+                self.ball.direction.y *= -1
+                self.bricks.remove(brick)
+                break
+
+    def update(self, dt: float) -> None:
+        if self.lives <= 0:
+            self.game_over = True
+
+        if len(self.bricks) <= 0:
+            self.game_won = True
+
+        if not self.game_over and not self.game_won:
+            self.paddle.update(dt)
+            self.ball.update(dt, self.paddle.rect)
+
+            self.ball_collision_paddle(dt)
+            self.update_lives()
+            self.ball_collision_bricks()
+        else:
+            if p.is_key_pressed(p.KeyboardKey.KEY_ENTER):
+                self.reset()
 
 
 def main() -> None:
     p.init_window(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
 
-    lives: int = 5
-    game_over: bool = False
-    game_win: bool = False
-
-    bricks: list[Brick] = bricks_init()
-
-    paddle: Paddle = Paddle()
-    ball: Ball = Ball(paddle.rect)
+    game_manager: GameManager = GameManager()
 
     while not p.window_should_close():
-        if not game_over and not game_win:
-            dt: float = p.get_frame_time()
+        dt: float = p.get_frame_time()
 
-            paddle.update(dt)
-            ball.update(dt, paddle.rect)
-
-            ball_collision_paddle(ball, paddle, dt)
-            ball_collision_bricks(ball, bricks)
-
-            # update lives
-            if ball.center.y > SCREEN_HEIGHT + ball.radius:
-                lives -= 1
-                paddle.reset()
-                ball.reset(paddle.rect)
-
-        else:
-            if p.is_key_pressed(p.KeyboardKey.KEY_ENTER):
-                lives = 5
-                game_over = False
-                game_win = False
-
-                paddle.reset()
-                ball.reset(paddle.rect)
-
-                for brick in bricks:
-                    brick.is_active = True
+        game_manager.update(dt)
 
         p.begin_drawing()
         p.clear_background(SCREEN_BACKGROUND)
 
-        paddle.draw()
-        ball.draw()
-
-        # draw lives
-        p.draw_text(str(lives), 20, p.get_screen_height() - 50, 30, p.BLACK)
-
-        for brick in bricks:
-            if brick.is_active:
-                brick.draw()
+        game_manager.draw()
 
         p.end_drawing()
 

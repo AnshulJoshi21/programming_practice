@@ -1,16 +1,14 @@
+
 #include "./utils.h"
 
+#include <assert.h>
 #include <raylib.h>
 #include <raymath.h>
 
-static const int SCREEN_WIDTH        = 800;
-static const int SCREEN_HEIGHT       = 600;
-static const char *SCREEN_TITLE      = "Pong";
-static const Color SCREEN_BACKGROUND = RAYWHITE;
+static const int SCREEN_WIDTH  = 800;
+static const int SCREEN_HEIGHT = 600;
 
-//************************************************//
-// BALL
-//************************************************//
+//-- BALL --------------------------------------//
 typedef struct Ball
 {
     Vector2 center;
@@ -26,59 +24,50 @@ typedef struct Ball
 
 } Ball;
 
-static void ball_init(Ball *ball)
-{
-    if (!ball)
-        return;
-
-    ball->radius          = 10.0f;
-    ball->center          = (Vector2){SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f};
-    ball->speed           = 400.0f;
-    ball->speed_increment = 5.0f;
-    ball->color           = RED;
-    ball->direction       = (Vector2){
-        GetRandomValue(0, 1) == 0 ? -1 : 1,
-        GetRandomValue(0, 1) == 0 ? -1 : 1,
-    };
-    ball->is_active            = false;
-    ball->show_activation_text = false;
-    ball->last_blink_time      = 0.0f;
-    ball->blink_interval       = 1.0f;
-}
-
 static void ball_reset(Ball *ball)
 {
-    if (!ball)
-        return;
+    assert(ball);
 
-    ball->center    = (Vector2){SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f};
-    ball->speed     = 400.0f;
+    ball->center = (Vector2){GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f};
+    ball->speed  = 400.0f;
     ball->direction = (Vector2){
         GetRandomValue(0, 1) == 0 ? -1 : 1,
         GetRandomValue(0, 1) == 0 ? -1 : 1,
     };
     ball->is_active            = false;
     ball->show_activation_text = false;
-    ball->last_blink_time      = 0.0f;
+    ball->last_blink_time      = GetTime();
+}
+
+static void ball_init(Ball *ball)
+{
+    assert(ball);
+
+    ball->radius          = 10.0f;
+    ball->speed_increment = 5.0f;
+    ball->color           = RED;
+    ball->blink_interval  = 1.0f;
+
+    ball_reset(ball);
 }
 
 static void ball_draw(const Ball *ball)
 {
-    if (!ball)
-        return;
+    assert(ball);
 
     if (ball->show_activation_text) {
-        center_and_draw_text("Press [SPACE] to begin", 20.0f, 2.0f,
-                             (Rectangle){0, 0, SCREEN_WIDTH, SCREEN_HEIGHT + 200}, BLACK);
+        center_and_draw_text(
+            "Press [SPACE] to begin", 20.0f, 2.0f,
+            (Rectangle){0, 0, GetScreenWidth(), GetScreenHeight() + 200},
+            BLACK);
     }
 
     DrawCircleV(ball->center, ball->radius, ball->color);
 }
 
-static void ball_update(Ball *ball, float delta_time)
+static void ball_update(Ball *ball, float dt)
 {
-    if (!ball)
-        return;
+    assert(ball);
 
     // ball activation text update
     if (!ball->is_active) {
@@ -100,19 +89,18 @@ static void ball_update(Ball *ball, float delta_time)
         ball->direction = Vector2Normalize(ball->direction);
 
         // move
-        ball->center.x += ball->direction.x * ball->speed * delta_time;
-        ball->center.y += ball->direction.y * ball->speed * delta_time;
+        ball->center.x += ball->direction.x * ball->speed * dt;
+        ball->center.y += ball->direction.y * ball->speed * dt;
 
         // bounds
-        if (ball->center.y < ball->radius || ball->center.y > SCREEN_HEIGHT - ball->radius) {
+        if (ball->center.y < ball->radius ||
+            ball->center.y > GetScreenHeight() - ball->radius) {
             ball->direction.y *= -1;
         }
     }
 }
 
-//************************************************//
-// PADDLE
-//************************************************//
+//-- PADDLE --------------------------------------//
 typedef struct Paddle
 {
     Rectangle rect;
@@ -121,125 +109,159 @@ typedef struct Paddle
 
 } Paddle;
 
+static void paddle_reset(Paddle *paddle)
+{
+    assert(paddle);
+
+    paddle->rect.y = GetScreenHeight() / 2.0f - paddle->rect.height / 2.0f;
+}
+
 static void paddle_init(Paddle *paddle, float x)
 {
-    if (!paddle)
-        return;
+    assert(paddle);
 
     float width  = 10.0f;
     float height = 100.0f;
-    float y      = SCREEN_HEIGHT / 2.0f - height / 2.0f;
 
-    paddle->rect  = (Rectangle){x, y, width, height};
+    paddle->rect = (Rectangle){x, 0, width, height};
+
+    // set rect.y
+    paddle_reset(paddle);
+
     paddle->speed = 300.0f;
     paddle->color = BLACK;
 }
 
-static void paddle_reset(Paddle *paddle)
-{
-    if (!paddle)
-        return;
-
-    paddle->rect.y = SCREEN_HEIGHT / 2.0f - paddle->rect.height / 2.0f;
-}
-
 static void paddle_draw(const Paddle *paddle)
 {
-    if (!paddle)
-        return;
+    assert(paddle);
 
     DrawRectangleRec(paddle->rect, paddle->color);
 }
 
-static void paddle_update_player(Paddle *paddle, float delta_time)
+static void paddle_update_player(Paddle *paddle, float dt)
 {
-    if (!paddle)
-        return;
+    assert(paddle);
 
     if (IsKeyDown(KEY_W) && paddle->rect.y > 0) {
-        paddle->rect.y -= paddle->speed * delta_time;
+        paddle->rect.y -= paddle->speed * dt;
     }
-    if (IsKeyDown(KEY_S) && paddle->rect.y < SCREEN_HEIGHT - paddle->rect.height) {
-        paddle->rect.y += paddle->speed * delta_time;
+    if (IsKeyDown(KEY_S) &&
+        paddle->rect.y < GetScreenHeight() - paddle->rect.height) {
+        paddle->rect.y += paddle->speed * dt;
     }
 }
 
-static void paddle_update_ai(Paddle *paddle, float delta_time, float ball_y)
+static void paddle_update_ai(Paddle *paddle, float dt, float ball_y)
 {
-    if (!paddle)
-        return;
+    assert(paddle);
 
-    if (ball_y < paddle->rect.y + paddle->rect.height / 2.0f && paddle->rect.y > 0) {
-        paddle->rect.y -= paddle->speed * delta_time;
+    if (ball_y < paddle->rect.y + paddle->rect.height / 2.0f &&
+        paddle->rect.y > 0) {
+        paddle->rect.y -= paddle->speed * dt;
     }
     if (ball_y > paddle->rect.y + paddle->rect.height / 2.0f &&
-        paddle->rect.y < SCREEN_HEIGHT - paddle->rect.height) {
-        paddle->rect.y += paddle->speed * delta_time;
+        paddle->rect.y < GetScreenHeight() - paddle->rect.height) {
+        paddle->rect.y += paddle->speed * dt;
     }
 }
 
-//************************************************//
-// MAIN
-//************************************************//
-int main(void)
+//-- GAME MANAGER --------------------------------------//
+typedef struct GameManager
 {
-    // 1.INIT
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE);
 
-    int score_left  = 0;
-    int score_right = 0;
+    int score_left;
+    int score_right;
 
     Ball ball;
-    ball_init(&ball);
-
     Paddle player;
-    paddle_init(&player, 10.0f);
     Paddle ai;
-    paddle_init(&ai, SCREEN_WIDTH - player.rect.width - 10.0f);
+
+} GameManager;
+
+static void gm_init(GameManager *gm)
+{
+    assert(gm);
+
+    gm->score_left  = 0;
+    gm->score_right = 0;
+
+    ball_init(&gm->ball);
+    paddle_init(&gm->player, 10.0f);
+    paddle_init(&gm->ai, GetScreenWidth() - gm->player.rect.width - 10.0f);
+}
+
+static void gm_draw(const GameManager *gm)
+{
+    assert(gm);
+
+    // draw scores
+    DrawText(TextFormat("%d", gm->score_left), 200, 30, 30, BLACK);
+    DrawText(TextFormat("%d", gm->score_right), GetScreenWidth() - 200, 30, 30,
+             BLACK);
+
+    ball_draw(&gm->ball);
+    paddle_draw(&gm->player);
+    paddle_draw(&gm->ai);
+}
+
+static void gm_reset(GameManager *gm)
+{
+    assert(gm);
+
+    ball_reset(&gm->ball);
+    paddle_reset(&gm->player);
+    paddle_reset(&gm->ai);
+}
+
+static void gm_update(GameManager *gm, float dt)
+{
+    assert(gm);
+
+    ball_update(&gm->ball, dt);
+    paddle_update_player(&gm->player, dt);
+    paddle_update_ai(&gm->ai, dt, gm->ball.center.y);
+
+    // ball collision paddles
+    if (CheckCollisionCircleRec(gm->ball.center, gm->ball.radius,
+                                gm->player.rect)) {
+        gm->ball.direction.x *= -1;
+        gm->ball.speed += gm->ball.speed_increment * dt;
+    }
+    if (CheckCollisionCircleRec(gm->ball.center, gm->ball.radius,
+                                gm->ai.rect)) {
+        gm->ball.direction.x *= -1;
+        gm->ball.speed += gm->ball.speed_increment * dt;
+    }
+
+    // update scores
+    if (gm->ball.center.x < -gm->ball.radius) {
+        gm->score_right++;
+        gm_reset(gm);
+    }
+    if (gm->ball.center.x > GetScreenWidth() + gm->ball.radius) {
+        gm->score_left++;
+        gm_reset(gm);
+    }
+}
+
+//-- MAIN --------------------------------------//
+int main(void)
+{
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Pong");
+
+    GameManager gm;
+    gm_init(&gm);
 
     while (!WindowShouldClose()) {
-        // 2.UPDATE
-        float delta_time = GetFrameTime();
+        float dt = GetFrameTime();
 
-        ball_update(&ball, delta_time);
-        paddle_update_player(&player, delta_time);
-        paddle_update_ai(&ai, delta_time, ball.center.y);
+        gm_update(&gm, dt);
 
-        // ball collision paddles
-        if (CheckCollisionCircleRec(ball.center, ball.radius, player.rect)) {
-            ball.direction.x *= -1;
-            ball.speed += ball.speed_increment * delta_time;
-        }
-        if (CheckCollisionCircleRec(ball.center, ball.radius, ai.rect)) {
-            ball.direction.x *= -1;
-            ball.speed += ball.speed_increment * delta_time;
-        }
-
-        // update scores
-        if (ball.center.x < -ball.radius) {
-            score_right++;
-            ball_reset(&ball);
-            paddle_reset(&player);
-            paddle_reset(&ai);
-        }
-        if (ball.center.x > SCREEN_WIDTH + ball.radius) {
-            score_left++;
-            ball_reset(&ball);
-            paddle_reset(&player);
-            paddle_reset(&ai);
-        }
-
-        // 3.DRAW
         BeginDrawing();
-        ClearBackground(SCREEN_BACKGROUND);
+        ClearBackground(RAYWHITE);
 
-        // draw scores
-        DrawText(TextFormat("%d", score_left), 200, 30, 30, BLACK);
-        DrawText(TextFormat("%d", score_right), SCREEN_WIDTH - 200, 30, 30, BLACK);
-
-        ball_draw(&ball);
-        paddle_draw(&player);
-        paddle_draw(&ai);
+        gm_draw(&gm);
 
         EndDrawing();
     }

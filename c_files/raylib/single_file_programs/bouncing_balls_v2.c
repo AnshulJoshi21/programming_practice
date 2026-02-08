@@ -1,26 +1,18 @@
+#include <assert.h>
+#include <math.h>
 #include <raylib.h>
-#include <raymath.h>
 #include <stdlib.h>
 #include <time.h>
 
-static const int SCREEN_WIDTH        = 800;
-static const int SCREEN_HEIGHT       = 600;
-static const char *SCREEN_TITLE      = "Bouncing Balls";
-static const Color SCREEN_BACKGROUND = RAYWHITE;
+static const int SCREEN_WIDTH  = 800;
+static const int SCREEN_HEIGHT = 600;
 
 static const int MAX_BALLS = 200;
 
-//************************************************//
-// RANDOM FUNCTION
-//************************************************//
-static inline float random_uniform(float min, float max)
-{
-    return (min + ((float)rand() / RAND_MAX * (max - min)));
-}
+#define RANDOM_UNIFORM(min, max)                                               \
+    ((min) + ((float)rand() / RAND_MAX * ((max) - (min))))
 
-//************************************************//
-// BALL
-//************************************************//
+//-- BALL --------------------------------------//
 typedef struct Ball
 {
     Vector2 center;
@@ -32,56 +24,56 @@ typedef struct Ball
 
 static void ball_init(Ball *ball)
 {
-    if (!ball)
-        return;
+    assert(ball);
 
-    ball->radius = random_uniform(5, 30);
+    ball->radius = RANDOM_UNIFORM(5, 30);
     ball->center = (Vector2){
-        random_uniform(ball->radius, SCREEN_WIDTH - ball->radius),
-        random_uniform(ball->radius, SCREEN_HEIGHT - ball->radius),
+        RANDOM_UNIFORM(ball->radius, SCREEN_WIDTH - ball->radius),
+        RANDOM_UNIFORM(ball->radius, SCREEN_HEIGHT - ball->radius),
     };
-    float speed         = random_uniform(100, 300);
-    float angle_radians = random_uniform(0, 2 * PI);
-    ball->velocity      = (Vector2){cosf(angle_radians) * speed, sinf(angle_radians) * speed};
-    ball->color =
-        (Color){GetRandomValue(0, 255), GetRandomValue(0, 255), GetRandomValue(0, 255), 255};
+    float speed         = RANDOM_UNIFORM(100, 300);
+    float angle_radians = RANDOM_UNIFORM(0, 2 * PI);
+    ball->velocity      = (Vector2){
+        cosf(angle_radians) * speed,
+        sinf(angle_radians) * speed,
+    };
+    ball->color = (Color){GetRandomValue(0, 255), GetRandomValue(0, 255),
+                          GetRandomValue(0, 255), 255};
 }
 
 static void ball_draw(const Ball *ball)
 {
-    if (!ball)
-        return;
+    assert(ball);
 
     DrawCircleV(ball->center, ball->radius, ball->color);
 }
 
 static void ball_update(Ball *ball, float delta_time)
 {
-    if (!ball)
-        return;
+    assert(ball);
 
     // move
     ball->center.x += ball->velocity.x * delta_time;
     ball->center.y += ball->velocity.y * delta_time;
 
     // bounds
-    if (ball->center.x < ball->radius || ball->center.x > SCREEN_WIDTH - ball->radius) {
+    if (ball->center.x < ball->radius ||
+        ball->center.x > SCREEN_WIDTH - ball->radius) {
         ball->velocity.x *= -1;
     }
-    if (ball->center.y < ball->radius || ball->center.y > SCREEN_HEIGHT - ball->radius) {
+    if (ball->center.y < ball->radius ||
+        ball->center.y > SCREEN_HEIGHT - ball->radius) {
         ball->velocity.y *= -1;
     }
 }
 
-//************************************************//
-// MAIN
-//************************************************//
+//-- MAIN --------------------------------------//
 int main(void)
 {
     srand(time(NULL));
 
     // 1.INIT
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE);
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Bouncing Balls V2");
 
     Ball balls[MAX_BALLS];
 
@@ -99,7 +91,7 @@ int main(void)
 
         // 3.DRAW
         BeginDrawing();
-        ClearBackground(SCREEN_BACKGROUND);
+        ClearBackground(RAYWHITE);
 
         for (int i = 0; i < MAX_BALLS; i++) {
             ball_draw(&balls[i]);

@@ -4,7 +4,7 @@ import pyray as p
 
 SCREEN_WIDTH: int = 800
 SCREEN_HEIGHT: int = 600
-SCREEN_TITLE: str = "Bouncing Balls"
+SCREEN_TITLE: str = "BOUCNING BALLS"
 SCREEN_BACKGROUND: p.Color = p.RAYWHITE
 
 MAX_BALLS: int = 200
@@ -14,8 +14,8 @@ class Ball:
     def __init__(self) -> None:
         self.radius: float = uniform(5, 30)
         self.center: p.Vector2 = p.Vector2(
-            uniform(self.radius, p.get_screen_width() - self.radius),
-            uniform(self.radius, p.get_screen_height() - self.radius),
+            uniform(self.radius, SCREEN_WIDTH - self.radius),
+            uniform(self.radius, SCREEN_HEIGHT - self.radius),
         )
         self.speed: float = uniform(100, 300)
         self.direction: p.Vector2 = p.Vector2(
@@ -39,12 +39,12 @@ class Ball:
         # bounds
         if (
             self.center.x < self.radius
-            or self.center.x > p.get_screen_width() - self.radius
+            or self.center.x > SCREEN_WIDTH - self.radius
         ):
             self.direction.x *= -1
         if (
             self.center.y < self.radius
-            or self.center.y > p.get_screen_height() - self.radius
+            or self.center.y > SCREEN_HEIGHT - self.radius
         ):
             self.direction.y *= -1
 

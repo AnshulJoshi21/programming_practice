@@ -6,17 +6,17 @@ static const char *SCREEN_TITLE      = "";
 static const Color SCREEN_BACKGROUND = RAYWHITE;
 static const int GAME_FPS            = 60;
 
-//-- MAIN ---------------------------------------//
+// == MAIN ===========================================
 int main(void)
 {
-    // 1.INIT
+    // == INIT ===========================================
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE);
     SetTargetFPS(GAME_FPS);
 
     while (!WindowShouldClose()) {
-        // 2.UPDATE
+        // == UPDATE ===========================================
 
-        // 3.DRAW
+        // == DRAW ===========================================
         BeginDrawing();
         ClearBackground(SCREEN_BACKGROUND);
         EndDrawing();

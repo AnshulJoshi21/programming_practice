@@ -1,0 +1,53 @@
+[[language]]
+name = "c"
+file-types = ["c", "h"]
+indent = { tab-width = 4, unit = "    " }
+formatter = { command = "clang-format"}
+auto-format = true
+
+[[language]]
+name = "cpp"
+file-types = ["cpp", "cc", "cxx", "hpp", "hcc", "hxx"]
+indent = { tab-width = 4, unit = "    " }
+formatter = { command = "clang-format"}
+auto-format = true
+
+[language-server.clangd]
+args = ["--function-arg-placeholders=0","--header-insertion=never"] 
+
+# [[language]]
+# name = "python"
+# formatter = { command = "sh", args = ["-c", "ruff check --select I --fix - | ruff format -"] }
+# # formatter = { command = "ruff", args = ["format", "--line-length", "88", "-"] }
+# auto-format = true
+# language-servers = ["pyrefly"]
+# language-servers = ["basedpyright"]
+# language-servers = ["pylsp"]
+
+
+# [language-server.pylsp.config.pylsp]
+# plugins.pylsp_mypy.enabled = true
+# plugins.pylsp_mypy.live_mode = true
+
+# [language-server.pyrefly]
+# command = "pyrefly"
+# args = [ "lsp" ]
+
+[[language]]
+name = "python"
+# We use a shell (sh) to string together the import sort and the format
+formatter = { command = "sh", args = ["-c", "ruff check --select I --fix - | ruff format -"] }
+auto-format = true
+language-servers = ["pylsp", "ruff"]
+
+[language-server.pylsp.config.pylsp.plugins]
+# Disable the plugins that cause the > 79 character warnings
+pycodestyle = { enabled = false }
+mccabe = { enabled = false }
+pyflakes = { enabled = false }
+# Keep your mypy settings
+pylsp_mypy = { enabled = true, live_mode = true }
+
+[language-server.ruff]
+command = "ruff"
+args = ["server"]

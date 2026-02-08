@@ -3,14 +3,17 @@
 #include <assert.h>
 #include <math.h>
 #include <raylib.h>
+#include <stdlib.h>
+#include <time.h>
 
-static const int SCREEN_WIDTH        = 800;
-static const int SCREEN_HEIGHT       = 600;
-static const char *SCREEN_TITLE      = "Flappy Bird";
-static const Color SCREEN_BACKGROUND = RAYWHITE;
+static const int SCREEN_WIDTH  = 800;
+static const int SCREEN_HEIGHT = 600;
 
 #define MAX_PILLARS 5
 #define PILLAR_SPAWN_OFFSET 10.0f
+
+#define RANDOM_UNIFORM(min, max)                                               \
+    ((min) + ((float)rand() / RAND_MAX * ((max) - (min))))
 
 //---- PLAYER -------------------------------//
 typedef struct Player
@@ -76,7 +79,7 @@ static void pillar_init(Pillar *pillar, float vertical_gap)
     assert(pillar);
 
     float width  = 100.0f;
-    float height = random_uniform(0.0f, SCREEN_HEIGHT - vertical_gap);
+    float height = RANDOM_UNIFORM(0.0f, SCREEN_HEIGHT - vertical_gap);
     float x      = SCREEN_WIDTH + PILLAR_SPAWN_OFFSET;
     float y      = 0.0f;
 
@@ -206,8 +209,10 @@ static void pm_update(PillarManager *pm, float dt, int *score, float player_x)
 //---- MAIN -------------------------------//
 int main(void)
 {
+    srand(time(NULL));
+
     // 1.INIT
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE);
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Flappy Bird");
 
     int score       = 0;
     bool game_over  = false;
@@ -279,7 +284,7 @@ int main(void)
 
         // 3.DRAW
         BeginDrawing();
-        ClearBackground(SCREEN_BACKGROUND);
+        ClearBackground(RAYWHITE);
 
         player_draw(&player);
         pm_draw(&pm);

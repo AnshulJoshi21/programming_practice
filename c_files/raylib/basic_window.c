@@ -1,24 +1,21 @@
 #include <raylib.h>
 
-static const int SCREEN_WIDTH        = 800;
-static const int SCREEN_HEIGHT       = 600;
-static const char *SCREEN_TITLE      = "";
-static const Color SCREEN_BACKGROUND = RAYWHITE;
-static const int GAME_FPS            = 60;
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 600
 
 //-- MAIN ---------------------------------------//
 int main(void)
 {
     // 1.INIT
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE);
-    SetTargetFPS(GAME_FPS);
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "");
+    SetTargetFPS(60);
 
     while (!WindowShouldClose()) {
         // 2.UPDATE
 
         // 3.DRAW
         BeginDrawing();
-        ClearBackground(SCREEN_BACKGROUND);
+        ClearBackground(RAYWHITE);
         EndDrawing();
     }
 

@@ -1,19 +1,16 @@
 #include "utils.h"
 
+#include <assert.h>
 #include <math.h>
 #include <raylib.h>
 #include <stdbool.h>
 
-static const int SCREEN_WIDTH        = 800;
-static const int SCREEN_HEIGHT       = 250;
-static const char *SCREEN_TITLE      = "Endless Runner";
-static const Color SCREEN_BACKGROUND = SKYBLUE;
+static const int SCREEN_WIDTH  = 800;
+static const int SCREEN_HEIGHT = 250;
 
 #define MAX_ENEMIES 10
 
-//************************************************//
-// PLAYER
-//************************************************//
+//-- PLAYER -------------------------------//
 typedef struct Player
 {
     Rectangle rect;
@@ -27,8 +24,7 @@ typedef struct Player
 
 static void player_init(Player *player)
 {
-    if (!player)
-        return;
+    assert(player);
 
     float width  = 20.0f;
     float height = 50.0f;
@@ -36,7 +32,7 @@ static void player_init(Player *player)
     float y      = SCREEN_HEIGHT - height;
 
     player->rect       = (Rectangle){x, y, width, height};
-    player->color      = BLUE;
+    player->color      = DARKBLUE;
     player->change_y   = 0.0f;
     player->jump_force = -500.0f;
     player->gravity    = 1200.0f;
@@ -45,16 +41,14 @@ static void player_init(Player *player)
 
 static void player_draw(const Player *player)
 {
-    if (!player)
-        return;
+    assert(player);
 
     DrawRectangleRec(player->rect, player->color);
 }
 
-static void player_update(Player *player, float delta_time)
+static void player_update(Player *player, float dt)
 {
-    if (!player)
-        return;
+    assert(player);
 
     // initiate jump
     if (IsKeyPressed(KEY_W) && player->can_jump) {
@@ -63,8 +57,8 @@ static void player_update(Player *player, float delta_time)
     }
 
     // jumping
-    player->change_y += player->gravity * delta_time;
-    player->rect.y += player->change_y * delta_time;
+    player->change_y += player->gravity * dt;
+    player->rect.y += player->change_y * dt;
 
     // hit ground
     if (player->rect.y >= SCREEN_HEIGHT - player->rect.height) {
@@ -76,9 +70,7 @@ static void player_update(Player *player, float delta_time)
         fmaxf(0.0f, fminf(player->rect.y, SCREEN_HEIGHT - player->rect.height));
 }
 
-//*********************************************//
-// ENEMIES
-//************************************************//
+//-- ENEMY -------------------------------//
 typedef struct Enemy
 {
     Rectangle rect;
@@ -89,8 +81,7 @@ typedef struct Enemy
 
 static void enemy_init(Enemy *enemy)
 {
-    if (!enemy)
-        return;
+    assert(enemy);
 
     float width  = 20.0f;
     float height = GetRandomValue(30, 70);
@@ -104,21 +95,19 @@ static void enemy_init(Enemy *enemy)
 
 static void enemy_draw(const Enemy *enemy)
 {
-    if (!enemy)
-        return;
+    assert(enemy);
 
     DrawRectangleRec(enemy->rect, enemy->color);
 }
 
-static void enemy_update(Enemy *enemy, float delta_time, float speed)
+static void enemy_update(Enemy *enemy, float dt, float speed)
 {
-    if (!enemy)
-        return;
+    assert(enemy);
 
-    enemy->rect.x -= speed * delta_time;
+    enemy->rect.x -= speed * dt;
 }
 
-// ENEMY MANAGER
+//-- ENEMY MANAGER -------------------------------//
 typedef struct EnemyManager
 {
     Enemy list[MAX_ENEMIES];
@@ -131,8 +120,7 @@ typedef struct EnemyManager
 
 static void enemy_manager_init(EnemyManager *em)
 {
-    if (!em)
-        return;
+    assert(em);
 
     em->list_size       = 0;
     em->horizontal_gap  = SCREEN_WIDTH / 2.0f;
@@ -142,22 +130,20 @@ static void enemy_manager_init(EnemyManager *em)
 
 static void enemy_manager_draw(const EnemyManager *em)
 {
-    if (!em)
-        return;
+    assert(em);
 
     for (int i = 0; i < em->list_size; i++) {
         enemy_draw(&em->list[i]);
     }
 }
 
-static void enemy_manager_update(EnemyManager *em, float delta_time, int *score,
+static void enemy_manager_update(EnemyManager *em, float dt, int *score,
                                  float player_x)
 {
-    if (!em)
-        return;
+    assert(em);
 
     // increment enemy speed
-    em->speed += em->speed_increment * delta_time;
+    em->speed += em->speed_increment * dt;
 
     // add enemy to list
     if (em->list_size < MAX_ENEMIES) {
@@ -181,7 +167,7 @@ static void enemy_manager_update(EnemyManager *em, float delta_time, int *score,
 
     // update enemy
     for (int i = 0; i < em->list_size; i++) {
-        enemy_update(&em->list[i], delta_time, em->speed);
+        enemy_update(&em->list[i], dt, em->speed);
 
         // update score
         if (!em->list[i].is_scored) {
@@ -201,82 +187,126 @@ static void enemy_manager_update(EnemyManager *em, float delta_time, int *score,
     }
 }
 
-//*********************************************//
-// MAIN
-//************************************************//
+//-- GAME MANAGER -------------------------------//
+typedef struct GameManager
+{
+    int score;
+    bool game_over;
+
+    bool show_blinking_text;
+    float last_blink_time;
+    float blink_interval;
+
+    Player player;
+    EnemyManager em;
+
+} GameManager;
+
+static void gm_reset(GameManager *gm)
+{
+    assert(gm);
+
+    gm->score     = 0;
+    gm->game_over = false;
+
+    gm->show_blinking_text = false;
+    gm->last_blink_time    = GetTime();
+    gm->blink_interval     = 1.0f;
+
+    player_init(&gm->player);
+    enemy_manager_init(&gm->em);
+}
+
+static void gm_init(GameManager *gm)
+{
+    assert(gm);
+
+    gm->score     = 0;
+    gm->game_over = false;
+
+    gm->show_blinking_text = false;
+    gm->last_blink_time    = 0.0f;
+    gm->blink_interval     = 1.0f;
+
+    player_init(&gm->player);
+    enemy_manager_init(&gm->em);
+}
+
+static void gm_draw(const GameManager *gm)
+{
+    assert(gm);
+
+    // score
+    DrawText(TextFormat("%d", gm->score), 20, 20, 30, BLACK);
+
+    player_draw(&gm->player);
+    enemy_manager_draw(&gm->em);
+
+    if (gm->game_over) {
+        center_and_draw_text(
+            "GAME OVER", 30.0f, 20.0f,
+            (Rectangle){0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 100}, BLACK);
+
+        if (gm->show_blinking_text) {
+            center_and_draw_text(
+                "Press [ENTER] to restart", 20.0f, 2.0f,
+                (Rectangle){1, 0, SCREEN_WIDTH, SCREEN_HEIGHT + 100}, BLACK);
+        }
+    }
+}
+
+static void gm_update(GameManager *gm, float dt)
+{
+    assert(gm);
+
+    if (!gm->game_over) {
+
+        player_update(&gm->player, dt);
+        enemy_manager_update(&gm->em, dt, &gm->score, gm->player.rect.x);
+
+        // player collision enemy
+        for (int i = 0; i < gm->em.list_size; i++) {
+            if (CheckCollisionRecs(gm->player.rect, gm->em.list[i].rect)) {
+                gm->game_over = true;
+            }
+        }
+    } else {
+        // show blinking text
+        float current_time = GetTime();
+        if (current_time - gm->last_blink_time >= gm->blink_interval) {
+            gm->last_blink_time = current_time;
+
+            gm->show_blinking_text = !gm->show_blinking_text;
+        }
+
+        if (IsKeyPressed(KEY_ENTER)) {
+            gm->game_over = false;
+            gm->score     = 0;
+
+            player_init(&gm->player);
+            enemy_manager_init(&gm->em);
+        }
+    }
+}
+
+//-- MAIN -------------------------------//
 int main(void)
 {
     // 1.INIT
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE);
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Endless Runner");
 
-    int score      = 0;
-    bool game_over = false;
-
-    bool show_blinking_text = false;
-    float last_blink_time   = 0.0f;
-    float blink_interval    = 1.0f;
-
-    Player player;
-    player_init(&player);
-
-    EnemyManager em;
-    enemy_manager_init(&em);
+    GameManager gm;
+    gm_init(&gm);
 
     while (!WindowShouldClose()) {
-        // 2.UPDATE
-        // game running
-        if (!game_over) {
-            float delta_time = GetFrameTime();
+        float dt = GetFrameTime();
 
-            player_update(&player, delta_time);
-            enemy_manager_update(&em, delta_time, &score, player.rect.x);
+        gm_update(&gm, dt);
 
-            // player collision enemy
-            for (int i = 0; i < em.list_size; i++) {
-                if (CheckCollisionRecs(player.rect, em.list[i].rect)) {
-                    game_over = true;
-                }
-            }
-        } else {
-            // show blinking text
-            float current_time = GetTime();
-            if (current_time - last_blink_time >= blink_interval) {
-                last_blink_time = current_time;
-
-                show_blinking_text = !show_blinking_text;
-            }
-
-            if (IsKeyPressed(KEY_ENTER)) {
-                game_over = false;
-                score     = 0;
-
-                player_init(&player);
-                enemy_manager_init(&em);
-            }
-        }
-
-        // 3.DRAW
         BeginDrawing();
-        ClearBackground(SCREEN_BACKGROUND);
+        ClearBackground(SKYBLUE);
 
-        // score
-        DrawText(TextFormat("%d", score), 20, 20, 30, BLACK);
-
-        player_draw(&player);
-        enemy_manager_draw(&em);
-
-        if (game_over) {
-            center_and_draw_text(
-                "GAME OVER", 30.0f, 20.0f,
-                (Rectangle){0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 100}, BLACK);
-
-            if (show_blinking_text) {
-                center_and_draw_text(
-                    "Press [ENTER] to restart", 20.0f, 2.0f,
-                    (Rectangle){1, 0, SCREEN_WIDTH, SCREEN_HEIGHT + 100},
-                    BLACK);
-            }
-        }
+        gm_draw(&gm);
 
         EndDrawing();
     }
