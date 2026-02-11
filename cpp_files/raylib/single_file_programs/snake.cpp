@@ -3,53 +3,40 @@
 #include <deque>
 #include <raylib.h>
 
-static const int SCREEN_SIZE         = 600;
+static const int SCREEN_SIZE         = 700;
 static const char *SCREEN_TITLE      = "Snake";
 static const Color SCREEN_BACKGROUND = RAYWHITE;
 static const int GAME_FPS            = 60;
 
-static const int MARGIN     = 50;
-static const int BLOCK_SIZE = 20;
-static const int GRID_SIZE  = (SCREEN_SIZE - MARGIN * 2) / BLOCK_SIZE;
+static const float MARGIN     = 50.0f;
+static const float BLOCK_SIZE = 25.0f;
+static const int GRID_SIZE    = (SCREEN_SIZE - MARGIN * 2) / BLOCK_SIZE;
 
 typedef enum Direction {
-    LEFT,
-    RIGHT,
-    UP,
-    DOWN
+    D_RIGHT,
+    D_LEFT,
+    D_UP,
+    D_DOWN,
 
 } Direction;
 
-typedef struct Point
-{
-    int x;
-    int y;
-
-} Point;
-
 class Snake {
-
   public:
-    int x;
-    int y;
+    Vector2 pos;
     Direction direction;
-    std::deque<Point> body;
 
     float last_time;
     float move_interval;
 
-    Snake()
-        : x(get_center_coordinate()), y(get_center_coordinate()),
-          direction(RIGHT), last_time(GetTime()), move_interval(0.09f)
-    {
-        body.push_front(Point{x, y});
-        body.push_back(Point{x, y + BLOCK_SIZE});
-        body.push_back(Point{x, y + BLOCK_SIZE * 2});
-    }
+    std::deque<Vector2> body;
 
-    static int get_center_coordinate(void)
+    Snake()
+        : pos((Vector2){MARGIN + (GRID_SIZE / 2 * BLOCK_SIZE),
+                        MARGIN + (GRID_SIZE / 2 * BLOCK_SIZE)}),
+          direction(D_UP), last_time(0.0f), move_interval(0.09f)
     {
-        return (((GRID_SIZE - 1) / 2) * BLOCK_SIZE) + MARGIN;
+        body.emplace_back((Vector2){pos.x, pos.y});
+        body.emplace_back((Vector2){pos.x, pos.y + BLOCK_SIZE});
     }
 
     void draw(void) const
@@ -57,22 +44,124 @@ class Snake {
         for (size_t i = 0; i < body.size(); i++) {
             Color color = (i == 0) ? BLUE : SKYBLUE;
 
-            DrawRectangle(body[i].x, body[i].y, BLOCK_SIZE, BLOCK_SIZE, color);
+            DrawRectangleRec(
+                (Rectangle){body[i].x, body[i].y, BLOCK_SIZE, BLOCK_SIZE},
+                color);
         }
+    }
+
+    void handle_input(void)
+    {
+        if (IsKeyPressed(KEY_A) && direction != D_RIGHT)
+            direction = D_LEFT;
+        if (IsKeyPressed(KEY_D) && direction != D_LEFT)
+            direction = D_RIGHT;
+        if (IsKeyPressed(KEY_W) && direction != D_DOWN)
+            direction = D_UP;
+        if (IsKeyPressed(KEY_S) && direction != D_UP)
+            direction = D_DOWN;
+    }
+
+    void move(void)
+    {
+        switch (direction) {
+        case D_LEFT:
+            pos.x -= BLOCK_SIZE;
+            break;
+        case D_RIGHT:
+            pos.x += BLOCK_SIZE;
+            break;
+        case D_UP:
+            pos.y -= BLOCK_SIZE;
+            break;
+        case D_DOWN:
+            pos.y += BLOCK_SIZE;
+            break;
+        default:
+            return;
+        }
+    }
+
+    bool collision_walls(void)
+    {
+        return (
+            pos.x < MARGIN || pos.x > GetScreenWidth() - MARGIN - BLOCK_SIZE ||
+            pos.y < MARGIN || pos.y > GetScreenHeight() - MARGIN - BLOCK_SIZE);
+    }
+
+    bool collision_itself(void)
+    {
+        for (size_t i = 0; i < body.size(); i++) {
+            if (pos.x == body[i].x && pos.y == body[i].y) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    bool update(void)
+    {
+
+        handle_input();
+
+        float current_time = GetTime();
+        if (current_time - last_time > move_interval) {
+            last_time = current_time;
+
+            move();
+
+            if (collision_itself() || collision_walls())
+                return true;
+
+            body.push_front((Vector2){pos.x, pos.y});
+            body.pop_back();
+        }
+
+        return false;
     }
 };
 
 class Food {
   public:
-    int x;
-    int y;
+    Vector2 pos;
     Color color;
 
-    Food() {}
+    void gen_random_food(std::deque<Vector2> snake_body)
+    {
+        int max_tries = 10000;
+
+        for (int i = 0; i < max_tries; i++) {
+            bool food_inside_body = false;
+
+            float x = GetRandomValue(0, GRID_SIZE - 1) * BLOCK_SIZE + MARGIN;
+            float y = GetRandomValue(0, GRID_SIZE - 1) * BLOCK_SIZE + MARGIN;
+
+            for (size_t j = 0; j < snake_body.size(); j++) {
+                if (x == snake_body[j].x && y == snake_body[j].y) {
+                    food_inside_body = true;
+                    break;
+                }
+            }
+
+            if (!food_inside_body) {
+                pos.x = x;
+                pos.y = y;
+                return;
+            }
+        }
+    }
+
+    Food(std::deque<Vector2> snake_body)
+    {
+        gen_random_food(snake_body);
+        color = RED;
+    }
 
     void draw(void) const
     {
-        DrawRectangle(x, y, BLOCK_SIZE, BLOCK_SIZE, color);
+        DrawRectangleRec((Rectangle){pos.x, pos.y, BLOCK_SIZE, BLOCK_SIZE},
+                         color);
     }
 };
 
@@ -84,7 +173,16 @@ class GameManager {
     Snake snake;
     Food food;
 
-    GameManager() : score(0), game_over(false) {}
+    void reset(void)
+    {
+        score     = 0;
+        game_over = false;
+
+        snake = Snake();
+        food  = Food(snake.body);
+    }
+
+    GameManager() : food(snake.body) { reset(); }
 
     void draw_grid(void) const
     {
@@ -92,44 +190,97 @@ class GameManager {
         Color color     = LIGHTGRAY;
 
         // vertical lines
-        for (int x = MARGIN + BLOCK_SIZE; x < SCREEN_SIZE - MARGIN;
+        for (int x = MARGIN + BLOCK_SIZE; x < GetScreenWidth() - MARGIN;
              x += BLOCK_SIZE) {
-            DrawLineEx((Vector2){(float)x, MARGIN},
-                       (Vector2){(float)x, SCREEN_SIZE - MARGIN}, thickness,
-                       color);
+            DrawLineEx(
+                (Vector2){static_cast<float>(x), MARGIN},
+                (Vector2){static_cast<float>(x), GetScreenWidth() - MARGIN},
+                thickness, color);
         }
-
-        // horizontal lines
-        for (int y = MARGIN + BLOCK_SIZE; y < SCREEN_SIZE - MARGIN;
+        // vertical lines
+        for (int y = MARGIN + BLOCK_SIZE; y < GetScreenHeight() - MARGIN;
              y += BLOCK_SIZE) {
-            DrawLineEx((Vector2){MARGIN, (float)y},
-                       (Vector2){SCREEN_SIZE - MARGIN, (float)y}, thickness,
-                       color);
+            DrawLineEx(
+                (Vector2){MARGIN, static_cast<float>(y)},
+                (Vector2){GetScreenWidth() - MARGIN, static_cast<float>(y)},
+                thickness, color);
         }
 
         // outline rect
-        thickness       = 3.0f;
-        color           = GRAY;
-        float rect_size = SCREEN_SIZE - MARGIN * 2;
-        Rectangle rect  = (Rectangle){MARGIN, MARGIN, rect_size, rect_size};
+        thickness = 3.0f;
+        color     = GRAY;
 
-        DrawRectangleLinesEx(rect, thickness, color);
+        DrawRectangleLinesEx((Rectangle){MARGIN, MARGIN,
+                                         GetScreenWidth() - MARGIN * 2,
+                                         GetScreenHeight() - MARGIN * 2},
+                             thickness, color);
+    }
+
+    void draw_game_status(void) const
+    {
+        if (game_over) {
+            // outline rect
+            float width  = 300.0f;
+            float height = 150.0f;
+            float x      = (SCREEN_SIZE - width) / 2.0f;
+            float y      = (SCREEN_SIZE - height) / 2.0f;
+
+            Rectangle rect  = (Rectangle){x, y, width, height};
+            float thickness = 5.0f;
+            Color color     = BLACK;
+
+            DrawRectangleLinesEx(rect, thickness, color);
+
+            center_and_draw_text("GAME OVER", rect);
+            center_and_draw_text(
+                "press ENTER to continue",
+                (Rectangle){0, 0, SCREEN_SIZE, SCREEN_SIZE + 200},
+                GetFontDefault(), 20.0f);
+        }
     }
 
     void draw(void) const
     {
-        draw_grid();
-
-        // draw score
         center_and_draw_text(TextFormat("Score: %d", score),
-                             (Rectangle){0, 0, SCREEN_SIZE, MARGIN + 20},
+                             (Rectangle){0, 0,
+                                         static_cast<float>(GetScreenWidth()),
+                                         MARGIN + 20},
                              GetFontDefault(), 20.0f);
+
+        draw_grid();
 
         snake.draw();
         food.draw();
+
+        draw_game_status();
     }
 
-    void update(void) { ; }
+    void update_score(void)
+    {
+        for (size_t i = 0; i < snake.body.size(); i++) {
+            if (snake.body[i].x == food.pos.x &&
+                snake.body[i].y == food.pos.y) {
+                //
+                snake.body.push_back(snake.body.back()); // append last element
+                food.gen_random_food(snake.body);
+                score++;
+            }
+        }
+    }
+
+    void update(void)
+    {
+        if (!game_over) {
+            game_over = snake.update();
+
+            update_score();
+
+        } else {
+            if (IsKeyPressed(KEY_ENTER)) {
+                reset();
+            }
+        }
+    }
 };
 
 int main(void)
@@ -137,16 +288,16 @@ int main(void)
     InitWindow(SCREEN_SIZE, SCREEN_SIZE, SCREEN_TITLE);
     SetTargetFPS(GAME_FPS);
 
-    GameManager gm;
+    GameManager game_manager;
 
     while (!WindowShouldClose()) {
 
-        gm.update();
+        game_manager.update();
 
         BeginDrawing();
         ClearBackground(SCREEN_BACKGROUND);
 
-        gm.draw();
+        game_manager.draw();
 
         EndDrawing();
     }
