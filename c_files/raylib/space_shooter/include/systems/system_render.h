@@ -3,6 +3,9 @@
 
 #include "../components.h"
 
-void system_render(const TransformComponent *t, const RenderComponent *r);
+Rectangle system_get_dest_rect(const TransformComponent *t,
+                               const RenderComponent *r);
+void system_render_texture(const TransformComponent *t,
+                           const RenderComponent *r);
 
 #endif // SYSTEM_RENDER_H

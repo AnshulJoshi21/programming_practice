@@ -10,7 +10,7 @@ int main(void)
 
     const Texture2D spritesheet = LoadTexture("assets/spritesheet/sheet.png");
     const Texture2D background_texture =
-        LoadTexture("assets/backgrounds/black.png");
+        LoadTexture("assets/backgrounds/purple.png");
 
     assert(spritesheet.id != 0);
     assert(background_texture.id != 0);

@@ -23,7 +23,8 @@ typedef struct RenderComponent
 typedef struct MovementComponent
 {
     float speed;
-    Vector2 direction;
+    Vector2 move_direction;
+    Vector2 look_direction;
 
 } MovementComponent;
 

@@ -10,13 +10,13 @@ int main(void)
 
     const Texture2D spritesheet = LoadTexture("assets/spritesheet/sheet.png");
     const Texture2D background_texture =
-        LoadTexture("assets/backgrounds/black.png");
+        LoadTexture("assets/backgrounds/purple.png");
 
     assert(spritesheet.id != 0);
     assert(background_texture.id != 0);
 
     GameManager gm;
-    gm_init(&gm, spritesheet, background_texture);
+    gm_init(&gm, spritesheet);
 
     while (!WindowShouldClose()) {
 
@@ -29,7 +29,7 @@ int main(void)
         BeginDrawing();
         ClearBackground(SCREEN_BACKGROUND);
 
-        gm_draw(&gm);
+        gm_draw(&gm, background_texture);
 
         EndDrawing();
     }
