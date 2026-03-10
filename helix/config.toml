@@ -19,5 +19,5 @@ after-delay.enable = true
 # cursor-line = "warning"
 
 [keys.insert.j]
-k = "normal_mode" # Maps `jk` to exit insert mode
+k = "normal_mode" # maps `jk` to exit insert mode
 

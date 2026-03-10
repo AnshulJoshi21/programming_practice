@@ -17,17 +17,28 @@ args = ["--function-arg-placeholders=0","--header-insertion=never"]
 
 [[language]]
 name = "python"
-formatter = { command = "ruff", args = ["format", "--line-length", "88", "-"] }
+# We use a shell (sh) to string together the import sort and the format
+formatter = { command = "sh", args = ["-c", "ruff check --select I --fix - | ruff format -"] }
 auto-format = true
-# language-servers = ["pyrefly"]
-language-servers = ["basedpyright"]
-# language-servers = ["pylsp"]
-# 
+language-servers = ["basedpyright", "ruff"]
 
-[language-server.pylsp.config.pylsp]
-plugins.pylsp_mypy.enabled = true
-plugins.pylsp_mypy.live_mode = true
+[language-server.pylsp.config.pylsp.plugins]
+# Disable the plugins that cause the > 79 character warnings
+pycodestyle = { enabled = false }
+mccabe = { enabled = false }
+pyflakes = { enabled = false }
+# Keep your mypy settings
+pylsp_mypy = { enabled = true, live_mode = true }
 
-[language-server.pyrefly]
-command = "pyrefly"
-args = [ "lsp" ]
+[language-server.ruff]
+command = "ruff"
+args = ["server"]
+
+[language-server.basedpyright.config.python.analysis]
+# This tells Pyright to look in your project's 'typings' folder
+# choose main folder: ex: python_files
+stubPath = "typings"
+typeCheckingMode = "standard"
+
+# stop autoimports
+autoImportCompletions = false

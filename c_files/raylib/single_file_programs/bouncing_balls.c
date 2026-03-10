@@ -4,13 +4,16 @@
 #include <stdlib.h>
 #include <time.h>
 
-static const int SCREEN_WIDTH  = 800;
-static const int SCREEN_HEIGHT = 600;
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 600
 
-static const int MAX_BALLS = 200;
+#define MAX_BALLS 200
 
-#define RANDOM_UNIFORM(min, max)                                               \
-    ((min) + ((float)rand() / RAND_MAX * ((max) - (min))))
+static inline float random_uniform(float max, float min)
+{
+    float normalized = (float)rand() / (float)RAND_MAX;
+    return min + normalized * (max - min);
+}
 
 //-- BALL --------------------------------------//
 typedef struct Ball
@@ -27,18 +30,19 @@ static void ball_init(Ball *ball)
 {
     assert(ball);
 
-    ball->radius = RANDOM_UNIFORM(5, 30);
+    ball->radius = random_uniform(5, 30);
     ball->center = (Vector2){
-        RANDOM_UNIFORM(ball->radius, SCREEN_WIDTH - ball->radius),
-        RANDOM_UNIFORM(ball->radius, SCREEN_HEIGHT - ball->radius),
+        random_uniform(ball->radius, SCREEN_WIDTH - ball->radius),
+        random_uniform(ball->radius, SCREEN_HEIGHT - ball->radius),
     };
-    ball->speed     = RANDOM_UNIFORM(100, 300);
+    ball->speed     = random_uniform(100, 300);
     ball->direction = (Vector2){
         GetRandomValue(0, 1) == 0 ? -1 : 1,
         GetRandomValue(0, 1) == 0 ? -1 : 1,
     };
-    ball->color = (Color){GetRandomValue(0, 255), GetRandomValue(0, 255),
-                          GetRandomValue(0, 255), 255};
+    ball->color = (Color){(unsigned char)GetRandomValue(0, 255),
+                          (unsigned char)GetRandomValue(0, 255),
+                          (unsigned char)GetRandomValue(0, 255), 255};
 }
 
 static void ball_draw(const Ball *ball)
@@ -72,7 +76,7 @@ static void ball_update(Ball *ball, float delta_time)
 //-- MAIN --------------------------------------//
 int main(void)
 {
-    srand(time(NULL));
+    srand((unsigned int)time(NULL));
 
     // 1.INIT
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Boucning Balls");
