@@ -1,0 +1,23 @@
+import pyray as p
+
+MAX_ENEMIES: int = 20
+MAX_LASERS: int = 20
+
+SCREEN_WIDTH: int = 800
+SCREEN_HEIGHT: int = 600
+SCREEN_TITLE: str = "Space Survivors"
+SCREEN_BACKGROUND: p.Color = p.RAYWHITE
+
+MAP_SIZE: int = 2000
+ROTATION_OFFSET: float = 90.0
+
+PLAYER_SCALE: float = 0.5
+ENEMY_SCALE: float = 0.6
+LASER_SCALE: float = 0.5
+
+ENEMY_MIN_SPAWN_DISTANCE: float = 400.0
+ENEMY_MAX_SPAWN_DISTANCE: float = 600.0
+ENEMY_SPAWN_RATE: float = 5.0
+
+LASER_SPAWN_RATE: float = 1.0
+LASER_MAX_LIFETIME = 2.0
