@@ -1,0 +1,118 @@
+<TextureAtlas imagePath="Warrior_Sheet-Effect.png">
+
+    <SubTexture name="idle_1" x="0" y="0" width="69" height="44"/>
+    <SubTexture name="idle_2" x="69" y="0" width="69" height="44"/>
+    <SubTexture name="idle_3" x="138" y="0" width="69" height="44"/>
+    <SubTexture name="idle_4" x="207" y="0" width="69" height="44"/>
+    <SubTexture name="idle_5" x="276" y="0" width="69" height="44"/>
+    <SubTexture name="idle_6" x="345" y="0" width="69" height="44"/>
+
+    <SubTexture name="run_1" x="0" y="44" width="69" height="44"/>
+    <SubTexture name="run_2" x="69" y="44" width="69" height="44"/>
+    <SubTexture name="run_3" x="138" y="44" width="69" height="44"/>
+    <SubTexture name="run_4" x="207" y="44" width="69" height="44"/>
+    <SubTexture name="run_5" x="276" y="44" width="69" height="44"/>
+    <SubTexture name="run_6" x="345" y="44" width="69" height="44"/>
+    <SubTexture name="run_7" x="0" y="88" width="69" height="44"/>
+    <SubTexture name="run_8" x="69" y="88" width="69" height="44"/>
+
+    <SubTexture name="attack_1" x="138" y="88" width="69" height="44"/>
+    <SubTexture name="attack_2" x="207" y="88" width="69" height="44"/>
+    <SubTexture name="attack_3" x="276" y="88" width="69" height="44"/>
+    <SubTexture name="attack_4" x="345" y="88" width="69" height="44"/>
+    <SubTexture name="attack_5" x="0" y="132" width="69" height="44"/>
+    <SubTexture name="attack_6" x="69" y="132" width="69" height="44"/>
+    <SubTexture name="attack_7" x="138" y="132" width="69" height="44"/>
+    <SubTexture name="attack_8" x="207" y="132" width="69" height="44"/>
+    <SubTexture name="attack_9" x="276" y="132" width="69" height="44"/>
+    <SubTexture name="attack_10" x="345" y="132" width="69" height="44"/>
+    <SubTexture name="attack_11" x="0" y="176" width="69" height="44"/>
+    <SubTexture name="attack_12" x="69" y="176" width="69" height="44"/>
+
+    <SubTexture name="death_1" x="138" y="176" width="69" height="44"/>
+    <SubTexture name="death_2" x="207" y="176" width="69" height="44"/>
+    <SubTexture name="death_3" x="276" y="176" width="69" height="44"/>
+    <SubTexture name="death_4" x="345" y="176" width="69" height="44"/>
+    <SubTexture name="death_5" x="0" y="220" width="69" height="44"/>
+    <SubTexture name="death_6" x="69" y="220" width="69" height="44"/>
+    <SubTexture name="death_7" x="138" y="220" width="69" height="44"/>
+    <SubTexture name="death_8" x="207" y="220" width="69" height="44"/>
+    <SubTexture name="death_9" x="276" y="220" width="69" height="44"/>
+    <SubTexture name="death_10" x="345" y="220" width="69" height="44"/>
+    <SubTexture name="death_11" x="0" y="264" width="69" height="44"/>
+
+    <SubTexture name="hurt_1" x="69" y="264" width="69" height="44"/>
+    <SubTexture name="hurt_2" x="138" y="264" width="69" height="44"/>
+    <SubTexture name="hurt_3" x="207" y="264" width="69" height="44"/>
+    <SubTexture name="hurt_4" x="276" y="264" width="69" height="44"/>
+
+    <SubTexture name="jump_1" x="345" y="264" width="69" height="44"/>
+    <SubTexture name="jump_2" x="0" y="308" width="69" height="44"/>
+    <SubTexture name="jump_3" x="69" y="308" width="69" height="44"/>
+
+    <SubTexture name="upto_fall_1" x="138" y="308" width="69" height="44"/>
+    <SubTexture name="upto_fall_2" x="207" y="308" width="69" height="44"/>
+
+    <SubTexture name="fall_1" x="276" y="308" width="69" height="44"/>
+    <SubTexture name="fall_2" x="345" y="308" width="69" height="44"/>
+    <SubTexture name="fall_3" x="0" y="352" width="69" height="44"/>
+
+    <SubTexture name="edge_grab_1" x="69" y="352" width="69" height="44"/>
+    <SubTexture name="edge_grab_2" x="138" y="352" width="69" height="44"/>
+    <SubTexture name="edge_grab_3" x="207" y="352" width="69" height="44"/>
+    <SubTexture name="edge_grab_4" x="276" y="352" width="69" height="44"/>
+    <SubTexture name="edge_grab_5" x="345" y="352" width="69" height="44"/>
+
+    <SubTexture name="edge_idle_1" x="0" y="396" width="69" height="44"/>
+    <SubTexture name="edge_idle_2" x="69" y="396" width="69" height="44"/>
+    <SubTexture name="edge_idle_3" x="138" y="396" width="69" height="44"/>
+    <SubTexture name="edge_idle_4" x="207" y="396" width="69" height="44"/>
+    <SubTexture name="edge_idle_5" x="276" y="396" width="69" height="44"/>
+    <SubTexture name="edge_idle_6" x="345" y="396" width="69" height="44"/>
+
+    <SubTexture name="wall_slide_1" x="0" y="440" width="69" height="44"/>
+    <SubTexture name="wall_slide_2" x="69" y="440" width="69" height="44"/>
+    <SubTexture name="wall_slide_3" x="138" y="440" width="69" height="44"/>
+
+    <SubTexture name="crouch_1" x="207" y="440" width="69" height="44"/>
+    <SubTexture name="crouch_2" x="276" y="440" width="69" height="44"/>
+    <SubTexture name="crouch_3" x="345" y="440" width="69" height="44"/>
+    <SubTexture name="crouch_4" x="0" y="484" width="69" height="44"/>
+    <SubTexture name="crouch_5" x="69" y="484" width="69" height="44"/>
+    <SubTexture name="crouch_6" x="138" y="484" width="69" height="44"/>
+
+    <SubTexture name="dash_1" x="207" y="484" width="69" height="44"/>
+    <SubTexture name="dash_2" x="276" y="484" width="69" height="44"/>
+    <SubTexture name="dash_3" x="345" y="484" width="69" height="44"/>
+    <SubTexture name="dash_4" x="0" y="528" width="69" height="44"/>
+    <SubTexture name="dash_5" x="69" y="528" width="69" height="44"/>
+    <SubTexture name="dash_6" x="138" y="528" width="69" height="44"/>
+    <SubTexture name="dash_7" x="207" y="528" width="69" height="44"/>
+
+    <SubTexture name="dash_attack_1" x="276" y="528" width="69" height="44"/>
+    <SubTexture name="dash_attack_2" x="345" y="528" width="69" height="44"/>
+    <SubTexture name="dash_attack_3" x="0" y="572" width="69" height="44"/>
+    <SubTexture name="dash_attack_4" x="69" y="572" width="69" height="44"/>
+    <SubTexture name="dash_attack_5" x="138" y="572" width="69" height="44"/>
+    <SubTexture name="dash_attack_6" x="207" y="572" width="69" height="44"/>
+    <SubTexture name="dash_attack_7" x="276" y="572" width="69" height="44"/>
+    <SubTexture name="dash_attack_8" x="345" y="572" width="69" height="44"/>
+    <SubTexture name="dash_attack_9" x="0" y="616" width="69" height="44"/>
+    <SubTexture name="dash_attack_10" x="69" y="616" width="69" height="44"/>
+
+    <SubTexture name="slide_1" x="138" y="616" width="69" height="44"/>
+    <SubTexture name="slide_2" x="207" y="616" width="69" height="44"/>
+    <SubTexture name="slide_3" x="276" y="616" width="69" height="44"/>
+    <SubTexture name="slide_4" x="345" y="616" width="69" height="44"/>
+    <SubTexture name="slide_5" x="0" y="660" width="69" height="44"/>
+
+    <SubTexture name="ladder_grab_1" x="69" y="660" width="69" height="44"/>
+    <SubTexture name="ladder_grab_2" x="138" y="660" width="69" height="44"/>
+    <SubTexture name="ladder_grab_3" x="207" y="660" width="69" height="44"/>
+    <SubTexture name="ladder_grab_4" x="276" y="660" width="69" height="44"/>
+    <SubTexture name="ladder_grab_5" x="345" y="660" width="69" height="44"/>
+    <SubTexture name="ladder_grab_6" x="0" y="704" width="69" height="44"/>
+    <SubTexture name="ladder_grab_7" x="69" y="704" width="69" height="44"/>
+    <SubTexture name="ladder_grab_8" x="138" y="704" width="69" height="44"/>
+
+</TextureAtlas>

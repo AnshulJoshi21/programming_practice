@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Contact</title>
+</head>
+
+<body style="margin:0;font-family:Arial, sans-serif;">
+
+  <!-- Navbar -->
+  <div style="background:#333;padding:15px;text-align:center;">
+    <a href="{{url_for('home')}}" style="color:white;margin:0 15px;text-decoration:none;">Home</a>
+    <a href="{{url_for('about')}}" style="color:white;margin:0 15px;text-decoration:none;">About</a>
+    <a href="{{url_for('students')}}" style="color:white;margin:0 15px;text-decoration:none;">Students</a>
+    <a href="{{url_for('contact')}}" style="color:white;margin:0 15px;text-decoration:none;">Contact</a>
+    <a href="{{url_for('status')}}" style="color:white;margin:0 15px;text-decoration:none;">Status</a>
+  </div>
+
+  <!-- Contact Form -->
+  <div style="padding:40px;">
+    <h1>Contact Us</h1>
+
+    <form>
+      <label>Name:</label><br>
+      <input type="text" style="width:100%;padding:8px;margin:10px 0;"><br>
+
+      <label>Email:</label><br>
+      <input type="email" style="width:100%;padding:8px;margin:10px 0;"><br>
+
+      <label>Message:</label><br>
+      <textarea style="width:100%;padding:8px;margin:10px 0;height:100px;"></textarea><br>
+
+      <button type="submit" style="padding:10px 20px;background:#333;color:white;border:none;">
+        Send
+      </button>
+    </form>
+  </div>
+
+  <!-- Footer -->
+  <div style="background:#333;color:white;text-align:center;padding:10px;">
+    <p>© 2026 My Website</p>
+  </div>
+
+</body>
+
+</html>

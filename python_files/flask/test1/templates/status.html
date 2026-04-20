@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login Status</title>
+</head>
+
+<body style="margin:0;font-family:Arial, sans-serif;">
+
+    <!-- Navbar -->
+    <div style="background:#333;padding:15px;text-align:center;">
+        <a href="{{url_for('home')}}" style="color:white;margin:0 15px;text-decoration:none;">Home</a>
+        <a href="{{url_for('about')}}" style="color:white;margin:0 15px;text-decoration:none;">About</a>
+        <a href="{{url_for('students')}}" style="color:white;margin:0 15px;text-decoration:none;">Students</a>
+        <a href="{{url_for('contact')}}" style="color:white;margin:0 15px;text-decoration:none;">Contact</a>
+        <a href="{{url_for('status')}}" style="color:white;margin:0 15px;text-decoration:none;">Status</a>
+    </div>
+
+    <!-- Status Section -->
+    <div style="padding:50px;text-align:center;">
+
+        <h1>Login Status</h1>
+
+        {% if status %}
+        <!-- Logged IN Box -->
+        <div style="margin:20px auto;padding:20px;max-width:400px;background:#d4edda;color:#155724;border-radius:8px;">
+            <h2>✅ Logged In</h2>
+            <p>Welcome back, {{username}}!</p>
+            <button style="padding:10px 20px;background:#155724;color:white;border:none;border-radius:5px;">
+                Logout
+            </button>
+        </div>
+        {% else %}
+        <!-- Logged OUT Box -->
+        <div style="margin:20px auto;padding:20px;max-width:400px;background:#f8d7da;color:#721c24;border-radius:8px;">
+            <h2>❌ Not Logged In</h2>
+            <p>Please login to access your account.</p>
+            <button style="padding:10px 20px;background:#721c24;color:white;border:none;border-radius:5px;">
+                Login
+            </button>
+        </div>
+        {% endif %}
+
+    </div>
+
+    <!-- Footer -->
+    <div style="background:#333;color:white;text-align:center;padding:10px;">
+        <p>© 2026 My Website</p>
+    </div>
+
+</body>
+
+</html>

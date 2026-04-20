@@ -13,7 +13,11 @@ formatter = { command = "clang-format"}
 auto-format = true
 
 [language-server.clangd]
-args = ["--function-arg-placeholders=0","--header-insertion=never"] 
+command = "clangd"
+args = [
+  "--header-insertion=never",
+  "--function-arg-placeholders=0",
+]
 
 [[language]]
 name = "python"
@@ -42,3 +46,15 @@ typeCheckingMode = "standard"
 
 # stop autoimports
 autoImportCompletions = false
+
+[[language]]
+name = "go"
+auto-format = true
+formatter = { command = "goimports" }
+
+language-servers = ["gopls"]
+
+[[language]]
+name = "html"
+language-servers = [{ name = "superhtml", except-features = ["format"] }, "vscode-html-language-server"]
+auto-format = true

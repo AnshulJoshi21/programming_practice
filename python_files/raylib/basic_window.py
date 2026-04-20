@@ -1,19 +1,16 @@
 import pyray as p
 
-SCREEN_WIDTH: int = 800
-SCREEN_HEIGHT: int = 600
-SCREEN_TITLE: str = ""
-SCREEN_BACKGROUND: p.Color = p.RAYWHITE
-FPS: int = 60
+BASE_WIDTH: int = 800
+BASE_HEIGHT: int = 600
 
 
 def main() -> None:
-    p.init_window(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
-    p.set_target_fps(FPS)
+    p.init_window(BASE_WIDTH, BASE_HEIGHT, "")
+    p.set_target_fps(60)
 
     while not p.window_should_close():
         p.begin_drawing()
-        p.clear_background(SCREEN_BACKGROUND)
+        p.clear_background(p.RAYWHITE)
         p.end_drawing()
 
     p.close_window()

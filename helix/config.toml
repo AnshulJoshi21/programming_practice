@@ -11,6 +11,15 @@ completion-trigger-len = 1
 popup-border = "all"
 # end-of-line-diagnostics = "hint"
 
+[editor.lsp]
+display-messages = false
+display-inlay-hints = false
+
+[editor.indent-guides]
+render = true
+character = "│"     # or "▏", "┆", etc.
+skip-levels = 1     # how many levels to skip
+
 [editor.auto-save]
 auto-save = true
 after-delay.enable = true
