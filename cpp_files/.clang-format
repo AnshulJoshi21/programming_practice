@@ -1,0 +1,47 @@
+---
+# Targeted for C development
+Language: Cpp
+BasedOnStyle: LLVM
+
+# --- Indentation and Spacing ---
+IndentWidth: 4
+UseTab: Never
+ColumnLimit: 80
+ContinuationIndentWidth: 4
+
+# --- Braces and Alignment ---
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterFunction: true
+  AfterStruct: false
+  AfterEnum: false
+  AfterControlStatement: Never
+  BeforeElse: false
+  IndentBraces: false
+
+# --- Alignment ---
+AlignAfterOpenBracket: Align
+AlignOperands: true
+AlignTrailingComments: true
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: false
+
+# --- Pointer/Reference Alignment ---
+# This puts the '*' next to the variable name (e.g., char *name)
+PointerAlignment: Right
+
+# --- Space Settings ---
+SpaceAfterCStyleCast: true
+SpaceBeforeParens: ControlStatements
+SpaceInEmptyParentheses: false
+SpacesInCStyleCastParentheses: false
+SpacesInContainerLiterals: true
+
+# --- Reflow and Sorting ---
+SortIncludes: true
+ReflowComments: true
+
+# --- Penalties (To prevent weird line breaks) ---
+PenaltyBreakAssignment: 100
+PenaltyBreakBeforeFirstCallParameter: 100
+...

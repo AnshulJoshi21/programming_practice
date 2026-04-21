@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://balfc6uk0giis"]
+
+[ext_resource type="Script" uid="uid://cgu6mei3cqf2k" path="res://scripts/paddle.gd" id="1_3xiby"]
+
+[node name="Paddle" type="CharacterBody2D" unique_id=1578011765]
+script = ExtResource("1_3xiby")
