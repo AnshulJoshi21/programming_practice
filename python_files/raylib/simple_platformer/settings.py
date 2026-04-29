@@ -1,5 +1,0 @@
-BASE_WIDTH: int = 800
-BASE_HEIGHT: int = 600
-
-BLOCK_SIZE: int = 100
-MAP_SIZE: int = 2000

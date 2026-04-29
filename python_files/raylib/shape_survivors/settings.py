@@ -1,6 +1,0 @@
-BASE_WIDTH: int = 800
-BASE_HEIGHT: int = 600
-
-MAP_SIZE: int = 2000
-
-MAX_HIT_TIMER: float = 0.2
