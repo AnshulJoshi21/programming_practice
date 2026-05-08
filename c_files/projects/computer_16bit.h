@@ -186,7 +186,7 @@ u16 ram64_update(Ram64 *ram, const u16 data, const u8 addr, const u8 load,
                  const u8 clk);
 
 typedef struct Ram512 {
-  Ram8 rams[MAX_RAMS];
+  Ram64 rams[MAX_RAMS];
 
 } Ram512;
 
@@ -195,7 +195,7 @@ u16 ram512_update(Ram512 *ram, const u16 data, const u8 addr, const u8 load,
                   const u8 clk);
 
 typedef struct Ram4k {
-  Ram8 rams[MAX_RAMS];
+  Ram512 rams[MAX_RAMS];
 
 } Ram4k;
 
@@ -204,7 +204,7 @@ u16 ram4k_update(Ram4k *ram, const u16 data, const u8 addr, const u8 load,
                  const u8 clk);
 
 typedef struct Ram16k {
-  Ram8 rams[4];
+  Ram4k rams[4];
 
 } Ram16k;
 
