@@ -20,9 +20,11 @@ def validate_bit_arr(a: list[int]) -> None:
 
 def bits_to_int(bits: list[int]) -> int:
     result: int = 0
-    for i, bit in enumerate(bits):
-        if bit == 1:
-            result += 1 << i
+    count: int = 0
+    for i in range(len(bits) - 1, -1, -1):
+        result |= bits[i] << count
+        count += 1
+
     return result
 
 
@@ -1096,7 +1098,7 @@ class CPU:
         ## sequential flow (clock edge)
 
         # 6. write to register file
-        self.registers.update(
+        reg_read = self.registers.update(
             write_data=reg_write_data,
             write_addr=ctrl.reg_dst_addr,
             load=ctrl.reg_write,

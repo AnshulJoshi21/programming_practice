@@ -191,7 +191,7 @@ typedef struct Ram512 {
 } Ram512;
 
 void ram512_init(Ram512 *ram);
-u16 ram512_update(Ram512 *ram, const u16 data, const u8 addr, const u8 load,
+u16 ram512_update(Ram512 *ram, const u16 data, const u16 addr, const u8 load,
                   const u8 clk);
 
 typedef struct Ram4k {
@@ -200,7 +200,7 @@ typedef struct Ram4k {
 } Ram4k;
 
 void ram4k_init(Ram4k *ram);
-u16 ram4k_update(Ram4k *ram, const u16 data, const u8 addr, const u8 load,
+u16 ram4k_update(Ram4k *ram, const u16 data, const u16 addr, const u8 load,
                  const u8 clk);
 
 typedef struct Ram16k {
@@ -209,7 +209,7 @@ typedef struct Ram16k {
 } Ram16k;
 
 void ram16k_init(Ram16k *ram);
-u16 ram16k_update(Ram16k *ram, const u16 data, const u8 addr, const u8 load,
+u16 ram16k_update(Ram16k *ram, const u16 data, const u16 addr, const u8 load,
                   const u8 clk);
 
 // PROGRAM COUNTER
@@ -242,6 +242,26 @@ typedef struct ControlSignals {
 ControlSignals decode_instruction(const u16 instruction, const u8 zero_flag);
 
 // CPU
+typedef struct CpuResult {
+  u16 out_m;
+  u8 write_m;
+  u16 addr_m;
+  u16 pc_out;
+
+} CpuResult;
+
+typedef struct Cpu {
+  ProgramCounter pc;
+  RegisterFile reg_file;
+
+  u8 current_zero;
+  DFlipFlop zero_flag_dff;
+
+} Cpu;
+
+void cpu_init(Cpu *cpu);
+CpuResult cpu_update(Cpu *cpu, const u16 instruction, const u16 in_m,
+                     const u8 reset, const u8 clk);
 
 // COMPUTER
 

@@ -29,7 +29,7 @@ AddResult half_adder(const u8 a, const u8 b) {
 
 AddResult full_adder(const u8 a, const u8 b, const u8 cin) {
   AddResult r0 = half_adder(a, b);
-  AddResult r1 = half_adder(a, cin);
+  AddResult r1 = half_adder(r0.sum, cin);
 
   return (AddResult){.sum = r1.sum, .carry = or_(r0.carry, r1.carry)};
 }
@@ -116,8 +116,8 @@ Dmux8Result dmux8way(const u8 in, const u8 sel) {
   DmuxResult top_b = dmux(top.b, sel0);
 
   DmuxResult bottom = dmux(split.b, sel1);
-  DmuxResult bottom_a = dmux(bottom.b, sel1);
-  DmuxResult bottom_b = dmux(bottom.b, sel1);
+  DmuxResult bottom_a = dmux(bottom.a, sel0);
+  DmuxResult bottom_b = dmux(bottom.b, sel0);
 
   return (Dmux8Result){top_a.a,    top_a.b,    top_b.a,    top_b.b,
                        bottom_a.a, bottom_a.b, bottom_b.a, bottom_b.b};
@@ -277,10 +277,10 @@ AluResult alu16(const u16 a, const u16 b, const u8 opcode) {
   u8 c4 = mux(c0, c1, op1);
   u8 c5 = mux(c2, c3, op1);
 
-  u8 carry = mux(r4, r5, op2);
+  u8 carry = mux(c4, c5, op2);
 
   // zero
-  u8 zero = 0;
+  u8 zero = 1;
   for (u8 i = 0; i < MAX_BITS; i++) {
     zero = and_(zero, not_(get_bit(result, i)));
   }
@@ -319,7 +319,7 @@ u8 dlatch_update(DLatch *dl, const u8 data, const u8 enable) {
 
   for (u8 i = 0; i < 2; i++) {
     dl->q = nand_(s, dl->q_bar);
-    dl->q_bar = nand_(s, dl->q);
+    dl->q_bar = nand_(r, dl->q);
   }
 
   return dl->q;
@@ -336,8 +336,8 @@ void dflipflop_init(DFlipFlop *dff) {
 u8 dflipflop_update(DFlipFlop *dff, const u8 data, const u8 clk) {
   assert(dff);
 
-  u8 master_q = dlatch_update(&dff->master, data, clk);
-  u8 slave_q = dlatch_update(&dff->slave, master_q, not_(clk));
+  u8 master_q = dlatch_update(&dff->master, data, not_(clk));
+  u8 slave_q = dlatch_update(&dff->slave, master_q, clk);
 
   return slave_q;
 }
@@ -359,9 +359,10 @@ u16 register_update(Register16 *reg, const u16 data, const u8 load,
 
   u16 d_in = mux16(reg->out, data, load);
 
+  reg->out = 0;
   for (u8 i = 0; i < MAX_BITS; i++) {
     u16 out = dflipflop_update(&reg->bits[i], get_bit(d_in, i), clk);
-    reg->out |= out << i;
+    reg->out |= (u16)out << i;
   }
 
   return reg->out;
@@ -389,9 +390,8 @@ RegisterFileResult register_file_update(RegisterFile *rf, const u16 data,
   };
 
   u16 reg_outs[MAX_REGISTERS];
-  u16 out = 0;
   for (u8 i = 0; i < MAX_REGISTERS; i++) {
-    out |= register_update(&rf->registers[i], data, loads[i], clk);
+    reg_outs[i] = register_update(&rf->registers[i], data, loads[i], clk);
   }
 
   u16 out_a =
@@ -427,9 +427,8 @@ u16 ram8_update(Ram8 *ram, const u16 data, const u8 addr, const u8 load,
   };
 
   u16 reg_outs[MAX_REGISTERS];
-  u16 out = 0;
   for (u8 i = 0; i < MAX_REGISTERS; i++) {
-    out |= register_update(&ram->registers[i], data, loads[i], clk);
+    reg_outs[i] = register_update(&ram->registers[i], data, loads[i], clk);
   }
 
   return mux8way((Mux8Input){reg_outs[0], reg_outs[1], reg_outs[2], reg_outs[3],
@@ -450,18 +449,8 @@ u16 ram64_update(Ram64 *ram, const u16 data, const u8 addr, const u8 load,
                  const u8 clk) {
   assert(ram);
 
-  u8 addr_max = 6;
-  u8 addr_ram_sel = 3;
-
-  u8 ram_sel = 0;
-  for (u8 i = 0; i < addr_ram_sel; i++) {
-    ram_sel |= (u16)get_bit(addr, i) << i;
-  }
-
-  u8 reg_sel = 0;
-  for (u8 i = addr_ram_sel; i < addr_max; i++) {
-    reg_sel |= (u16)get_bit(addr, i) << i;
-  }
+  u8 ram_sel = (addr >> 3) & 0x07; // addr 6bits in 8bit num
+  u8 reg_sel = addr & 0x07;
 
   Dmux8Result load_signals = dmux8way(load, ram_sel);
   u8 loads[] = {
@@ -470,15 +459,14 @@ u16 ram64_update(Ram64 *ram, const u16 data, const u8 addr, const u8 load,
   };
 
   u16 reg_outs[MAX_REGISTERS];
-  u16 out = 0;
   for (u8 i = 0; i < MAX_REGISTERS; i++) {
-    out |= ram8_update(&ram->rams[i], data, reg_sel, loads[i], clk);
+    reg_outs[i] = ram8_update(&ram->rams[i], data, reg_sel, loads[i], clk);
   }
 
   return mux8way((Mux8Input){reg_outs[0], reg_outs[1], reg_outs[2], reg_outs[3],
                              reg_outs[4], reg_outs[5], reg_outs[6],
                              reg_outs[7]},
-                 addr);
+                 ram_sel);
 }
 
 // addr 9bits
@@ -489,23 +477,12 @@ void ram512_init(Ram512 *ram) {
     ram64_init(&ram->rams[i]);
   }
 }
-u16 ram512_update(Ram512 *ram, const u16 data, const u8 addr, const u8 load,
+u16 ram512_update(Ram512 *ram, const u16 data, const u16 addr, const u8 load,
                   const u8 clk) {
   assert(ram);
 
-  // addr bits
-  u8 addr_max = 9;
-  u8 addr_ram_sel = 3;
-
-  u8 ram_sel = 0;
-  for (u8 i = 0; i < addr_ram_sel; i++) {
-    ram_sel |= (u16)get_bit(addr, i) << i;
-  }
-
-  u8 reg_sel = 0;
-  for (u8 i = addr_ram_sel; i < addr_max; i++) {
-    reg_sel |= (u16)get_bit(addr, i) << i;
-  }
+  u8 ram_sel = (addr >> 6) & 0x07;
+  u16 reg_sel = addr & 0x3F;
 
   Dmux8Result load_signals = dmux8way(load, ram_sel);
   u8 loads[] = {
@@ -514,15 +491,14 @@ u16 ram512_update(Ram512 *ram, const u16 data, const u8 addr, const u8 load,
   };
 
   u16 reg_outs[MAX_REGISTERS];
-  u16 out = 0;
   for (u8 i = 0; i < MAX_REGISTERS; i++) {
-    out |= ram64_update(&ram->rams[i], data, reg_sel, loads[i], clk);
+    reg_outs[i] = ram64_update(&ram->rams[i], data, reg_sel, loads[i], clk);
   }
 
   return mux8way((Mux8Input){reg_outs[0], reg_outs[1], reg_outs[2], reg_outs[3],
                              reg_outs[4], reg_outs[5], reg_outs[6],
                              reg_outs[7]},
-                 addr);
+                 ram_sel);
 }
 
 // addr 12bits
@@ -533,23 +509,13 @@ void ram4k_init(Ram4k *ram) {
     ram512_init(&ram->rams[i]);
   }
 }
-u16 ram4k_update(Ram4k *ram, const u16 data, const u8 addr, const u8 load,
+u16 ram4k_update(Ram4k *ram, const u16 data, const u16 addr, const u8 load,
                  const u8 clk) {
   assert(ram);
 
   // addr bits
-  u8 addr_max = 12;
-  u8 addr_ram_sel = 3;
-
-  u8 ram_sel = 0;
-  for (u8 i = 0; i < addr_ram_sel; i++) {
-    ram_sel |= (u16)get_bit(addr, i) << i;
-  }
-
-  u8 reg_sel = 0;
-  for (u8 i = addr_ram_sel; i < addr_max; i++) {
-    reg_sel |= (u16)get_bit(addr, i) << i;
-  }
+  u8 ram_sel = (addr >> 9) & 0x07;
+  u16 reg_sel = addr & 0x1FF;
 
   Dmux8Result load_signals = dmux8way(load, ram_sel);
   u8 loads[] = {
@@ -558,15 +524,14 @@ u16 ram4k_update(Ram4k *ram, const u16 data, const u8 addr, const u8 load,
   };
 
   u16 reg_outs[MAX_REGISTERS];
-  u16 out = 0;
   for (u8 i = 0; i < MAX_REGISTERS; i++) {
-    out |= ram512_update(&ram->rams[i], data, reg_sel, loads[i], clk);
+    reg_outs[i] = ram512_update(&ram->rams[i], data, reg_sel, loads[i], clk);
   }
 
   return mux8way((Mux8Input){reg_outs[0], reg_outs[1], reg_outs[2], reg_outs[3],
                              reg_outs[4], reg_outs[5], reg_outs[6],
                              reg_outs[7]},
-                 addr);
+                 ram_sel);
 }
 
 // addr 14bits
@@ -578,23 +543,13 @@ void ram16k_init(Ram16k *ram) {
   }
 }
 
-u16 ram16k_update(Ram16k *ram, const u16 data, const u8 addr, const u8 load,
+u16 ram16k_update(Ram16k *ram, const u16 data, const u16 addr, const u8 load,
                   const u8 clk) {
   assert(ram);
 
   // addr bits
-  u8 addr_max = 14;
-  u8 addr_ram_sel = 2;
-
-  u8 ram_sel = 0;
-  for (u8 i = 0; i < addr_ram_sel; i++) {
-    ram_sel |= (u16)get_bit(addr, i) << i;
-  }
-
-  u8 reg_sel = 0;
-  for (u8 i = addr_ram_sel; i < addr_max; i++) {
-    reg_sel |= (u16)get_bit(addr, i) << i;
-  }
+  u8 ram_sel = (addr >> 12) & 0x03;
+  u16 reg_sel = addr & 0xFFF;
 
   Dmux4Result load_signals = dmux4way(load, ram_sel);
   u8 loads[] = {
@@ -605,9 +560,8 @@ u16 ram16k_update(Ram16k *ram, const u16 data, const u8 addr, const u8 load,
   };
 
   u16 reg_outs[4];
-  u16 out = 0;
   for (u8 i = 0; i < 4; i++) {
-    out |= ram4k_update(&ram->rams[i], data, reg_sel, loads[i], clk);
+    reg_outs[i] = ram4k_update(&ram->rams[i], data, reg_sel, loads[i], clk);
   }
 
   return mux4way(
@@ -617,7 +571,7 @@ u16 ram16k_update(Ram16k *ram, const u16 data, const u8 addr, const u8 load,
           reg_outs[2],
           reg_outs[3],
       },
-      addr);
+      ram_sel);
 }
 
 // PROGRAM COUNTER
@@ -647,53 +601,26 @@ u16 pc_update(ProgramCounter *pc, const u16 data, const u8 inc, const u8 load,
 // CONTROL UNIT
 ControlSignals decode_instruction(const u16 instruction, const u8 zero_flag) {
   u8 opcode = 0;
-  opcode |= (get_bit(instruction, 0)) << 0;
-  opcode |= (get_bit(instruction, 1)) << 1;
-  opcode |= (get_bit(instruction, 2)) << 2;
-  opcode |= (get_bit(instruction, 3)) << 3;
+  opcode = (instruction >> 12) & 0x0F;
 
   u8 op0 = get_bit(opcode, 0);
   u8 op1 = get_bit(opcode, 1);
   u8 op2 = get_bit(opcode, 2);
   u8 op3 = get_bit(opcode, 3);
 
-  u8 reg_dest = 0;
-  reg_dest |= (get_bit(instruction, 4)) << 0;
-  reg_dest |= (get_bit(instruction, 5)) << 1;
-  reg_dest |= (get_bit(instruction, 6)) << 2;
+  u8 reg_dest = (instruction >> 9) & 0x07;
+  u8 reg_src_a = (instruction >> 6) & 0x07;
+  u8 reg_src_b = (instruction >> 3) & 0x07;
+  u16 immediate_val = instruction & 0x01FF;
 
-  u8 reg_src_a = 0;
-  reg_src_a |= (get_bit(instruction, 7)) << 0;
-  reg_src_a |= (get_bit(instruction, 8)) << 1;
-  reg_src_a |= (get_bit(instruction, 9)) << 2;
-
-  u8 reg_src_b = 0;
-  reg_src_b |= (get_bit(instruction, 10)) << 0;
-  reg_src_b |= (get_bit(instruction, 11)) << 1;
-  reg_src_b |= (get_bit(instruction, 12)) << 2;
-
-  u16 immediate_val = 0;
-  immediate_val |= (get_bit(instruction, 0)) << 0;
-  immediate_val |= (get_bit(instruction, 1)) << 1;
-  immediate_val |= (get_bit(instruction, 2)) << 2;
-  immediate_val |= (get_bit(instruction, 3)) << 3;
-  immediate_val |= (get_bit(instruction, 4)) << 4;
-  immediate_val |= (get_bit(instruction, 5)) << 5;
-  immediate_val |= (get_bit(instruction, 6)) << 6;
-  immediate_val |= (get_bit(instruction, 7)) << 7;
-  immediate_val |= (get_bit(instruction, 8)) << 8;
-
-  u8 is_alu_op = not_(get_bit(opcode, 3));
+  u8 is_alu_op = not_(op3);
   u8 is_ldi = and_(and_(op0, not_(op1)), and_(not_(op2), not_(op3)));
   u8 is_ldr = and_(and_(op0, not_(op1)), and_(not_(op2), op3));
   u8 is_str = and_(and_(op0, not_(op1)), and_(op2, not_(op3)));
   u8 is_jmp = and_(and_(op0, not_(op1)), and_(op2, op3));
   u8 is_jeq = and_(and_(op0, op1), and_(not_(op2), not_(op3)));
 
-  u8 alu_opcode = 0;
-  alu_opcode |= op0 << 0;
-  alu_opcode |= op1 << 1;
-  alu_opcode |= op2 << 2;
+  u8 alu_opcode = opcode & 0x07;
 
   u8 reg_write = or_(is_alu_op, or_(is_ldi, is_ldr));
   u8 mem_write = is_str;
@@ -707,6 +634,46 @@ ControlSignals decode_instruction(const u16 instruction, const u8 zero_flag) {
 }
 
 // CPU
+void cpu_init(Cpu *cpu) {
+  assert(cpu);
+
+  pc_init(&cpu->pc);
+  register_file_init(&cpu->reg_file);
+
+  cpu->current_zero = 0;
+  dflipflop_init(&cpu->zero_flag_dff);
+}
+
+CpuResult cpu_update(Cpu *cpu, const u16 instruction, const u16 in_m,
+                     const u8 reset, const u8 clk) {
+  assert(cpu);
+
+  ControlSignals ctrl = decode_instruction(instruction, cpu->current_zero);
+
+  // dummy
+  RegisterFileResult reg_out =
+      register_file_update(&cpu->reg_file, (u16)0, ctrl.reg_dest, 0,
+                           ctrl.reg_src_a, ctrl.reg_src_b, 0);
+
+  u16 alu_in_b = mux16(reg_out.out_b, ctrl.immediate_val, ctrl.alu_src);
+  AluResult alu_out = alu16(reg_out.out_a, alu_in_b, ctrl.alu_opcode);
+
+  u16 reg_write_data = mux16(alu_out.result, in_m, ctrl.mem_to_reg);
+
+  reg_out =
+      register_file_update(&cpu->reg_file, reg_write_data, ctrl.reg_dest,
+                           ctrl.reg_write, ctrl.reg_src_a, ctrl.reg_src_b, clk);
+
+  cpu->current_zero =
+      dflipflop_update(&cpu->zero_flag_dff, alu_out.flag.zero, clk);
+
+  u8 pc_inc = not_(ctrl.pc_load);
+
+  u16 pc_next =
+      pc_update(&cpu->pc, reg_out.out_a, pc_inc, ctrl.pc_load, reset, clk);
+
+  return (CpuResult){reg_out.out_b, ctrl.mem_write, reg_out.out_a, pc_next};
+}
 
 // COMPUTER
 
