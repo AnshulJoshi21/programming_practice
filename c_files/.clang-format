@@ -1,0 +1,143 @@
+---
+# ==============================================================================
+# Readable Systems C / Emulator Style
+# ==============================================================================
+Language: Cpp
+BasedOnStyle: LLVM
+
+# ------------------------------------------------------------------------------
+# Core Formatting
+# ------------------------------------------------------------------------------
+IndentWidth: 4
+ContinuationIndentWidth: 8
+TabWidth: 4
+UseTab: Never
+
+# Lower column limit encourages clean multiline expressions
+ColumnLimit: 80
+
+# ------------------------------------------------------------------------------
+# Pointer & Reference Style
+# ------------------------------------------------------------------------------
+PointerAlignment: Right
+ReferenceAlignment: Pointer
+
+# ------------------------------------------------------------------------------
+# Alignment
+# ------------------------------------------------------------------------------
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
+AlignConsecutiveMacros: true
+
+AlignOperands: AlignAfterOperator
+AlignTrailingComments: true
+AlignEscapedNewlines: Right
+
+# ------------------------------------------------------------------------------
+# Binary Expressions
+# ------------------------------------------------------------------------------
+BreakBeforeBinaryOperators: All
+
+PenaltyBreakAssignment: 1
+PenaltyBreakBeforeFirstCallParameter: 1000
+
+# ------------------------------------------------------------------------------
+# Braces
+# ------------------------------------------------------------------------------
+BreakBeforeBraces: Custom
+
+BraceWrapping:
+  AfterCaseLabel: false
+  AfterClass: false
+  AfterControlStatement: Never
+  AfterEnum: false
+  AfterExternBlock: false
+  AfterFunction: true
+  AfterNamespace: false
+  AfterStruct: false
+  AfterUnion: false
+
+  BeforeCatch: false
+  BeforeElse: false
+  BeforeLambdaBody: false
+  BeforeWhile: false
+
+  IndentBraces: false
+
+  SplitEmptyFunction: true
+  SplitEmptyRecord: true
+  SplitEmptyNamespace: true
+
+# ------------------------------------------------------------------------------
+# Control Flow
+# ------------------------------------------------------------------------------
+AllowShortBlocksOnASingleLine: Never
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+
+# ------------------------------------------------------------------------------
+# Function Calls / Parameters
+# ------------------------------------------------------------------------------
+BinPackArguments: false
+BinPackParameters: false
+
+AllowAllArgumentsOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: false
+
+# ------------------------------------------------------------------------------
+# Spacing
+# ------------------------------------------------------------------------------
+SpaceAfterCStyleCast: false
+SpaceAfterLogicalNot: false
+SpaceAfterTemplateKeyword: true
+
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeCpp11BracedList: false
+SpaceBeforeCtorInitializerColon: true
+SpaceBeforeInheritanceColon: true
+SpaceBeforeParens: ControlStatements
+SpaceBeforeRangeBasedForLoopColon: true
+
+SpacesBeforeTrailingComments: 2
+
+SpacesInAngles: false
+SpacesInCStyleCastParentheses: false
+SpacesInContainerLiterals: true
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
+
+# ------------------------------------------------------------------------------
+# Includes
+# ------------------------------------------------------------------------------
+SortIncludes: true
+IncludeBlocks: Regroup
+
+# ------------------------------------------------------------------------------
+# Macros
+# ------------------------------------------------------------------------------
+MacroBlockBegin: "^#pragma omp"
+MacroBlockEnd: "^#pragma omp"
+
+# ------------------------------------------------------------------------------
+# Switch Statements
+# ------------------------------------------------------------------------------
+IndentCaseLabels: true
+IndentCaseBlocks: false
+
+# ------------------------------------------------------------------------------
+# Empty Lines
+# ------------------------------------------------------------------------------
+KeepEmptyLinesAtTheStartOfBlocks: false
+MaxEmptyLinesToKeep: 1
+
+# ------------------------------------------------------------------------------
+# Misc
+# ------------------------------------------------------------------------------
+Cpp11BracedListStyle: true
+DerivePointerAlignment: false
+FixNamespaceComments: true
+ReflowComments: true
+
+...

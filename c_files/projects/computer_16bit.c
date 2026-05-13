@@ -1,5 +1,7 @@
 #include "computer_16bit.h"
 #include <assert.h>
+#include <math.h>
+#include <stdio.h>
 
 static inline u8 get_bit(const u16 num, const u8 index) {
   return (num >> index) & 1u;
@@ -359,11 +361,14 @@ u16 register_update(Register16 *reg, const u16 data, const u8 load,
 
   u16 d_in = mux16(reg->out, data, load);
 
-  reg->out = 0;
+  u16 new_out = 0;
   for (u8 i = 0; i < MAX_BITS; i++) {
     u16 out = dflipflop_update(&reg->bits[i], get_bit(d_in, i), clk);
-    reg->out |= (u16)out << i;
+    new_out |= (u16)out << i;
   }
+
+  if (clk)
+    reg->out = new_out;
 
   return reg->out;
 }
@@ -592,8 +597,11 @@ u16 pc_update(ProgramCounter *pc, const u16 data, const u8 inc, const u8 load,
   u16 r1 = mux16(r0, data, load);
   u16 r2 = mux16(r1, (u16)0, reset);
 
-  pc->out =
+  u16 new_out =
       register_update(&pc->register16, r2, 1, clk); // load handled beforehand
+
+  if (clk)
+    pc->out = new_out;
 
   return pc->out;
 }
@@ -611,14 +619,14 @@ ControlSignals decode_instruction(const u16 instruction, const u8 zero_flag) {
   u8 reg_dest = (instruction >> 9) & 0x07;
   u8 reg_src_a = (instruction >> 6) & 0x07;
   u8 reg_src_b = (instruction >> 3) & 0x07;
-  u16 immediate_val = instruction & 0x01FF;
+  u16 immediate_val = instruction & 0x01FF; // pad with 7 0's
 
   u8 is_alu_op = not_(op3);
-  u8 is_ldi = and_(and_(op0, not_(op1)), and_(not_(op2), not_(op3)));
-  u8 is_ldr = and_(and_(op0, not_(op1)), and_(not_(op2), op3));
-  u8 is_str = and_(and_(op0, not_(op1)), and_(op2, not_(op3)));
-  u8 is_jmp = and_(and_(op0, not_(op1)), and_(op2, op3));
-  u8 is_jeq = and_(and_(op0, op1), and_(not_(op2), not_(op3)));
+  u8 is_ldi = and_(and_(op3, not_(op2)), and_(not_(op1), not_(op0))); // 1000
+  u8 is_ldr = and_(and_(op3, not_(op2)), and_(not_(op1), op0));       // 1001
+  u8 is_str = and_(and_(op3, not_(op2)), and_(op1, not_(op0)));       // 1010
+  u8 is_jmp = and_(and_(op3, not_(op2)), and_(op1, op0));             // 1011
+  u8 is_jeq = and_(and_(op3, op2), and_(not_(op1), not_(op0)));       // 1100
 
   u8 alu_opcode = opcode & 0x07;
 
@@ -650,31 +658,108 @@ CpuResult cpu_update(Cpu *cpu, const u16 instruction, const u16 in_m,
 
   ControlSignals ctrl = decode_instruction(instruction, cpu->current_zero);
 
-  // dummy
-  RegisterFileResult reg_out =
-      register_file_update(&cpu->reg_file, (u16)0, ctrl.reg_dest, 0,
-                           ctrl.reg_src_a, ctrl.reg_src_b, 0);
+  const u16 reg_out_a = cpu->reg_file.registers[ctrl.reg_src_a].out;
+  const u16 reg_out_b = cpu->reg_file.registers[ctrl.reg_src_b].out;
 
-  u16 alu_in_b = mux16(reg_out.out_b, ctrl.immediate_val, ctrl.alu_src);
-  AluResult alu_out = alu16(reg_out.out_a, alu_in_b, ctrl.alu_opcode);
+  u16 alu_in_b = mux16(reg_out_b, ctrl.immediate_val, ctrl.alu_src);
+  AluResult alu_out = alu16(reg_out_a, alu_in_b, ctrl.alu_opcode);
+
+  printf("clk=%d | instr=0x%04X | opcode=%d | dest=%d | src_a=%d src_b=%d | "
+         "reg_a=%d reg_b=%d | alu_src=%d imm=%d | alu_in_b=%d | alu_out=%d | "
+         "reg_write=%d\n",
+         clk, instruction, ctrl.alu_opcode, ctrl.reg_dest, ctrl.reg_src_a,
+         ctrl.reg_src_b, reg_out_a, reg_out_b, ctrl.alu_src, ctrl.immediate_val,
+         alu_in_b, alu_out.result, ctrl.reg_write);
 
   u16 reg_write_data = mux16(alu_out.result, in_m, ctrl.mem_to_reg);
 
-  reg_out =
-      register_file_update(&cpu->reg_file, reg_write_data, ctrl.reg_dest,
-                           ctrl.reg_write, ctrl.reg_src_a, ctrl.reg_src_b, clk);
+  reg_write_data = mux16(reg_write_data, ctrl.immediate_val, ctrl.alu_src);
 
-  cpu->current_zero =
-      dflipflop_update(&cpu->zero_flag_dff, alu_out.flag.zero, clk);
+  register_file_update(&cpu->reg_file, reg_write_data, ctrl.reg_dest,
+                       ctrl.reg_write, ctrl.reg_src_a, ctrl.reg_src_b, clk);
+
+  u8 new_zero = dflipflop_update(&cpu->zero_flag_dff, alu_out.flag.zero, clk);
+  if (clk)
+    cpu->current_zero = new_zero;
 
   u8 pc_inc = not_(ctrl.pc_load);
 
   u16 pc_next =
-      pc_update(&cpu->pc, reg_out.out_a, pc_inc, ctrl.pc_load, reset, clk);
+      pc_update(&cpu->pc, reg_out_a, pc_inc, ctrl.pc_load, reset, clk);
 
-  return (CpuResult){reg_out.out_b, ctrl.mem_write, reg_out.out_a, pc_next};
+  return (CpuResult){reg_out_b, ctrl.mem_write, reg_out_a, pc_next};
 }
 
 // COMPUTER
+void computer_init(Computer *comp, const u16 *rom, const u16 rom_size) {
+  assert(comp);
+  assert(rom);
 
-int main(void) { return 0; }
+  cpu_init(&comp->cpu);
+  ram16k_init(&comp->ram);
+
+  comp->rom = rom;
+  comp->rom_size = rom_size;
+
+  comp->clock_state = 0;
+  comp->reset = 0;
+}
+
+void computer_tick(Computer *comp) {
+  assert(comp);
+  u16 pc_addr = comp->cpu.pc.out;
+  u16 instruction = 0;
+  if (pc_addr < comp->rom_size) {
+    instruction = comp->rom[pc_addr];
+  }
+
+  u16 reg0_out = comp->cpu.reg_file.registers[0].out;
+
+  // dummy
+  u16 current_ram_out =
+      ram16k_update(&comp->ram, (u16)0, reg0_out & 0x3FFF, 0, 0);
+
+  cpu_update(&comp->cpu, instruction, current_ram_out, comp->reset, 0);
+
+  CpuResult cpu_out =
+      cpu_update(&comp->cpu, instruction, current_ram_out, comp->reset, 1);
+
+  ram16k_update(&comp->ram, cpu_out.out_m, cpu_out.addr_m, cpu_out.write_m, 1);
+}
+
+static u16 bin2dec(const u16 bin) {
+  u16 total = 0;
+
+  for (u8 i = 0; i < MAX_BITS; i++) {
+    u8 bit = get_bit(bin, i);
+
+    total += (pow(2, i) * bit);
+  }
+
+  return total;
+}
+
+int main(void) {
+  const u16 my_rom[] = {
+      0x8005, // LDI R0, 5
+      0x8203, // LDI R1, 3
+      0x0408  // ADD R2, R0, R1  → expect R2 = 8
+  };
+  const u16 my_rom_size = sizeof(my_rom) / sizeof(my_rom[0]);
+
+  Computer computer;
+  computer_init(&computer, my_rom, my_rom_size);
+
+  printf("Booting up... \n");
+  printf("\n");
+
+  for (u8 i = 0; i < 3; i++) {
+    computer_tick(&computer);
+  }
+
+  const u16 r2_bin = computer.cpu.reg_file.registers[2].out;
+  printf("Binary: %d\n", r2_bin);
+  printf("Decimal: %d\n", bin2dec(r2_bin));
+
+  return 0;
+}

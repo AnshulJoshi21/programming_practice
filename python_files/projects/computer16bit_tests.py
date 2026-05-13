@@ -1,6 +1,6 @@
 import pytest
 
-from test1 import *
+from computer16bit import *
 
 zero16: list[int] = [0] * MAX_BITS
 one16: list[int] = [1] * MAX_BITS
@@ -346,5 +346,3 @@ def test_dmux4way(in_, sel, a, b, c, d):
 )
 def test_dmux8way(in_, sel, a, b, c, d, e, f, g, h):
     assert dmux8way(in_, sel) == Dmux8Result(a, b, c, d, e, f, g, h)
-
-

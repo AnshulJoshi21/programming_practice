@@ -1,12 +1,37 @@
+# NOTE: num = msb -> lsb, msb = num[0] and lsb = num[15]
+#
 from dataclasses import dataclass
 
-MAX_REGISTERS: int = 8
 MAX_BITS: int = 16
+MAX_REGISTERS: int = 8
+
+
+def bits_to_int(bits: list[int]) -> int:
+    result: int = 0
+
+    count: int = 0
+    for i in range(len(bits) - 1, -1, -1):
+        result |= bits[i] << count
+        count += 1
+
+    return result
+
+
+def decimal_to_bits(num: int) -> list[int]:
+    out: list[int] = []
+    temp: int = num
+
+    while temp > 0:
+        out.append(temp % 2)
+        temp //= 2
+
+    out.reverse()
+    return out
 
 
 # LOGIC GATES
 def nand_(a: int, b: int) -> int:
-    return 1 if a == 0 or b == 0 else 0
+    return 1 if (a == 0 or b == 0) else 0
 
 
 def not_(a: int) -> int:
@@ -48,10 +73,10 @@ def half_adder(a: int, b: int) -> AddResult:
 
 
 def full_adder(a: int, b: int, cin: int) -> AddResult:
-    r0: AddResult = half_adder(a, b)
-    r1: AddResult = half_adder(r0.sum, cin)
+    r1: AddResult = half_adder(a, b)
+    r2: AddResult = half_adder(r1.sum, cin)
 
-    return AddResult(sum=r1.sum, carry=or_(r0.carry, r1.carry))
+    return AddResult(r2.sum, or_(r1.carry, r2.carry))
 
 
 # MUXes
@@ -72,7 +97,6 @@ def mux16(a: list[int], b: list[int], sel: int) -> list[int]:
 def mux4way16(
     a: list[int], b: list[int], c: list[int], d: list[int], sel: list[int]
 ) -> list[int]:
-
     sel0: int = sel[1]
     sel1: int = sel[0]
 
@@ -94,7 +118,6 @@ def mux8way16(
     h: list[int],
     sel: list[int],
 ) -> list[int]:
-
     sel0: int = sel[2]
     sel1: int = sel[1]
     sel2: int = sel[0]
@@ -157,7 +180,7 @@ class Dmux8Result:
     h: int
 
 
-# sel = 2bits
+# sel = 3bits
 def dmux8way(in_: int, sel: list[int]) -> Dmux8Result:
     sel0: int = sel[2]
     sel1: int = sel[1]
@@ -231,7 +254,7 @@ def add16(a: list[int], b: list[int]) -> OperationResult:
 
 def sub16(a: list[int], b: list[int]) -> OperationResult:
     result: list[int] = [0] * MAX_BITS
-    carry: int = 1  # for 2's complement
+    carry: int = 1
 
     for i in range(MAX_BITS - 1, -1, -1):
         r: AddResult = full_adder(a[i], not_(b[i]), carry)
@@ -249,7 +272,7 @@ def shl16(a: list[int]) -> OperationResult:
     for i in range(MAX_BITS - 1):
         result[i] = a[i + 1]
 
-    result[MAX_BITS - 1] = 0
+    result[15] = 0
 
     return OperationResult(result, carry)
 
@@ -280,7 +303,7 @@ class AluResult:
     flag: Flag
 
 
-# opcode = 3bits, op_order = add, sub, and, or, xor, not, shl, shr
+# opcode = 3bits
 def alu16(a: list[int], b: list[int], op: list[int]) -> AluResult:
     op0: int = op[2]
     op1: int = op[1]
@@ -329,20 +352,20 @@ def alu16(a: list[int], b: list[int], op: list[int]) -> AluResult:
     # overflow
     msb_a: int = a[0]
     msb_b: int = b[0]
-    msb_r: int = result[0]
+    msb_r: int = sign
 
     overflow_add: int = and_(xnor_(msb_a, msb_b), xor_(msb_a, msb_r))
     overflow_sub: int = and_(xor_(msb_a, msb_b), xor_(msb_a, msb_r))
     overflow: int = mux(overflow_add, overflow_sub, op0)
 
-    is_arith: int = and_(not_(op2), not_(op0))
+    is_arith: int = and_(not_(op2), not_(op1))
     overflow = and_(is_arith, overflow)
 
     return AluResult(result, Flag(carry, zero, sign, overflow))
 
 
-# LATCHES + FLIPFLOPS
-class DLatch:
+# Latches and flip flops
+class Dlatch:
     def __init__(self) -> None:
         self.q: int = 0
         self.q_bar: int = not_(self.q)
@@ -360,17 +383,17 @@ class DLatch:
 
 class DFlipFlop:
     def __init__(self) -> None:
-        self.master: DLatch = DLatch()
-        self.slave: DLatch = DLatch()
+        self.master: Dlatch = Dlatch()
+        self.slave: Dlatch = Dlatch()
 
     def update(self, data: int, clk: int) -> int:
-        master_q: int = self.master.update(data, clk)
-        slave_q: int = self.slave.update(master_q, not_(clk))
+        master_q: int = self.master.update(data, not_(clk))
+        slave_q: int = self.slave.update(master_q, clk)
 
         return slave_q
 
 
-# REGISTERS
+# registers
 class Register16:
     def __init__(self) -> None:
         self.bits: list[DFlipFlop] = [DFlipFlop() for _ in range(MAX_BITS)]
@@ -379,8 +402,12 @@ class Register16:
     def update(self, data: list[int], load: int, clk: int) -> list[int]:
         d_in: list[int] = mux16(self.out, data, load)
 
-        for i in range(MAX_BITS):
-            self.out[i] = self.bits[i].update(d_in[i], clk)
+        new_out: list[int] = [0] * MAX_BITS
+        for i in range(MAX_BITS - 1, -1, -1):
+            new_out[i] = self.bits[i].update(d_in[i], clk)
+
+        if clk:
+            self.out = new_out
 
         return self.out
 
@@ -397,15 +424,14 @@ class RegisterFile:
 
     def update(
         self,
-        data: list[int],
-        addr: list[int],
+        write_data: list[int],
+        write_addr: list[int],
         load: int,
         read_addr_a: list[int],
         read_addr_b: list[int],
         clk: int,
     ) -> RegisterFileResult:
-
-        load_signals: Dmux8Result = dmux8way(load, addr)
+        load_signals: Dmux8Result = dmux8way(load, write_addr)
         loads: list[int] = [
             load_signals.a,
             load_signals.b,
@@ -419,7 +445,7 @@ class RegisterFile:
 
         reg_outs: list[list[int]] = []
         for i in range(MAX_REGISTERS):
-            out: list[int] = self.registers[i].update(data, loads[i], clk)
+            out: list[int] = self.registers[i].update(write_data, loads[i], clk)
             reg_outs.append(out)
 
         out_a: list[int] = mux8way16(
@@ -433,7 +459,6 @@ class RegisterFile:
             reg_outs[7],
             read_addr_a,
         )
-
         out_b: list[int] = mux8way16(
             reg_outs[0],
             reg_outs[1],
@@ -455,11 +480,7 @@ class Ram8:
         self.registers: list[Register16] = [Register16() for _ in range(MAX_REGISTERS)]
 
     def update(
-        self,
-        data: list[int],
-        addr: list[int],
-        load: int,
-        clk: int,
+        self, data: list[int], addr: list[int], load: int, clk: int
     ) -> list[int]:
 
         load_signals: Dmux8Result = dmux8way(load, addr)
@@ -492,17 +513,13 @@ class Ram8:
         )
 
 
-# addr = 6bits
+# 6bit addr
 class Ram64:
     def __init__(self) -> None:
         self.rams: list[Ram8] = [Ram8() for _ in range(MAX_REGISTERS)]
 
     def update(
-        self,
-        data: list[int],
-        addr: list[int],
-        load: int,
-        clk: int,
+        self, data: list[int], addr: list[int], load: int, clk: int
     ) -> list[int]:
 
         ram_sel: list[int] = addr[0:3]
@@ -538,17 +555,13 @@ class Ram64:
         )
 
 
-# addr = 9bits
+# 9bit addr
 class Ram512:
     def __init__(self) -> None:
         self.rams: list[Ram64] = [Ram64() for _ in range(MAX_REGISTERS)]
 
     def update(
-        self,
-        data: list[int],
-        addr: list[int],
-        load: int,
-        clk: int,
+        self, data: list[int], addr: list[int], load: int, clk: int
     ) -> list[int]:
 
         ram_sel: list[int] = addr[0:3]
@@ -584,17 +597,13 @@ class Ram512:
         )
 
 
-# addr = 12bits
+# 12bit addr
 class Ram4k:
     def __init__(self) -> None:
         self.rams: list[Ram512] = [Ram512() for _ in range(MAX_REGISTERS)]
 
     def update(
-        self,
-        data: list[int],
-        addr: list[int],
-        load: int,
-        clk: int,
+        self, data: list[int], addr: list[int], load: int, clk: int
     ) -> list[int]:
 
         ram_sel: list[int] = addr[0:3]
@@ -630,17 +639,13 @@ class Ram4k:
         )
 
 
-# addr = 14bits
+# 14bit addr
 class Ram16k:
     def __init__(self) -> None:
         self.rams: list[Ram4k] = [Ram4k() for _ in range(4)]
 
     def update(
-        self,
-        data: list[int],
-        addr: list[int],
-        load: int,
-        clk: int,
+        self, data: list[int], addr: list[int], load: int, clk: int
     ) -> list[int]:
 
         ram_sel: list[int] = addr[0:2]
@@ -668,52 +673,28 @@ class Ram16k:
         )
 
 
-# PROGRAM COUNTER
-class ProgramCounter:
-    def __init__(self) -> None:
-        self.register: Register16 = Register16()
-        self.out: list[int] = [0] * MAX_BITS
-
-    def update(
-        self, data: list[int], inc: int, load: int, reset: int, clk: int
-    ) -> list[int]:
-
-        one16: list[int] = ([0] * (MAX_BITS - 1)) + [1]
-        inc_val: list[int] = add16(self.out, one16).result
-
-        r0: list[int] = mux16(self.out, inc_val, inc)
-        r1: list[int] = mux16(r0, data, load)
-        zero16: list[int] = [0] * MAX_BITS
-        r2: list[int] = mux16(r1, zero16, reset)
-
-        # loading is already handled above so 1 for load
-        self.out = self.register.update(r2, 1, clk)
-
-        return self.out
-
-
-# CONTROL UNIT
+# control unit
 @dataclass(slots=True)
 class ControlSignals:
-    alu_op: list[int]
+    alu_opcode: list[int]
     reg_write: int
     mem_write: int
-    mem_to_reg: int
+    mem2reg: int
     alu_src: int
     pc_load: int
 
-    reg_dest: list[int]
+    reg_dst: list[int]
     reg_src_a: list[int]
     reg_src_b: list[int]
-    immediate_val: list[int]
+    immediate: list[int]
 
 
 def decode_instruction(instruction: list[int], zero_flag: int) -> ControlSignals:
     opcode: list[int] = instruction[0:4]
-    reg_dest: list[int] = instruction[4:7]
+    reg_dst: list[int] = instruction[4:7]
     reg_src_a: list[int] = instruction[7:10]
     reg_src_b: list[int] = instruction[10:13]
-    immediate_val: list[int] = [0] * 7 + instruction[7:]
+    immediate: list[int] = [0] * 7 + instruction[7:16]
 
     is_alu_op: int = not_(opcode[0])
     is_ldi: int = and_(
@@ -730,74 +711,207 @@ def decode_instruction(instruction: list[int], zero_flag: int) -> ControlSignals
         and_(opcode[0], opcode[1]), and_(not_(opcode[2]), not_(opcode[3]))
     )
 
-    alu_op: list[int] = [opcode[1], opcode[2], opcode[3]]
+    alu_opcode: list[int] = [opcode[1], opcode[2], opcode[3]]
     reg_write: int = or_(is_alu_op, or_(is_ldi, is_ldr))
     mem_write: int = is_str
-    mem_to_reg: int = is_ldr
+    mem2reg: int = is_ldr
     alu_src: int = is_ldi
     pc_load: int = or_(is_jmp, and_(zero_flag, is_jeq))
 
     return ControlSignals(
-        alu_op,
+        alu_opcode,
         reg_write,
         mem_write,
-        mem_to_reg,
+        mem2reg,
         alu_src,
         pc_load,
-        reg_dest,
+        reg_dst,
         reg_src_a,
         reg_src_b,
-        immediate_val,
+        immediate,
     )
 
 
-# CPU
+# program counter
+class ProgramCounter:
+    def __init__(self) -> None:
+        self.register: Register16 = Register16()
+        self.out: list[int] = [0] * MAX_BITS
+
+    def update(
+        self, data: list[int], inc: int, load: int, reset: int, clk: int
+    ) -> list[int]:
+        one16: list[int] = [0] * (MAX_BITS - 1) + [1]
+        inc_val: list[int] = add16(self.out, one16).result
+
+        r0: list[int] = mux16(self.out, inc_val, inc)
+        r1: list[int] = mux16(r0, data, load)
+
+        zero16: list[int] = [0] * MAX_BITS
+        r2: list[int] = mux16(r1, zero16, reset)
+
+        new_out: list[int] = self.register.update(r2, 1, clk)
+
+        if clk:
+            self.out = new_out
+
+        return self.out
+
+
+# cpu
 @dataclass(slots=True)
 class CpuResult:
     out_m: list[int]
     write_m: int
-    address_m: list[int]
+    addr_m: list[int]
     pc_out: list[int]
 
 
 class Cpu:
     def __init__(self) -> None:
         self.pc: ProgramCounter = ProgramCounter()
-        self.register_file: RegisterFile = RegisterFile()
+        self.registers: RegisterFile = RegisterFile()
 
         self.current_zero: int = 0
-        self.zero_flag_ff: DFlipFlop = DFlipFlop()
+        self.zero_flag_dff: DFlipFlop = DFlipFlop()
 
     def update(
         self, instruction: list[int], in_m: list[int], reset: int, clk: int
     ) -> CpuResult:
-
         ctrl: ControlSignals = decode_instruction(instruction, self.current_zero)
 
-        zero16: list[int] = [0] * MAX_BITS
-        reg_out: RegisterFileResult = self.register_file.update(
-            zero16, ctrl.reg_dest, 0, ctrl.reg_src_a, ctrl.reg_src_b, 0
-        )
+        reg_out_a: list[int] = self.registers.registers[bits_to_int(ctrl.reg_src_a)].out
+        reg_out_b: list[int] = self.registers.registers[bits_to_int(ctrl.reg_src_b)].out
 
-        alu_in_b: list[int] = mux16(reg_out.out_b, ctrl.immediate_val, ctrl.alu_src)
-        alu_out: AluResult = alu16(reg_out.out_a, alu_in_b, ctrl.alu_op)
+        alu_in_b: list[int] = mux16(reg_out_b, ctrl.immediate, ctrl.alu_src)
+        alu_out: AluResult = alu16(reg_out_a, alu_in_b, ctrl.alu_opcode)
 
-        reg_write_data: list[int] = mux16(alu_out.result, in_m, ctrl.mem_to_reg)
+        reg_write_data: list[int] = mux16(alu_out.result, in_m, ctrl.mem2reg)
 
-        reg_out = self.register_file.update(
+        self.registers.update(
             reg_write_data,
-            ctrl.reg_dest,
+            ctrl.reg_dst,
             ctrl.reg_write,
             ctrl.reg_src_a,
             ctrl.reg_src_b,
             clk,
         )
 
-        self.current_zero = self.zero_flag_ff.update(alu_out.flag.zero, clk)
+        self.current_zero = self.zero_flag_dff.update(alu_out.flag.zero, clk)
 
         pc_inc: int = not_(ctrl.pc_load)
-        pc_next: list[int] = self.pc.update(
-            reg_out.out_a, pc_inc, ctrl.pc_load, reset, clk
+        pc_next: list[int] = self.pc.update(reg_out_b, pc_inc, ctrl.pc_load, reset, clk)
+
+        return CpuResult(reg_out_b, ctrl.mem_write, reg_out_a, pc_next)
+
+
+# computer
+
+
+class Computer:
+    def __init__(self, rom: list[list[int]]) -> None:
+        self.cpu: Cpu = Cpu()
+        self.ram: Ram16k = Ram16k()
+
+        self.rom: list[list[int]] = rom
+        self.reset: int = 0
+        self.clock_state: int = 0
+
+    def tick(self) -> None:
+        pc_addr: int = bits_to_int(self.cpu.pc.out)
+        instruction: list[int]
+        if pc_addr < len(self.rom):
+            instruction = self.rom[pc_addr]
+        else:
+            instruction = [0] * MAX_BITS
+
+        current_ram_out: list[int] = self.ram.update(
+            [0] * MAX_BITS, self.cpu.registers.registers[0].out[2:16], 0, 0
+        )
+        self.clock_state = 0
+        self.cpu.update(instruction, current_ram_out, self.reset, self.clock_state)
+
+        self.clock_state = 1
+
+        cpu_out: CpuResult = self.cpu.update(
+            instruction, current_ram_out, self.reset, self.clock_state
         )
 
-        return CpuResult(reg_out.out_b, ctrl.mem_write, reg_out.out_a, pc_next)
+        self.ram.update(
+            cpu_out.out_m, cpu_out.addr_m, cpu_out.write_m, self.clock_state
+        )
+
+
+opcode_dict: dict[str, list[int]] = {
+    "ADD": [0, 0, 0, 0],
+    "SUB": [0, 0, 0, 1],
+    "AND": [0, 0, 1, 0],
+    "OR": [0, 0, 1, 1],
+    "XOR": [0, 1, 0, 0],
+    "NOT": [0, 1, 0, 1],
+    "SHL": [0, 1, 1, 0],
+    "SHR": [0, 1, 1, 1],
+    "LDI": [1, 0, 0, 0],
+    "LDR": [1, 0, 0, 1],
+    "STR": [1, 0, 1, 0],
+    "JMP": [1, 0, 1, 1],
+    "JEQ": [1, 1, 0, 0],
+}
+
+register_dict: dict[str, list[int]] = {
+    "R0": [0, 0, 0],
+    "R1": [0, 0, 1],
+    "R2": [0, 1, 0],
+    "R3": [0, 1, 1],
+    "R4": [1, 0, 0],
+    "R5": [1, 0, 1],
+    "R6": [1, 1, 0],
+    "R7": [1, 1, 1],
+}
+
+
+def decode_rom(rom: list[str]) -> list[list[int]]:
+    out: list[list[int]] = []
+
+    for inst in rom:
+        instruction: list[str] = inst.replace(",", "").split()
+        temp: list[int] = []
+
+        temp += opcode_dict[instruction[0]]
+
+        if instruction[0] == "LDI":
+            temp += register_dict[instruction[1]]
+
+            # pad with 0 from reg to decimal num
+            dec_bits: list[int] = decimal_to_bits(int(instruction[2]))
+            temp += [0] * (16 - (len(temp) + len(dec_bits)))
+            temp += dec_bits
+        else:
+            for inst in instruction[1:]:
+                temp += register_dict[inst]
+
+            # pad the rest with 0 till 16bits
+            temp += [0] * (16 - len(temp))
+
+        out.append(temp)
+
+    return out
+
+
+# compiled program
+
+str_rom: list[str] = ["LDI R1, 5", "LDI R2, 3", "ADD R3, R1, R2"]
+# str_rom = ["LDI R1, 5", "ADD R1, R1, R1"]  # R1 = R1 + R1, expect 10
+my_game_rom: list[list[int]] = decode_rom(str_rom)
+
+# Plug in the game cartridge and turn on the power!
+my_computer = Computer(rom=my_game_rom)
+
+# Run the computer for 3 clock cycles
+print("Booting up...")
+for cycle in range(3):
+    my_computer.tick()
+
+# Let's check Register 3!
+r3_binary = my_computer.cpu.registers.registers[3].out
+print(f"Result in R3: {r3_binary} (Decimal: {bits_to_int(r3_binary)})")

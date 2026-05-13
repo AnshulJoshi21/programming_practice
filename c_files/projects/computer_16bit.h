@@ -264,5 +264,19 @@ CpuResult cpu_update(Cpu *cpu, const u16 instruction, const u16 in_m,
                      const u8 reset, const u8 clk);
 
 // COMPUTER
+typedef struct Computer {
+  Cpu cpu;
+  Ram16k ram;
+
+  const u16 *rom;
+  u16 rom_size;
+
+  u8 clock_state;
+  u8 reset;
+
+} Computer;
+
+void computer_init(Computer *comp, const u16 *rom, const u16 rom_size);
+void computer_tick(Computer *comp);
 
 #endif // COMPUTER_16BIT_H

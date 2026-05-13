@@ -15,7 +15,6 @@ def main() -> None:
     while not p.window_should_close():
         p.begin_texture_mode(canvas)
         p.clear_background(p.RAYWHITE)
-
         p.end_texture_mode()
 
         scale: float = min(
@@ -23,11 +22,10 @@ def main() -> None:
             float(p.get_screen_height()) / float(BASE_HEIGHT),
         )
         offset: p.Vector2 = p.Vector2(
-            (p.get_screen_width() - (BASE_WIDTH * scale)) / 2.0,
-            (p.get_screen_height() - (BASE_HEIGHT * scale)) / 2.0,
+            (p.get_screen_width() - (BASE_WIDTH * scale)),
+            (p.get_screen_height() - (BASE_HEIGHT * scale)),
         )
-
-        source: p.Rectangle = p.Rectangle(0, 0, BASE_WIDTH, -BASE_HEIGHT)
+        source: p.Rectangle = p.Rectangle(0, 0, BASE_WIDTH, BASE_HEIGHT)
         dest: p.Rectangle = p.Rectangle(
             offset.x, offset.y, BASE_WIDTH * scale, BASE_HEIGHT * scale
         )

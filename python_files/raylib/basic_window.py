@@ -11,7 +11,6 @@ def main() -> None:
     while not p.window_should_close():
         p.begin_drawing()
         p.clear_background(p.RAYWHITE)
-
         p.end_drawing()
 
     p.close_window()
