@@ -799,3 +799,7 @@ int main(int argc, char **argv)
 
     return 0;
 }
+
+// TODO:
+// ELF loader → memory map + UART → M-mode traps → mret/sret
+// → Sv39 MMU → CLINT timer → PLIC → S-mode → xv6 boots

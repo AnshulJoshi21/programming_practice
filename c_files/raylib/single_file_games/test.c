@@ -1,89 +1,111 @@
-#include "raylib.h"
+#include <assert.h>
+#include <raylib.h>
+#include <raymath.h>
+#include <stdlib.h>
+#include <time.h>
 
-#define RAYGUI_IMPLEMENTATION
-#include "raygui.h"
+static const int BASE_WIDTH  = 800;
+static const int BASE_HEIGHT = 600;
+static const int MAX_BALLS   = 200;
 
-typedef enum { STATE_MENU, STATE_OPTIONS, STATE_PLAYING } GameState;
+static inline float random_float(const float min, const float max)
+{
+    if (min == max)
+        return min;
 
-int main() {
-  // Initialization
-  const int screenWidth = 800;
-  const int screenHeight = 450;
-  InitWindow(screenWidth, screenHeight, "raygui - Simple Game Menu");
+    const float minimum = (min < max) ? min : max;
+    const float maximum = (min < max) ? max : min;
 
-  GuiSetStyle(DEFAULT, TEXT_SIZE, 10);
+    return minimum + ((float)rand() / (float)RAND_MAX) * (maximum - minimum);
+}
 
-  GameState currentState = STATE_MENU;
-  float musicVolume = 0.5f;
-  bool showExitPopup = false;
+typedef struct Ball {
+    Vector2 center;
+    float   radius;
+    float   speed;
+    Vector2 direction;
+    Color   color;
 
-  SetTargetFPS(60);
+} Ball;
 
-  while (!WindowShouldClose()) {
-    // Update Logic (Check for Escape to return to menu)
-    if (IsKeyPressed(KEY_ESCAPE) && currentState != STATE_MENU) {
-      currentState = STATE_MENU;
+static void ball_init(Ball *ball)
+{
+    assert(ball);
+
+    ball->radius = random_float(5, 30);
+    ball->center = (Vector2){
+            random_float(ball->radius, GetScreenWidth() - ball->radius),
+            random_float(ball->radius, GetScreenHeight() - ball->radius),
+    };
+    ball->speed     = random_float(100, 300);
+    ball->direction = (Vector2){
+            GetRandomValue(0, 1) == 0 ? -1 : 1,
+            GetRandomValue(0, 1) == 0 ? -1 : 1,
+    };
+    ball->color = (Color){GetRandomValue(0, 255),
+                          GetRandomValue(0, 255),
+                          GetRandomValue(0, 255),
+                          255};
+}
+
+static void ball_draw(const Ball *ball)
+{
+    assert(ball);
+
+    DrawCircleV(ball->center, ball->radius, ball->color);
+}
+
+static void ball_update(Ball *ball, const float dt)
+{
+    assert(ball);
+
+    ball->direction = Vector2Normalize(ball->direction);
+
+    // move
+    ball->center.x += ball->direction.x * ball->speed * dt;
+    ball->center.y += ball->direction.y * ball->speed * dt;
+
+    // bounds
+    if (ball->center.x <= ball->radius
+        || ball->center.x >= GetScreenWidth() - ball->radius) {
+        ball->direction.x *= -1;
+    }
+    if (ball->center.y <= ball->radius
+        || ball->center.y >= GetScreenHeight() - ball->radius) {
+        ball->direction.y *= -1;
+    }
+}
+
+int main(void)
+{
+    srand(time(NULL));
+
+    InitWindow(BASE_WIDTH, BASE_HEIGHT, "Test");
+
+    Ball balls[MAX_BALLS];
+
+    for (int i = 0; i < MAX_BALLS; i++) {
+        ball_init(&balls[i]);
     }
 
-    // Draw Logic
-    BeginDrawing();
-    ClearBackground(GetColor(GuiGetStyle(DEFAULT, BACKGROUND_COLOR)));
+    while (!WindowShouldClose()) {
+        const float dt = GetFrameTime();
 
-    switch (currentState) {
-    case STATE_MENU: {
-      // Draw a title
-      DrawText("MY AWESOME GAME", screenWidth / 2 - 150, 100, 30, DARKGRAY);
+        for (int i = 0; i < MAX_BALLS; i++) {
+            ball_update(&balls[i], dt);
+        }
 
-      // Menu Buttons
-      if (GuiButton((Rectangle){screenWidth / 2 - 60, 200, 120, 40},
-                    "START GAME")) {
-        currentState = STATE_PLAYING;
-      }
+        BeginDrawing();
+        ClearBackground(RAYWHITE);
 
-      if (GuiButton((Rectangle){screenWidth / 2 - 60, 250, 120, 40},
-                    "OPTIONS")) {
-        currentState = STATE_OPTIONS;
-      }
+        for (int i = 0; i < MAX_BALLS; i++) {
+            ball_draw(&balls[i]);
+        }
 
-      if (GuiButton((Rectangle){screenWidth / 2 - 60, 300, 120, 40}, "EXIT")) {
-        showExitPopup = true;
-      }
-    } break;
-
-    case STATE_OPTIONS: {
-      DrawText("OPTIONS", screenWidth / 2 - 50, 100, 20, GRAY);
-
-      // Volume Slider
-      GuiSliderBar((Rectangle){screenWidth / 2 - 60, 200, 120, 20}, "VOL",
-                   TextFormat("%i%%", (int)(musicVolume * 100)), &musicVolume,
-                   0, 1);
-
-      if (GuiButton((Rectangle){screenWidth / 2 - 60, 300, 120, 40}, "BACK")) {
-        currentState = STATE_MENU;
-      }
-    } break;
-
-    case STATE_PLAYING: {
-      DrawText("THE GAME IS RUNNING", 250, 200, 20, MAROON);
-      DrawText("Press ESC to return to Menu", 250, 230, 10, DARKGRAY);
-    } break;
+        EndDrawing();
     }
 
-    // Global Overlay (e.g., Exit Confirmation Window)
-    if (showExitPopup) {
-      int result = GuiMessageBox(
-          (Rectangle){screenWidth / 2 - 125, screenHeight / 2 - 50, 250, 100},
-          "#159# Closing App", "Do you really want to exit?", "Yes;No");
+    CloseWindow();
 
-      if (result == 1)
-        break; // "Yes" clicked
-      if (result == 2 || result == 0)
-        showExitPopup = false; // "No" or "X" clicked
-    }
-
-    EndDrawing();
-  }
-
-  CloseWindow();
-  return 0;
+    return 0;
 }

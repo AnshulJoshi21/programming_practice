@@ -51,7 +51,6 @@ autoImportCompletions = false
 name = "go"
 auto-format = true
 formatter = { command = "goimports" }
-
 language-servers = ["gopls"]
 
 [[language]]

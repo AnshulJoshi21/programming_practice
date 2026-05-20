@@ -1,58 +1,66 @@
 #include "game_manager.h"
 #include "settings.h"
+
 #include <assert.h>
 #include <math.h>
 #include <raylib.h>
 #include <stdlib.h>
 #include <time.h>
 
-int main(void) {
+int main(void)
+{
+    srand(time(NULL));
 
-  srand(time(NULL));
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+    InitWindow(BASE_WIDTH, BASE_HEIGHT, "Shape Survivors");
 
-  SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-  InitWindow(BASE_WIDTH, BASE_HEIGHT, "Shape Survivors");
+    RenderTexture canvas = LoadRenderTexture(BASE_WIDTH, BASE_HEIGHT);
+    assert(IsRenderTextureValid(canvas));
 
-  const RenderTexture canvas = LoadRenderTexture(BASE_WIDTH, BASE_HEIGHT);
-  assert(IsRenderTextureValid(canvas));
+    GameManager game_manager;
+    game_manager_init(&game_manager);
 
-  GameManager game_manager;
-  game_manager_init(&game_manager);
+    while (!WindowShouldClose()) {
+        const float dt = GetFrameTime();
 
-  while (!WindowShouldClose()) {
+        game_manager_update(&game_manager, dt);
 
-    const float dt = GetFrameTime();
+        BeginTextureMode(canvas);
+        ClearBackground(RAYWHITE);
 
-    game_manager_update(&game_manager, dt);
+        game_manager_draw(&game_manager);
 
-    BeginTextureMode(canvas);
-    ClearBackground(RAYWHITE);
+        EndTextureMode();
 
-    game_manager_draw(&game_manager);
+        const float scale
+                = fminf((float)GetScreenWidth() / (float)BASE_WIDTH,
+                        (float)GetScreenHeight() / (float)BASE_HEIGHT);
+        const Vector2 offset = (Vector2){
+                (GetScreenWidth() - (BASE_WIDTH * scale)) / 2.0f,
+                (GetScreenHeight() - (BASE_HEIGHT * scale)) / 2.0f,
+        };
+        const Rectangle source = (Rectangle){0, 0, BASE_WIDTH, BASE_HEIGHT};
+        const Rectangle dest   = (Rectangle){offset.x,
+                                             offset.y,
+                                             BASE_WIDTH * scale,
+                                             BASE_HEIGHT * scale};
 
-    EndTextureMode();
+        BeginDrawing();
+        ClearBackground(BLACK);
 
-    const float scale = fminf((float)GetScreenWidth() / (float)BASE_WIDTH,
-                              (float)GetScreenHeight() / (float)BASE_HEIGHT);
-    const Vector2 offset = (Vector2){
-        (GetScreenWidth() - (BASE_WIDTH * scale)) / 2.0f,
-        (GetScreenHeight() - (BASE_HEIGHT * scale)) / 2.0f,
-    };
-    const Rectangle source = (Rectangle){0, 0, BASE_WIDTH, BASE_HEIGHT};
-    const Rectangle dest = (Rectangle){offset.x, offset.y, BASE_WIDTH * scale,
-                                       BASE_HEIGHT * scale};
+        DrawTexturePro(canvas.texture,
+                       source,
+                       dest,
+                       (Vector2){0, 0},
+                       0.0f,
+                       WHITE);
 
-    BeginDrawing();
-    ClearBackground(BLACK);
+        EndDrawing();
+    }
 
-    DrawTexturePro(canvas.texture, source, dest, (Vector2){0, 0}, 0.0f, WHITE);
+    UnloadRenderTexture(canvas);
 
-    EndDrawing();
-  }
+    CloseWindow();
 
-  UnloadRenderTexture(canvas);
-
-  CloseWindow();
-
-  return 0;
+    return 0;
 }

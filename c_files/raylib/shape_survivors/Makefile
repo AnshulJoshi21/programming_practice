@@ -15,7 +15,7 @@ SRC_FILES = $(wildcard $(SRC_DIR)/*.c)
 OBJ_FILES = $(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%.o,$(SRC_FILES))
 
 # Flags
-CFLAGS = -Wall -std=c99 -I$(SRC_DIR)
+CFLAGS = -Wall -std=c2x -I$(SRC_DIR)
 LDFLAGS = -lraylib -lm -lpthread -ldl -lrt -lX11
 
 # macOS (uncomment if needed)
