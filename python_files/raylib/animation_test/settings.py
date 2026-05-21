@@ -1,0 +1,8 @@
+BASE_WIDTH: int = 800
+BASE_HEIGHT: int = 600
+
+MAP_WIDTH: int = 2000
+MAP_HEIGHT: int = 1000
+
+SPRITE_WIDTH: int = 50
+SPRITE_HEIGHT: int = 37
