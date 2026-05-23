@@ -27,7 +27,7 @@ def main() -> None:
             (p.get_screen_height() - (BASE_HEIGHT * scale)) / 2.0,
         )
 
-        source: p.Rectangle = p.Rectangle(0, 0, BASE_WIDTH, BASE_HEIGHT)
+        source: p.Rectangle = p.Rectangle(0, 0, BASE_WIDTH, -BASE_HEIGHT)
         dest: p.Rectangle = p.Rectangle(
             offset.x, offset.y, BASE_WIDTH * scale, BASE_HEIGHT * scale
         )

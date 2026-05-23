@@ -6,9 +6,7 @@ from settings import BASE_HEIGHT, BASE_WIDTH
 
 def main() -> None:
     p.set_config_flags(p.ConfigFlags.FLAG_WINDOW_RESIZABLE)
-
-    p.init_window(BASE_WIDTH, BASE_HEIGHT, "")
-    p.set_target_fps(60)
+    p.init_window(BASE_WIDTH, BASE_HEIGHT, "Animation Test")
 
     canvas: p.RenderTexture = p.load_render_texture(BASE_WIDTH, BASE_HEIGHT)
     assert p.is_render_texture_valid(canvas)
@@ -36,7 +34,7 @@ def main() -> None:
             (p.get_screen_height() - (BASE_HEIGHT * scale)) / 2.0,
         )
 
-        source: p.Rectangle = p.Rectangle(0, 0, BASE_WIDTH, BASE_HEIGHT)
+        source: p.Rectangle = p.Rectangle(0, 0, BASE_WIDTH, -BASE_HEIGHT)
         dest: p.Rectangle = p.Rectangle(
             offset.x, offset.y, BASE_WIDTH * scale, BASE_HEIGHT * scale
         )
