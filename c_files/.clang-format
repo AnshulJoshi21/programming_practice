@@ -45,7 +45,7 @@ KeepEmptyLinesAtTheStartOfBlocks: false
 MaxEmptyLinesToKeep: 1
 
 # Wrapping
-BreakBeforeBinaryOperators: NonAssignment
+BreakBeforeBinaryOperators: All
 PenaltyBreakAssignment: 2
 
 # Comments

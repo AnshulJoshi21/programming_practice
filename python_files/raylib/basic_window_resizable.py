@@ -19,12 +19,11 @@ def main() -> None:
         p.end_texture_mode()
 
         scale: float = min(
-            float(p.get_screen_width()) / float(BASE_WIDTH),
-            float(p.get_screen_height()) / float(BASE_HEIGHT),
+            p.get_screen_width() / BASE_WIDTH, p.get_screen_height() / BASE_HEIGHT
         )
         offset: p.Vector2 = p.Vector2(
-            (p.get_screen_width() - (BASE_WIDTH * scale)) / 2.0,
-            (p.get_screen_height() - (BASE_HEIGHT * scale)) / 2.0,
+            (p.get_screen_width() - (BASE_WIDTH * scale)) / 2,
+            (p.get_screen_height() - (BASE_HEIGHT * scale)) / 2,
         )
 
         source: p.Rectangle = p.Rectangle(0, 0, BASE_WIDTH, -BASE_HEIGHT)

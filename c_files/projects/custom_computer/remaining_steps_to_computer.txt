@@ -1,0 +1,9 @@
+ecall + CSRs + traps
+    → UART device
+        → tiny OS (bootloader + syscalls + malloc)
+            → framebuffer device + Raylib display
+                → processes + scheduler
+                    → assembler
+                        → JIT (block translation)
+                            → compiler
+                                → network device + TCP/IP stack

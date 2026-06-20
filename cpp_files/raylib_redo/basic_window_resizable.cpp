@@ -1,5 +1,5 @@
 #include <algorithm>
-#include <cassert>
+#include <assert.h>
 #include <raylib.h>
 
 constexpr int BASE_WIDTH  = 800;
@@ -21,13 +21,11 @@ int main(void) {
         const float scale
             = std::min(static_cast<float>(GetScreenWidth()) / static_cast<float>(BASE_WIDTH),
                        static_cast<float>(GetScreenHeight()) / static_cast<float>(BASE_HEIGHT));
-        const Vector2 offset = {
-            (GetScreenWidth() - (BASE_WIDTH * scale)) / 2.0f,
-            (GetScreenHeight() - (BASE_HEIGHT * scale)) / 2.0f,
-        };
+        const Vector2 offset = {(GetScreenWidth() - (BASE_WIDTH * scale)) / 2.0f,
+                                (GetScreenHeight() - (BASE_HEIGHT * scale)) / 2.0f};
 
         const Rectangle source = {0, 0, BASE_WIDTH, -BASE_HEIGHT};
-        const Rectangle dest   = {offset.x, offset.y, source.width * scale, source.height * scale};
+        const Rectangle dest   = {offset.x, offset.y, BASE_WIDTH * scale, BASE_HEIGHT * scale};
 
         BeginDrawing();
         ClearBackground(BLACK);
@@ -38,8 +36,6 @@ int main(void) {
     }
 
     UnloadRenderTexture(canvas);
-
-    CloseWindow();
 
     return 0;
 }
