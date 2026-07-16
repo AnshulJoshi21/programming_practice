@@ -1,45 +1,38 @@
-#pragma once
+#ifndef SYSTEMS_H
+#define SYSTEMS_H
 
 #include "components.h"
-#include "systems.h"
-#include <assert.h>
-#include <math.h>
+#include <raylib.h>
 
-// LEVEL + XP
-int  system_get_xp_next(const LevelComponent* level);
-void system_add_xp(LevelComponent* level, XpComponent* xp, const int amount);
-void system_consume_pending_levelups(XpComponent* xp);
+#// LEVEL + XP
+int  system_get_exp_next(const CLevel* level);
+void system_add_exp(CLevel* level, CExp* exp, const int amount);
+void system_consume_pending_levelups(CExp* exp);
 
 // RENDER
-Rectangle system_get_dest_rect(const PositionComponent* position, const RectComponent* rect);
-Vector2   system_get_origin(const Rectangle* dest);
-
-void system_draw_rect(const PositionComponent*  position,
-                      const RectComponent*      rect,
-                      const RotationComponent*  rotation,
-                      const ColorComponent*     color,
-                      const AnimationComponent* animation);
-
-void system_draw_circle(const PositionComponent* position,
-                        const CircleComponent*   circle,
-                        const ColorComponent*    color);
-
-void system_draw_centered_text(const PositionComponent* position,
-                               const float              half_w,
-                               const float              half_h,
-                               const TextComponent*     text);
+void system_draw_rect(const CPosition*  position,
+                      const CRect*      rect,
+                      const CRotation*  rotation,
+                      const CColor*     color,
+                      const CAnimation* animation);
+void system_draw_circle(const CPosition* position, const CCircle* circle, const CColor* color);
+void system_draw_centered_text(const CPosition* position,
+                               const float      width,
+                               const float      height,
+                               const CText*     text);
 
 // MOVEMENT
-void system_set_direction(const PositionComponent* position,
-                          MoveComponent*           move,
-                          const Vector2            target_pos);
-void system_move(PositionComponent* position, const MoveComponent* move, const float dt);
-void system_set_bounds(PositionComponent*   position,
-                       const RectComponent* rect,
-                       const Rectangle      bounds);
+void system_set_direction(const CPosition* position, CMovement* movement, const Vector2 target_pos);
+void system_move(CPosition* position, const CMovement* movement, const float dt);
+void system_set_bounds(CPosition*      position,
+                       const float     half_w,
+                       const float     half_h,
+                       const Rectangle bounds);
 
 // UPDATE
-void system_update_lifetime(LifetimeComponent* lifetime, const float dt);
-void system_update_hit_timer(AnimationComponent* animation, const float dt);
+void system_update_lifetime(CLifetime* lifetime, const float dt);
+void system_update_hit_timer(CAnimation* animation, const float dt);
+void system_update_health(CHealth* health);
+bool system_timer_tick(CTimer* timer);
 
-bool system_timer_tick(TimerComponent* timer);
+#endif // SYSTEMS_H

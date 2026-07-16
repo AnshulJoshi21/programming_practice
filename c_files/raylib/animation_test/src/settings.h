@@ -1,7 +1,12 @@
-#pragma once
+#ifndef SETTINGS_H
+#define SETTINGS_H
 
-#define BASE_WIDTH 800
-#define BASE_HEIGHT 600
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 600
 
-#define MAP_WIDTH 10000
-#define MAP_HEIGHT 1000
+#define MAP_SIZE 2000
+
+#define WARRIOR_SPRITE_WIDTH 69
+#define WARRIOR_SPRITE_HEIGHT 44
+
+#endif // SETTINGS_H

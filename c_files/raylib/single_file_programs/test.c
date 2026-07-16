@@ -1,151 +1,181 @@
+#include <assert.h>
 #include <raylib.h>
+#include <raymath.h>
 
-#define RAYGUI_IMPLEMENTATION
-#include <raygui.h>
+static const int SCREEN_WIDTH  = 800;
+static const int SCREEN_HEIGHT = 600;
 
-static void DrawStyleEditControls(void); // Draw and process scroll bar style edition controls
+static const float GROUND_WIDTH = 40.0f;
+static const int   GROUND_COLS  = SCREEN_WIDTH / (int) GROUND_WIDTH;
 
-//------------------------------------------------------------------------------------
-// Program main entry point
-//------------------------------------------------------------------------------------
-int main() {
-    // Initialization
-    //---------------------------------------------------------------------------------------
-    const int screenWidth  = 800;
-    const int screenHeight = 450;
+static const float JUMP_FORCE = 400.0f;
+static const float GRAVITY    = 1200.0f;
 
-    InitWindow(screenWidth, screenHeight, "raygui - GuiScrollPanel()");
+static const float PLAYER_SIZE = 20.0f;
 
-    Rectangle panelRec        = {20, 40, 200, 150};
-    Rectangle panelContentRec = {0, 0, 340, 340};
-    Rectangle panelView       = {0};
-    Vector2   panelScroll     = {99, -20};
+typedef enum CollisionType {
+    COLLISION_NONE,
 
-    bool showContentArea = true;
+    COLLISION_LEFT,
+    COLLISION_RIGHT,
+    COLLISION_TOP,
 
-    SetTargetFPS(60);
-    //---------------------------------------------------------------------------------------
+} CollisionType;
 
-    // Main game loop
-    while (!WindowShouldClose()) // Detect window close button or ESC key
-    {
-        // Update
-        //----------------------------------------------------------------------------------
-        // TODO: Implement required update logic
-        //----------------------------------------------------------------------------------
+static inline CollisionType aabb(Rectangle* player, const Rectangle* ground) {
+    const float dx = (ground->x + ground->width / 2.0f) - (player->x + player->width / 2.0f);
+    const float dy = (ground->y + ground->height / 2.0f) - (player->y + player->height / 2.0f);
 
-        // Draw
-        //----------------------------------------------------------------------------------
-        BeginDrawing();
+    const float total_half_w = (player->width + ground->width) / 2.0f;
+    const float total_half_h = (player->height + ground->height) / 2.0f;
 
-        ClearBackground(RAYWHITE);
+    const float px = total_half_w - fabsf(dx);
+    const float py = total_half_h - fabsf(dy);
 
-        DrawText(TextFormat("[%f, %f]", panelScroll.x, panelScroll.y), 4, 4, 20, RED);
-
-        GuiScrollPanel(panelRec, NULL, panelContentRec, &panelScroll, &panelView);
-
-        BeginScissorMode(panelView.x, panelView.y, panelView.width, panelView.height);
-        GuiGrid((Rectangle){panelRec.x + panelScroll.x,
-                            panelRec.y + panelScroll.y,
-                            panelContentRec.width,
-                            panelContentRec.height},
-                NULL,
-                16,
-                3,
-                NULL);
-        EndScissorMode();
-
-        if (showContentArea)
-            DrawRectangle(panelRec.x + panelScroll.x,
-                          panelRec.y + panelScroll.y,
-                          panelContentRec.width,
-                          panelContentRec.height,
-                          Fade(RED, 0.1));
-
-        DrawStyleEditControls();
-
-        GuiCheckBox((Rectangle){565, 80, 20, 20}, "SHOW CONTENT AREA", &showContentArea);
-
-        GuiSliderBar((Rectangle){590, 385, 145, 15},
-                     "WIDTH",
-                     TextFormat("%i", (int) panelContentRec.width),
-                     &panelContentRec.width,
-                     1,
-                     600);
-        GuiSliderBar((Rectangle){590, 410, 145, 15},
-                     "HEIGHT",
-                     TextFormat("%i", (int) panelContentRec.height),
-                     &panelContentRec.height,
-                     1,
-                     400);
-
-        EndDrawing();
-        //----------------------------------------------------------------------------------
+    if (px > 0 && py > 0) {
+        if (px < py) {
+            if (dx > 0) {
+                player->x -= px;
+                return COLLISION_LEFT;
+            } else {
+                player->x += px;
+                return COLLISION_RIGHT;
+            }
+        } else {
+            if (dy > 0) {
+                player->y -= py;
+                return COLLISION_TOP;
+            }
+        }
     }
-
-    // De-Initialization
-    //--------------------------------------------------------------------------------------
-    CloseWindow(); // Close window and OpenGL context
-    //--------------------------------------------------------------------------------------
-
-    return 0;
+    return COLLISION_NONE;
 }
 
-// Draw and process scroll bar style edition controls
-static void DrawStyleEditControls(void) {
-    // ScrollPanel style controls
-    //----------------------------------------------------------
-    GuiGroupBox((Rectangle){550, 170, 220, 205}, "SCROLLBAR STYLE");
+typedef struct Player {
+    Rectangle rect;
+    Color     color;
 
-    int style = GuiGetStyle(SCROLLBAR, BORDER_WIDTH);
-    GuiLabel((Rectangle){555, 195, 110, 10}, "BORDER_WIDTH");
-    GuiSpinner((Rectangle){670, 190, 90, 20}, NULL, &style, 0, 6, false);
-    GuiSetStyle(SCROLLBAR, BORDER_WIDTH, style);
+    float hspeed;
+    float vspeed;
 
-    style = GuiGetStyle(SCROLLBAR, ARROWS_SIZE);
-    GuiLabel((Rectangle){555, 220, 110, 10}, "ARROWS_SIZE");
-    GuiSpinner((Rectangle){670, 215, 90, 20}, NULL, &style, 4, 14, false);
-    GuiSetStyle(SCROLLBAR, ARROWS_SIZE, style);
+    Vector2 direction;
 
-    style = GuiGetStyle(SCROLLBAR, SLIDER_PADDING);
-    GuiLabel((Rectangle){555, 245, 110, 10}, "SLIDER_PADDING");
-    GuiSpinner((Rectangle){670, 240, 90, 20}, NULL, &style, 0, 14, false);
-    GuiSetStyle(SCROLLBAR, SLIDER_PADDING, style);
+    bool on_ground;
+    bool on_left_wall;
+    bool on_right_wall;
+} Player;
 
-    bool scrollBarArrows = GuiGetStyle(SCROLLBAR, ARROWS_VISIBLE);
-    GuiCheckBox((Rectangle){565, 280, 20, 20}, "ARROWS_VISIBLE", &scrollBarArrows);
-    GuiSetStyle(SCROLLBAR, ARROWS_VISIBLE, scrollBarArrows);
+static void player_init(Player* player) {
+    assert(player);
 
-    style = GuiGetStyle(SCROLLBAR, SLIDER_PADDING);
-    GuiLabel((Rectangle){555, 325, 110, 10}, "SLIDER_PADDING");
-    GuiSpinner((Rectangle){670, 320, 90, 20}, NULL, &style, 0, 14, false);
-    GuiSetStyle(SCROLLBAR, SLIDER_PADDING, style);
+    player->rect  = (Rectangle){0, 0, PLAYER_SIZE, PLAYER_SIZE};
+    player->color = BLUE;
 
-    style = GuiGetStyle(SCROLLBAR, SLIDER_WIDTH);
-    GuiLabel((Rectangle){555, 350, 110, 10}, "SLIDER_WIDTH");
-    GuiSpinner((Rectangle){670, 345, 90, 20}, NULL, &style, 2, 100, false);
-    GuiSetStyle(SCROLLBAR, SLIDER_WIDTH, style);
+    player->hspeed = 250.0f;
+    player->vspeed = 0.0f;
 
-    const char* text                = GuiGetStyle(LISTVIEW, SCROLLBAR_SIDE) == SCROLLBAR_LEFT_SIDE
-                                          ? "SCROLLBAR: LEFT"
-                                          : "SCROLLBAR: RIGHT";
-    bool        toggleScrollBarSide = GuiGetStyle(LISTVIEW, SCROLLBAR_SIDE);
-    GuiToggle((Rectangle){560, 110, 200, 35}, text, &toggleScrollBarSide);
-    GuiSetStyle(LISTVIEW, SCROLLBAR_SIDE, toggleScrollBarSide);
-    //----------------------------------------------------------
+    player->direction = (Vector2){0, 0};
 
-    // ScrollBar style controls
-    //----------------------------------------------------------
-    GuiGroupBox((Rectangle){550, 20, 220, 135}, "SCROLLPANEL STYLE");
+    player->on_ground     = false;
+    player->on_left_wall  = false;
+    player->on_right_wall = false;
+}
 
-    style = GuiGetStyle(LISTVIEW, SCROLLBAR_WIDTH);
-    GuiLabel((Rectangle){555, 35, 110, 10}, "SCROLLBAR_WIDTH");
-    GuiSpinner((Rectangle){670, 30, 90, 20}, NULL, &style, 6, 30, false);
-    GuiSetStyle(LISTVIEW, SCROLLBAR_WIDTH, style);
+static void player_draw(const Player* player) {
+    assert(player);
 
-    style = GuiGetStyle(DEFAULT, BORDER_WIDTH);
-    GuiLabel((Rectangle){555, 60, 110, 10}, "BORDER_WIDTH");
-    GuiSpinner((Rectangle){670, 55, 90, 20}, NULL, &style, 0, 20, false);
-    GuiSetStyle(DEFAULT, BORDER_WIDTH, style);
-    //----------------------------------------------------------
+    DrawRectangleRec(player->rect, player->color);
+}
+
+static void player_update(Player* player, const float dt) {
+    assert(player);
+
+    // horizontal movement
+    player->direction.x = (float) IsKeyDown(KEY_D) - (float) IsKeyDown(KEY_A);
+    player->direction   = Vector2Normalize(player->direction);
+
+    player->rect.x += player->direction.x * player->hspeed * dt;
+
+    // initiate jump;
+    if (IsKeyPressed(KEY_SPACE)) {
+        if (player->on_ground) {
+            player->vspeed = -JUMP_FORCE;
+
+        } else if (player->on_left_wall) {
+            player->rect.x += 2.0f;
+            player->vspeed = (-JUMP_FORCE * 75 / 100);
+
+        } else if (player->on_right_wall) {
+            player->rect.x -= 2.0f;
+            player->vspeed = (-JUMP_FORCE * 75 / 100);
+        }
+    }
+
+    // jumping
+    player->vspeed += GRAVITY * dt;
+    player->rect.y += player->vspeed * dt;
+
+    // bounds
+    player->rect.x = fmaxf(0.0f, fminf(player->rect.x, SCREEN_WIDTH - player->rect.width));
+    player->rect.y = fmaxf(0.0f, fminf(player->rect.y, SCREEN_HEIGHT - player->rect.height));
+}
+
+int main(void) {
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "");
+    SetTargetFPS(60);
+
+    Rectangle ground_arr[GROUND_COLS];
+
+    for (int i = 0; i < GROUND_COLS; i++) {
+        float rect_y      = GetRandomValue(100, SCREEN_HEIGHT - 10);
+        float rect_height = SCREEN_HEIGHT - rect_y;
+
+        ground_arr[i] = (Rectangle){i * GROUND_WIDTH, rect_y, GROUND_WIDTH, rect_height};
+    }
+
+    Player player;
+    player_init(&player);
+
+    while (!WindowShouldClose()) {
+        const float dt = GetFrameTime();
+
+        player_update(&player, dt);
+
+        player.on_ground     = false;
+        player.on_left_wall  = false;
+        player.on_right_wall = false;
+
+        for (int i = 0; i < GROUND_COLS; i++) {
+            CollisionType collision = aabb(&player.rect, &ground_arr[i]);
+
+            if (collision == COLLISION_TOP)
+                player.on_ground = true;
+
+            if (collision == COLLISION_LEFT)
+                player.on_left_wall = true;
+
+            if (collision == COLLISION_RIGHT)
+                player.on_right_wall = true;
+
+            if (player.vspeed > 0 && collision != COLLISION_NONE) {
+                player.vspeed = 0.0f;
+            }
+        }
+
+        BeginDrawing();
+        ClearBackground(RAYWHITE);
+
+        for (int i = 0; i < GROUND_COLS; i++) {
+            DrawRectangleRec(ground_arr[i], GRAY);
+            DrawRectangleLinesEx(ground_arr[i], 2.0f, BLACK);
+        }
+
+        player_draw(&player);
+
+        EndDrawing();
+    }
+
+    CloseWindow();
+
+    return 0;
 }

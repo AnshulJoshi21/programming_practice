@@ -1,17 +1,12 @@
-#pragma once
+#ifndef COLLISION_MANAGER_H
+#define COLLISION_MANAGER_H
 
 #include "bullets/bullet_manager.h"
 #include "drops/drop_manager.h"
 #include "enemies/enemy_manager.h"
 #include "player.h"
 
-typedef enum {
-    COLLISION_TYPE_CHECK,
-    COLLISION_TYPE_ONE_WAY,
-    COLLISION_TYPE_TWO_WAY,
-} CollisionType;
-
-typedef struct {
+typedef struct CollisionManager {
     Player*        player;
     EnemyManager*  enemy_manager;
     BulletManager* bullet_manager;
@@ -23,4 +18,9 @@ void collision_manager_init(CollisionManager* cm,
                             EnemyManager*     enemy_manager,
                             BulletManager*    bullet_manager,
                             DropManager*      drop_manager);
-void collision_manager_update(CollisionManager* cm);
+void collision_manager_player_vs_enemy(CollisionManager* cm);
+void collision_manager_player_vs_drop(CollisionManager* cm);
+void collision_manager_bullet_vs_enemy(CollisionManager* cm);
+void collision_manager_enemy_vs_enemy(CollisionManager* cm);
+
+#endif // COLLISION_MANAGER_H

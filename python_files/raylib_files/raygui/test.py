@@ -1,0 +1,28 @@
+import pyray as p
+
+SCREEN_WIDTH: int = 800
+SCREEN_HEIGHT: int = 600
+
+
+def main() -> None:
+    p.init_window(SCREEN_WIDTH, SCREEN_HEIGHT, "")
+    p.set_target_fps(60)
+
+    wood: int = 0
+
+    while not p.window_should_close():
+        if p.gui_button(p.Rectangle(40, 100, 100, 40), "Chop Tree"):
+            wood += 1
+
+        p.begin_drawing()
+        p.clear_background(p.RAYWHITE)
+
+        p.gui_label(p.Rectangle(40, 40, 300, 30), f"Wood: {wood}")
+
+        p.end_drawing()
+
+    p.close_window()
+
+
+if __name__ == "__main__":
+    main()

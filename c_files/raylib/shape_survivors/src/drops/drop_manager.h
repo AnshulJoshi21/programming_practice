@@ -1,17 +1,21 @@
-#pragma once
+#ifndef DROP_MANAGER_H
+#define DROP_MANAGER_H
 
-#include "../components.h"
 #include "drop.h"
 
-#define MAX_DROPS 1000
+#define MAX_DROPS 200
 
-typedef struct {
-    Drop drops[MAX_DROPS];
-    int  drops_size;
+typedef struct DropManager {
+    Drop     drops[MAX_DROPS];
+    CSpawner spawner;
 } DropManager;
 
-void drop_manager_init(DropManager* em);
-void drop_manager_spawn(DropManager* em, const DropType type, const Vector2 start_pos);
-void drop_manager_despawn(DropManager* em, const int index);
-void drop_manager_update(DropManager* em);
-void drop_manager_draw(const DropManager* em);
+DropType drop_manager_get_random_drop_type(void);
+
+void drop_manager_init(DropManager* dm);
+void drop_manager_spawn(DropManager* dm, const DropType type, const Vector2 start_pos);
+void drop_manager_despawn(DropManager* dm, const int index);
+void drop_manager_update(DropManager* dm);
+void drop_manager_draw(const DropManager* dm);
+
+#endif // DROP_MANAGER_H

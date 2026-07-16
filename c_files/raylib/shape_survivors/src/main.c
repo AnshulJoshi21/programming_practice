@@ -7,7 +7,7 @@
 #include <time.h>
 
 int main(void) {
-    srand(time(NULL));
+    srand((unsigned) time(NULL));
 
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(BASE_WIDTH, BASE_HEIGHT, "Shape Survivors");
@@ -18,10 +18,12 @@ int main(void) {
     GameManager game_manager;
     game_manager_init(&game_manager);
 
+    Vector2 world_mouse = (Vector2){0, 0};
+
     while (!WindowShouldClose()) {
         const float dt = GetFrameTime();
 
-        game_manager_update(&game_manager, dt);
+        game_manager_update(&game_manager, dt, world_mouse);
 
         BeginTextureMode(canvas);
         ClearBackground(RAYWHITE);
@@ -39,6 +41,16 @@ int main(void) {
         const Rectangle dest
             = (Rectangle){offset.x, offset.y, BASE_WIDTH * scale, BASE_HEIGHT * scale};
 
+        const Vector2 screen_mouse = GetMousePosition();
+
+        world_mouse = (Vector2){
+            (screen_mouse.x - offset.x) / scale,
+            (screen_mouse.y - offset.y) / scale,
+        };
+
+        world_mouse.x = fmaxf(0.0f, fminf(world_mouse.x, BASE_WIDTH));
+        world_mouse.y = fmaxf(0.0f, fminf(world_mouse.y, BASE_HEIGHT));
+
         BeginDrawing();
         ClearBackground(BLACK);
 
@@ -48,6 +60,8 @@ int main(void) {
     }
 
     UnloadRenderTexture(canvas);
+
+    CloseWindow();
 
     return 0;
 }

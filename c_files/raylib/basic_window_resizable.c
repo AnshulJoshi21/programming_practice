@@ -2,15 +2,15 @@
 #include <math.h>
 #include <raylib.h>
 
-#define BASE_WIDTH 800
-#define BASE_HEIGHT 600
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 600
 
 int main(void) {
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-    InitWindow(BASE_WIDTH, BASE_HEIGHT, "");
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "");
     SetTargetFPS(60);
 
-    RenderTexture canvas = LoadRenderTexture(BASE_WIDTH, BASE_HEIGHT);
+    RenderTexture canvas = LoadRenderTexture(SCREEN_WIDTH, SCREEN_HEIGHT);
     assert(IsRenderTextureValid(canvas));
 
     while (!WindowShouldClose()) {
@@ -18,14 +18,14 @@ int main(void) {
         ClearBackground(RAYWHITE);
         EndTextureMode();
 
-        const float   scale  = fminf((float) GetScreenWidth() / (float) BASE_WIDTH,
-                                  (float) GetScreenHeight() / (float) BASE_HEIGHT);
-        const Vector2 offset = (Vector2){(GetScreenWidth() - (BASE_WIDTH * scale)) / 2.0f,
-                                         (GetScreenHeight() - (BASE_HEIGHT * scale)) / 2.0f};
+        const float   scale  = fminf((float) GetScreenWidth() / (float) SCREEN_WIDTH,
+                                  (float) GetScreenHeight() / (float) SCREEN_HEIGHT);
+        const Vector2 offset = (Vector2){(GetScreenWidth() - (SCREEN_WIDTH * scale)) / 2.0f,
+                                         (GetScreenHeight() - (SCREEN_HEIGHT * scale)) / 2.0f};
 
-        const Rectangle source = (Rectangle){0, 0, BASE_WIDTH, -BASE_HEIGHT};
-        const Rectangle dest =
-            (Rectangle){offset.x, offset.y, BASE_WIDTH * scale, BASE_HEIGHT * scale};
+        const Rectangle source = (Rectangle){0, 0, SCREEN_WIDTH, -SCREEN_HEIGHT};
+        const Rectangle dest
+            = (Rectangle){offset.x, offset.y, SCREEN_WIDTH * scale, SCREEN_HEIGHT * scale};
 
         BeginDrawing();
         ClearBackground(BLACK);
@@ -36,6 +36,8 @@ int main(void) {
     }
 
     UnloadRenderTexture(canvas);
+
+    CloseWindow();
 
     return 0;
 }

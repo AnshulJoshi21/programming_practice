@@ -4,13 +4,14 @@
 void bullet_manager_init(BulletManager* bm) {
     assert(bm);
 
-    bm->spawner = (SpawnerComponent){.max = 200, .current = 0};
+    bm->spawner.max     = MAX_BULLETS;
+    bm->spawner.current = 0;
 }
 
-void bullet_manager_spawn(BulletManager*      bm,
-                          const BulletConfig* config,
-                          const Vector2       start_pos,
-                          const Vector2       target_pos) {
+void bullet_manager_spawn(BulletManager*     bm,
+                          const BulletConfig config,
+                          const Vector2      start_pos,
+                          const Vector2      target_pos) {
     assert(bm);
 
     if (bm->spawner.current >= bm->spawner.max)
@@ -22,6 +23,9 @@ void bullet_manager_spawn(BulletManager*      bm,
 
 void bullet_manager_despawn(BulletManager* bm, const int index) {
     assert(bm);
+
+    if (index < 0 || index >= bm->spawner.current)
+        return;
 
     bm->bullets[index] = bm->bullets[bm->spawner.current - 1];
     bm->spawner.current--;

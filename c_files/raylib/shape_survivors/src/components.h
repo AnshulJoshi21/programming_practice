@@ -1,86 +1,83 @@
-#pragma once
+#ifndef COMPONENTS_H
+#define COMPONENTS_H
 
-#include "drops/drop_type.h"
 #include <raylib.h>
 
-typedef struct {
-    int current;
-} LevelComponent;
+typedef struct CLevel {
+    int level;
+} CLevel;
 
-typedef struct {
-    int current;
-    int next;
+typedef struct CExp {
+    int exp;
+    int exp_next;
     int pending_levelups;
-} XpComponent;
+} CExp;
 
-typedef struct {
+typedef struct CState {
     bool active;
-} StateComponent;
+} CState;
 
-typedef struct {
+typedef struct CPosition {
     float x;
     float y;
-} PositionComponent;
+} CPosition;
 
-typedef struct {
+typedef struct CRect {
     float width;
     float height;
-} RectComponent;
+} CRect;
 
-typedef struct {
+typedef struct CCircle {
     float radius;
-} CircleComponent;
+} CCircle;
 
-typedef struct {
+typedef struct CRotation {
     float angle;
-} RotationComponent;
+} CRotation;
 
-typedef struct {
+typedef struct CColor {
     Color tint;
-} ColorComponent;
+} CColor;
 
-typedef struct {
+typedef struct CText {
     const char* text;
     float       font_size;
     float       spacing;
     Color       tint;
-} TextComponent;
+} CText;
 
-typedef struct {
+typedef struct CMovement {
     float   speed;
     Vector2 direction;
-} MoveComponent;
+} CMovement;
 
-typedef struct {
+typedef struct CHealth {
     int max;
     int current;
-} HealthComponent;
+} CHealth;
 
-typedef struct {
-    int value;
-} DamageComponent;
+typedef struct CDamage {
+    int amount;
+} CDamage;
 
-typedef struct {
+typedef struct CLifetime {
     float max;
     float remaining;
-} LifetimeComponent;
+} CLifetime;
 
-typedef struct {
-    float max_hit_timer;
+typedef struct CAnimation {
+    float hit_timer_max;
     float hit_timer;
-} AnimationComponent;
+} CAnimation;
 
-typedef struct {
+typedef struct CSpawner {
     int max;
     int current;
-} SpawnerComponent;
+} CSpawner;
 
-typedef struct {
+typedef struct CTimer {
     float elapsed;
     float interval;
-} TimerComponent;
+} CTimer;
 
-typedef struct {
-    DropType type;
-    int      amount;
-} DropComponent;
+#endif // COMPONENTS_H

@@ -57,3 +57,23 @@ language-servers = ["gopls"]
 name = "html"
 language-servers = [{ name = "superhtml", except-features = ["format"] }, "vscode-html-language-server"]
 auto-format = true
+
+[[language]]
+name = "typescript"
+roots = ["deno.json", "deno.jsonc", "package.json"]
+file-types = ["ts", "tsx"]
+auto-format = true
+language-servers = ["deno-lsp"]
+
+[[language]]
+name = "javascript"
+roots = ["deno.json", "deno.jsonc", "package.json"]
+file-types = ["js", "jsx"]
+auto-format = true
+language-servers = ["deno-lsp"]
+
+[language-server.deno-lsp]
+command = "deno"
+args = ["lsp"]
+config.deno.enable = true
+

@@ -1,24 +1,28 @@
-#pragma once
+#ifndef PLAYER_H
+#define PLAYER_H
 
-#include "./bullets/bullet_manager.h"
+#include "bullets/bullet.h"
 #include "components.h"
+#include <raylib.h>
 
-typedef struct {
-    LevelComponent     level;
-    XpComponent        xp;
-    PositionComponent  position;
-    RectComponent      rect;
-    RotationComponent  rotation;
-    ColorComponent     color;
-    TextComponent      text;
-    MoveComponent      move;
-    HealthComponent    health;
-    AnimationComponent animation;
-    BulletConfig       bullet_config;
-    TimerComponent     bullet_timer;
+typedef struct Player {
+    CLevel     level;
+    CExp       exp;
+    CPosition  position;
+    CRect      rect;
+    CRotation  rotation;
+    CColor     color;
+    CText      text;
+    CMovement  movement;
+    CHealth    health;
+    CAnimation animation;
+    CTimer     bullet_timer;
 
+    BulletConfig bullet_config;
 } Player;
 
 void player_init(Player* player);
 void player_update(Player* player, const float dt);
 void player_draw(const Player* player);
+
+#endif // PLAYER_H
