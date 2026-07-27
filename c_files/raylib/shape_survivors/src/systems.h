@@ -5,11 +5,10 @@
 #include <raylib.h>
 
 #// LEVEL + XP
-int  system_get_exp_next(const CLevel* level);
-void system_add_exp(CLevel* level, CExp* exp, const int amount);
-void system_consume_pending_levelups(CExp* exp);
+int system_get_xp_next(const CLevel* level);
 
 // RENDER
+void system_draw_background_grid(void);
 void system_draw_rect(const CPosition*  position,
                       const CRect*      rect,
                       const CRotation*  rotation,
@@ -30,8 +29,9 @@ void system_set_bounds(CPosition*      position,
                        const Rectangle bounds);
 
 // UPDATE
-void system_update_lifetime(CLifetime* lifetime, const float dt);
+void system_update_xp(CLevel* level, CXp* xp);
 void system_update_hit_timer(CAnimation* animation, const float dt);
+void system_update_lifetime(CLifetime* lifetime, const float dt);
 void system_update_health(CHealth* health);
 bool system_timer_tick(CTimer* timer);
 

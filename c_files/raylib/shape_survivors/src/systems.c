@@ -1,40 +1,30 @@
+#include "settings.h"
 #include "systems.h"
 #include "utils.h"
 #include <assert.h>
 #include <math.h>
 
-// LEVEL + EXP
-int system_get_exp_next(const CLevel* level) {
+// LEVEL + XP
+int system_get_xp_next(const CLevel* level) {
     assert(level);
 
-    return 10 + ((level->level * level->level) * 2);
-}
-
-void system_add_exp(CLevel* level, CExp* exp, const int amount) {
-    assert(level);
-    assert(exp);
-
-    exp->exp += amount;
-
-    while (exp->exp >= exp->exp_next) {
-        exp->exp -= exp->exp_next;
-        level->level++;
-        exp->pending_levelups++;
-
-        exp->exp_next = system_get_exp_next(level);
-    }
-}
-
-void system_consume_pending_levelups(CExp* exp) {
-    assert(exp);
-
-    if (exp->pending_levelups > 0) {
-        exp->pending_levelups--;
-        return;
-    }
+    return 10 + ((level->current * level->current) * 2);
 }
 
 // RENDER
+void system_draw_background_grid(void) {
+    const float thick      = 2.0f;
+    const Color color      = LIGHTGRAY;
+    const float block_size = 100.0f;
+
+    for (float x = 0; x < MAP_SIZE; x += block_size) {
+        DrawLineEx((Vector2){x, 0}, (Vector2){x, MAP_SIZE}, thick, color);
+    }
+    for (float y = 0; y < MAP_SIZE; y += block_size) {
+        DrawLineEx((Vector2){0, y}, (Vector2){MAP_SIZE, y}, thick, color);
+    }
+}
+
 void system_draw_rect(const CPosition*  position,
                       const CRect*      rect,
                       const CRotation*  rotation,
@@ -49,7 +39,7 @@ void system_draw_rect(const CPosition*  position,
     const Rectangle dest   = (Rectangle){position->x, position->y, rect->width, rect->height};
     const Vector2   origin = (Vector2){dest.width / 2.0f, dest.height / 2.0f};
 
-    const Color tint = (animation->hit_timer > 0) ? RED : color->tint;
+    const Color tint = (animation->hit_timer_current > 0) ? RED : color->tint;
 
     DrawRectanglePro(dest, origin, rotation->angle, tint);
 }
@@ -71,8 +61,7 @@ void system_draw_centered_text(const CPosition* position,
     assert(text);
 
     const Rectangle bounds = (Rectangle){position->x, position->y, width, height};
-    utils_center_and_draw_text(
-        ORIGIN_CENTER, text->text, bounds, text->font_size, text->spacing, text->tint);
+    utils_center_and_draw_text(ORIGIN_CENTER, bounds, text);
 }
 
 // MOVEMENT
@@ -98,6 +87,11 @@ void system_move(CPosition* position, const CMovement* movement, const float dt)
     position->y += movement->direction.y * movement->speed * dt;
 }
 
+void system_move_orbital(const CPosition* position, COrbit* orbit, const float dt) {
+    assert(position);
+    assert(orbit);
+}
+
 void system_set_bounds(CPosition*      position,
                        const float     half_w,
                        const float     half_h,
@@ -109,21 +103,34 @@ void system_set_bounds(CPosition*      position,
 }
 
 // UPDATE
+void system_update_xp(CLevel* level, CXp* xp) {
+    assert(level);
+    assert(xp);
+
+    if (xp->current >= xp->next) {
+        level->current++;
+        level->pending++;
+
+        xp->current -= xp->next;
+        xp->next = system_get_xp_next(level);
+    }
+}
+
 void system_update_lifetime(CLifetime* lifetime, const float dt) {
     assert(lifetime);
 
-    lifetime->remaining -= dt;
-    if (lifetime->remaining <= 0) {
-        lifetime->remaining = 0;
+    lifetime->current -= dt;
+    if (lifetime->current <= 0) {
+        lifetime->current = 0;
     }
 }
 
 void system_update_hit_timer(CAnimation* animation, const float dt) {
     assert(animation);
 
-    animation->hit_timer -= dt;
-    if (animation->hit_timer <= 0) {
-        animation->hit_timer = 0;
+    animation->hit_timer_current -= dt;
+    if (animation->hit_timer_current <= 0) {
+        animation->hit_timer_current = 0;
     }
 }
 

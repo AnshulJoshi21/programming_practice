@@ -1,9 +1,9 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.15)
 
 project(game C)
 
-add_exectable(game src/main.c)
+add_executable(game src/main.c)
 
 target_compile_features(game PRIVATE c_std_17)
 target_compile_options(game PRIVATE -Wall -Wextra -Wpedantic -O2)
-target_compile_options(game PRIVATE -lraylib -lGL -lm -lpthread -ldl -lrt -lX11)
+target_link_libraries(game PRIVATE -lraylib -lGL -lm -lpthread -ldl -lrt -lX11)

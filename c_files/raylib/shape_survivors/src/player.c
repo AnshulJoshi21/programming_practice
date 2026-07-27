@@ -7,11 +7,11 @@
 void player_init(Player* player) {
     assert(player);
 
-    player->level.level = 1;
+    player->level.current = 1;
+    player->level.pending = 0;
 
-    player->exp.exp              = 0;
-    player->exp.exp_next         = system_get_exp_next(&player->level);
-    player->exp.pending_levelups = 0;
+    player->xp.current = 0;
+    player->xp.next    = system_get_xp_next(&player->level);
 
     player->position.x = MAP_SIZE / 2.0f;
     player->position.y = player->position.x;
@@ -23,7 +23,7 @@ void player_init(Player* player) {
 
     player->color.tint = BLUE;
 
-    player->text.text      = "P";
+    player->text.string    = "P";
     player->text.font_size = 20.0f;
     player->text.spacing   = 0.0f;
     player->text.tint      = WHITE;
@@ -34,8 +34,8 @@ void player_init(Player* player) {
     player->health.max     = 100;
     player->health.current = player->health.max;
 
-    player->animation.hit_timer_max = 0.2f;
-    player->animation.hit_timer     = 0.0f;
+    player->animation.hit_timer_max     = 0.2f;
+    player->animation.hit_timer_current = 0.0f;
 
     player->bullet_timer.elapsed  = GetTime();
     player->bullet_timer.interval = 1.0f;
@@ -58,6 +58,7 @@ void player_update(Player* player, const float dt) {
     assert(player);
 
     handle_input(player);
+    system_update_xp(&player->level, &player->xp);
     system_move(&player->position, &player->movement, dt);
     system_set_bounds(&player->position,
                       player->rect.width / 2.0f,

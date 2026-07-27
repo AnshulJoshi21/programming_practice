@@ -1,12 +1,12 @@
 #include "game_manager.h"
 #include "settings.h"
 #include "systems.h"
-#include "ui.h"
 #include <assert.h>
 #include <math.h>
 
 void game_manager_init(GameManager* gm) {
     assert(gm);
+    gm->current_state = GAME_STATE_RUNNING;
 
     player_init(&gm->player);
     enemy_manager_init(&gm->enemy_manager);
@@ -18,6 +18,9 @@ void game_manager_init(GameManager* gm) {
                            &gm->enemy_manager,
                            &gm->bullet_manager,
                            &gm->drop_manager);
+
+    ui_manager_init(&gm->ui_manager, &gm->player, &gm->enemy_manager);
+    upgrade_manager_init(&gm->upgrade_manager, &gm->player);
 
     gm->camera = (Camera2D){
         .offset   = (Vector2){BASE_WIDTH / 2.0f, BASE_HEIGHT / 2.0f},
@@ -57,63 +60,93 @@ static Vector2 get_player_target(const GameManager* gm) {
     return target;
 }
 
-void game_manager_update(GameManager* gm, const float dt, const Vector2 world_mouse) {
+void game_manager_update(GameManager* gm, const float dt) {
     assert(gm);
 
-    player_update(&gm->player, dt);
-    enemy_manager_update(&gm->enemy_manager,
-                         dt,
-                         (Vector2){gm->player.position.x, gm->player.position.y},
-                         &gm->drop_manager);
-    bullet_manager_update(&gm->bullet_manager, dt);
-    drop_manager_update(&gm->drop_manager);
+    switch (gm->current_state) {
+        case GAME_STATE_TITLE:
+            break;
 
-    update_camera(gm);
+        case GAME_STATE_RUNNING: {
+            player_update(&gm->player, dt);
+            enemy_manager_update(&gm->enemy_manager,
+                                 dt,
+                                 (Vector2){gm->player.position.x, gm->player.position.y},
+                                 &gm->drop_manager);
+            bullet_manager_update(&gm->bullet_manager, dt);
+            drop_manager_update(&gm->drop_manager);
 
-    // spawn
-    if (system_timer_tick(&gm->player.bullet_timer)) {
-        bullet_manager_spawn(&gm->bullet_manager,
-                             gm->player.bullet_config,
-                             (Vector2){gm->player.position.x, gm->player.position.y},
-                             get_player_target(gm));
+            update_camera(gm);
+
+            // spawn
+            if (system_timer_tick(&gm->player.bullet_timer)) {
+                bullet_manager_spawn(&gm->bullet_manager,
+                                     gm->player.bullet_config,
+                                     (Vector2){gm->player.position.x, gm->player.position.y},
+                                     get_player_target(gm));
+            }
+
+            // collisions
+            collision_manager_player_vs_enemy(&gm->collision_manager);
+            collision_manager_player_vs_drop(&gm->collision_manager);
+            collision_manager_bullet_vs_enemy(&gm->collision_manager);
+            collision_manager_enemy_vs_enemy(&gm->collision_manager);
+
+            // upgrade state change
+            if (gm->player.level.pending > 0) {
+                gm->player.level.pending--;
+                upgrade_manager_fill_choices(&gm->upgrade_manager);
+                gm->current_state = GAME_STATE_UPGRADE;
+            }
+
+        } break;
+
+        case GAME_STATE_UPGRADE: {
+            upgrade_manager_apply_upgrade(&gm->upgrade_manager);
+
+            if (upgrade_manager_is_choices_empty(&gm->upgrade_manager)
+                && gm->upgrade_manager.selected_upgrade == UPGRADE_TYPE_NONE)
+                gm->current_state = GAME_STATE_RUNNING;
+        } break;
+
+        case GAME_STATE_EXIT:
+            break;
     }
-
-    // collisions
-    collision_manager_player_vs_enemy(&gm->collision_manager);
-    collision_manager_player_vs_drop(&gm->collision_manager);
-    collision_manager_bullet_vs_enemy(&gm->collision_manager);
-    collision_manager_enemy_vs_enemy(&gm->collision_manager);
 }
 
-static void draw_background_grid(void) {
-    const float thick      = 2.0f;
-    const Color color      = LIGHTGRAY;
-    const float block_size = 100.0f;
-
-    for (float x = 0; x < MAP_SIZE; x += block_size) {
-        DrawLineEx((Vector2){x, 0}, (Vector2){x, MAP_SIZE}, thick, color);
-    }
-    for (float y = 0; y < MAP_SIZE; y += block_size) {
-        DrawLineEx((Vector2){0, y}, (Vector2){MAP_SIZE, y}, thick, color);
-    }
-}
-
-void game_manager_draw(const GameManager* gm) {
+void game_manager_draw(GameManager* gm, const Vector2 world_mouse) {
     assert(gm);
 
-    BeginMode2D(gm->camera);
+    switch (gm->current_state) {
+        case GAME_STATE_TITLE:
+            break;
 
-    draw_background_grid();
+        case GAME_STATE_RUNNING: {
+            BeginMode2D(gm->camera);
 
-    drop_manager_draw(&gm->drop_manager);
-    bullet_manager_draw(&gm->bullet_manager);
-    player_draw(&gm->player);
-    enemy_manager_draw(&gm->enemy_manager);
+            system_draw_background_grid();
 
-    ui_draw_health_bars(&gm->player, &gm->enemy_manager);
+            drop_manager_draw(&gm->drop_manager);
+            bullet_manager_draw(&gm->bullet_manager);
+            player_draw(&gm->player);
+            enemy_manager_draw(&gm->enemy_manager);
 
-    EndMode2D();
+            ui_manager_enemy_health_bar(&gm->ui_manager);
+            ui_manager_player_health_bar(&gm->ui_manager);
 
-    // ui
-    ui_draw_player_exp_bar(&gm->player);
+            EndMode2D();
+
+            // ui
+            ui_manager_player_xp_bar(&gm->ui_manager);
+
+        } break;
+
+        case GAME_STATE_UPGRADE: {
+            upgrade_manager_draw(&gm->upgrade_manager, world_mouse);
+
+        } break;
+
+        case GAME_STATE_EXIT:
+            break;
+    }
 }

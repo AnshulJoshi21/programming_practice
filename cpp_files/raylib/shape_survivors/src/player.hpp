@@ -1,23 +1,22 @@
 #pragma once
 
-#include "bullets/bullet.hpp"
-#include "components.hpp"
 #include <raylib.h>
+
+static const float PLAYER_SPEED         = 240.0f;
+static const float PLAYER_MAX_HP        = 100.0f;
+static const float PLAYER_MAX_HIT_TIMER = 0.2f;
+static const float PLAYER_SIZE          = 40.0f;
 
 class Player {
   public:
-    Components::Level     level;
-    Components::Xp        xp;
-    Components::Position  position;
-    Components::Rect      rect;
-    Components::Rotation  rotation;
-    Components::Color_    color;
-    Components::Text      text;
-    Components::Movement  movement;
-    Components::Health    health;
-    Components::Animation animation;
-    Components::Timer     bullet_timer;
-    BulletConfig          bullet_config;
+    Rectangle rect;
+    Vector2   origin;
+    float     rotation;
+    Color     color;
+    float     speed;
+    Vector2   direction;
+    float     hp;
+    float     hit_timer;
 
     Player();
 

@@ -1,6 +1,7 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include "components.h"
 #include <raylib.h>
 
 typedef enum OriginType {
@@ -14,12 +15,7 @@ int utils_max_int(const int a, const int b);
 
 float utils_randf(const float min, const float max);
 
-void utils_center_and_draw_text(const OriginType type,
-                                const char*      text,
-                                const Rectangle  rect,
-                                const float      font_size,
-                                const float      spacing,
-                                const Color      tint);
+void utils_center_and_draw_text(const OriginType type, const Rectangle bounds, const CText* text);
 
 void utils_draw_progress_bar(const int       min,
                              const int       max,

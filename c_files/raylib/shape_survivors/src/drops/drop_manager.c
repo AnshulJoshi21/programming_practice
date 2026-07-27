@@ -10,7 +10,7 @@ DropType drop_manager_get_random_drop_type(void) {
     else if (random_chance >= 75.0f)
         return DROP_TYPE_XP;
     else
-        return DROP_TYPE_NONE;
+        return DROP_TYPE_XP;
 }
 
 void drop_manager_init(DropManager* dm) {

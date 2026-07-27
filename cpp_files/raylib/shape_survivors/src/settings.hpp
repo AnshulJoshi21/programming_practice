@@ -1,6 +1,6 @@
 #pragma once
 
-constexpr int BASE_WIDTH  = 800;
-constexpr int BASE_HEIGHT = 600;
+constexpr int SCREEN_WIDTH  = 1280;
+constexpr int SCREEN_HEIGHT = 720;
 
-constexpr int MAP_SIZE = 1000;
+constexpr int MAP_SIZE = 2000;

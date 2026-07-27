@@ -4,14 +4,14 @@
 #include <raylib.h>
 
 typedef struct CLevel {
-    int level;
+    int current;
+    int pending;
 } CLevel;
 
-typedef struct CExp {
-    int exp;
-    int exp_next;
-    int pending_levelups;
-} CExp;
+typedef struct CXp {
+    int current;
+    int next;
+} CXp;
 
 typedef struct CState {
     bool active;
@@ -35,12 +35,18 @@ typedef struct CRotation {
     float angle;
 } CRotation;
 
+typedef struct COrbit {
+    float angle;
+    float angular_speed;
+    float orbit_radius;
+} COrbit;
+
 typedef struct CColor {
     Color tint;
 } CColor;
 
 typedef struct CText {
-    const char* text;
+    const char* string;
     float       font_size;
     float       spacing;
     Color       tint;
@@ -57,17 +63,17 @@ typedef struct CHealth {
 } CHealth;
 
 typedef struct CDamage {
-    int amount;
+    int current;
 } CDamage;
 
 typedef struct CLifetime {
     float max;
-    float remaining;
+    float current;
 } CLifetime;
 
 typedef struct CAnimation {
     float hit_timer_max;
-    float hit_timer;
+    float hit_timer_current;
 } CAnimation;
 
 typedef struct CSpawner {

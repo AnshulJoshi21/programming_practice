@@ -1,43 +1,35 @@
 #include "enemy_manager.hpp"
 
-static const int ENEMIES_MAX = 200;
+static const float ENEMY_SPAWN_INTERVAL = 2.0f;
 
-EnemyManager::EnemyManager()
-    : spawner({.max = ENEMIES_MAX}),
-      timer({.elapsed = static_cast<float>(GetTime()), .interval = 5.0f}) {}
+EnemyManager::EnemyManager(void) : timer({.interval = ENEMY_SPAWN_INTERVAL}) {}
 
 void EnemyManager::spawn(const Vector2& target_pos) {
-    const int enemies_size = static_cast<int>(enemies.size());
+    if (enemies.size() <= 0 || timer.tick()) {
+        std::size_t random_enemy_type
+            = GetRandomValue(0, (static_cast<std::size_t>(EnemyType::COUNT) - 1));
 
-    if (enemies_size >= spawner.max)
-        return;
-
-    if (enemies_size <= 0 or timer.tick())
-        enemies.push_back(Enemy(target_pos));
+        enemies.push_back(Enemy(static_cast<EnemyType>(random_enemy_type), target_pos));
+    }
 }
 
-void EnemyManager::despawn(const int index) {
-    const int enemies_size = static_cast<int>(enemies.size());
-
-    if (index < 0 || index >= enemies_size)
+void EnemyManager::despawn(const std::size_t index) {
+    if (index >= enemies.size())
         return;
 
-    enemies[index] = enemies[enemies_size - 1];
+    enemies[index] = enemies.back();
     enemies.pop_back();
 }
 
-void EnemyManager::update(const float dt, const Vector2& target_pos, DropManager& drop_manager) {
+void EnemyManager::update(const float dt, const Vector2& target_pos) {
     spawn(target_pos);
 
-    for (int i = 0; i < static_cast<int>(enemies.size()); i++) {
+    for (std::size_t i = 0; i < enemies.size(); i++) {
         Enemy& enemy = enemies[i];
 
         enemy.update(dt, target_pos);
 
-        if (enemy.health.current <= 0) {
-            // spawn drop
-            drop_manager.spawn(drop_manager.get_random_drop_type(),
-                               {enemy.position.x, enemy.position.y});
+        if (enemy.hp <= 0) {
             despawn(i);
             i--;
         }
@@ -45,6 +37,7 @@ void EnemyManager::update(const float dt, const Vector2& target_pos, DropManager
 }
 
 void EnemyManager::draw(void) const {
-    for (const Enemy& enemy : enemies)
+    for (const Enemy& enemy : enemies) {
         enemy.draw();
+    }
 }

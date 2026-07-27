@@ -1,84 +1,51 @@
 #include "../settings.hpp"
-#include "../systems.hpp"
 #include "../utils.hpp"
 #include "enemy.hpp"
-#include <cmath>
+#include <raymath.h>
 
-static const float ENEMY_SIZE          = 45.0f;
-static const int   ENEMY_MAX_HEALTH    = 5;
-static const float ENEMY_MAX_HIT_TIMER = 0.1f;
+Enemy::Enemy(const EnemyType type, const Vector2& target_pos) {
+    const float random_angle = utils::randf(0, 2 * PI);
+    const float random_distance
+        = utils::randf(GetScreenWidth() / 2.0f, GetScreenWidth() / 2.0f + 100.0f);
 
-static Color get_random_dark_color(void) {
-    const int random_num = GetRandomValue(1, 5);
+    const Vector2 pos = {
+        cosf(random_angle) * random_distance + target_pos.x,
+        sinf(random_angle) * random_distance + target_pos.y,
+    };
 
-    switch (random_num) {
-        case 1:
-            return DARKBLUE;
-        case 2:
-            return DARKBROWN;
-        case 3:
-            return DARKGRAY;
-        case 4:
-            return DARKGREEN;
-        case 5:
-            return DARKPURPLE;
-        default:
-            return DARKBLUE;
-    }
-}
+    const EnemyDef& def = enemy_db[static_cast<std::size_t>(type)];
 
-Enemy::Enemy(const Vector2& target_pos)
-    : rect({
-          .width  = ENEMY_SIZE,
-          .height = ENEMY_SIZE,
-      }),
-
-      rotation({.angle = 0.0f}),
-
-      color({.tint = get_random_dark_color()}),
-
-      text({
-          .text      = "E",
-          .font_size = 20.0f,
-          .spacing   = 0.0f,
-          .tint      = WHITE,
-      }),
-
-      movement({
-          .speed     = 100.0f,
-          .direction = {0, 0},
-      }),
-
-      health({
-          .max     = ENEMY_MAX_HEALTH,
-          .current = ENEMY_MAX_HEALTH,
-      }),
-
-      damage({.current = GetRandomValue(0, 5)}),
-
-      animation({
-          .max_hit_timer = ENEMY_MAX_HIT_TIMER,
-          .hit_timer     = 0.0f,
-      }) {
-    //
-    const float random_angle    = Utils::randf(0, 2 * PI);
-    const float random_distance = Utils::randf(BASE_WIDTH / 2.0f, (BASE_WIDTH / 2.0f) + 100.0f);
-
-    position.x = std::cos(random_angle) * random_distance + target_pos.x;
-    position.y = std::sin(random_angle) * random_distance + target_pos.y;
+    rect      = {pos.x, pos.y, def.width, def.height};
+    origin    = {rect.width / 2.0f, rect.height / 2.0f};
+    rotation  = 0.0f;
+    color     = def.color;
+    speed     = def.speed;
+    direction = {0, 0};
+    damage    = def.damage;
+    hp        = def.hp;
+    hit_timer = 0.0f;
 }
 
 void Enemy::update(const float dt, const Vector2& target_pos) {
-    Systems::set_direction(position, movement, target_pos);
-    Systems::move(position, movement, dt);
-    Systems ::set_bounds(position, rect.width / 2.0, rect.height / 2.0, {0, 0, MAP_SIZE, MAP_SIZE});
-    Systems::update_hit_timer(animation, dt);
-    Systems::update_health(health);
+    // set direction
+    const float dx       = target_pos.x - rect.x;
+    const float dy       = target_pos.y - rect.y;
+    const float distance = sqrtf((dx * dx) + (dy * dy));
+    if (distance > 0) { // move
+        direction = {dx / distance, dy / distance};
+
+        rect.x += direction.x * speed * dt;
+        rect.y += direction.y * speed * dt;
+
+        // set bounds
+        const float half_w = rect.width / 2.0f;
+        const float half_h = rect.height / 2.0f;
+
+        rect.x = Clamp(rect.x, half_w, MAP_SIZE - half_w);
+        rect.y = Clamp(rect.y, half_h, MAP_SIZE - half_h);
+    }
 }
 
 void Enemy::draw(void) const {
-    Systems::draw_rect(position, rotation, rect, color, animation);
-
-    Utils::center_and_draw_text(
-        Utils::OriginType::CENTER, {position.x, position.y, rect.width, rect.height}, text);
+    DrawRectanglePro(rect, origin, rotation, color);
 }

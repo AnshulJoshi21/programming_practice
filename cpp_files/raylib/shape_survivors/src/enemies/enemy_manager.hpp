@@ -1,20 +1,17 @@
 #pragma once
 
-#include "../components.hpp"
-#include "../drops/drop_manager.hpp"
+#include "../utils.hpp"
 #include "enemy.hpp"
 #include <vector>
 
 class EnemyManager {
   public:
-    std::vector<Enemy>  enemies;
-    Components::Spawner spawner;
-    Components::Timer   timer;
+    std::vector<Enemy> enemies;
+    IntervalTimer      timer;
 
-    EnemyManager();
-
+    EnemyManager(void);
     void spawn(const Vector2& target_pos);
-    void despawn(const int index);
-    void update(const float dt, const Vector2& target_pos, DropManager& drop_manager);
+    void despawn(const std::size_t index);
+    void update(const float dt, const Vector2& target_pos);
     void draw(void) const;
 };

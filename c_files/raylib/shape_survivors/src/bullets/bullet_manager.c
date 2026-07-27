@@ -39,7 +39,7 @@ void bullet_manager_update(BulletManager* bm, const float dt) {
 
         bullet_update(bullet, dt);
 
-        if (bullet->lifetime.remaining <= 0) {
+        if (bullet->lifetime.current <= 0) {
             bullet_manager_despawn(bm, i);
             i--;
         }

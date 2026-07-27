@@ -1,6 +1,5 @@
 #include "collision_manager.h"
 #include "components.h"
-#include "systems.h"
 #include <assert.h>
 #include <math.h>
 
@@ -112,14 +111,14 @@ void collision_manager_player_vs_enemy(CollisionManager* cm) {
                  &enemy->position,
                  enemy->rect.width / 2.0f,
                  enemy->rect.height / 2.0f)
-            && player->animation.hit_timer <= 0) {
+            && player->animation.hit_timer_current <= 0) {
             //
-            total_damage += enemy->damage.amount;
+            total_damage += enemy->damage.current;
         }
     }
 
     if (total_damage > 0) {
-        player->animation.hit_timer = player->animation.hit_timer_max;
+        player->animation.hit_timer_current = player->animation.hit_timer_max;
         player->health.current -= total_damage;
     }
 }
@@ -146,7 +145,7 @@ void collision_manager_player_vs_drop(CollisionManager* cm) {
                  drop->circle.radius)) {
             //
             if (drop->type == DROP_TYPE_XP)
-                system_add_exp(&player->level, &player->exp, drop->amount);
+                player->xp.current += drop->amount;
             else if (drop->type == DROP_TYPE_HP)
                 player->health.current += drop->amount;
 
@@ -173,12 +172,12 @@ void collision_manager_bullet_vs_enemy(CollisionManager* cm) {
                      &enemy->position,
                      enemy->rect.width / 2.0f,
                      enemy->rect.height / 2.0f)
-                && enemy->animation.hit_timer <= 0) {
+                && enemy->animation.hit_timer_current <= 0) {
                 //
-                enemy->animation.hit_timer = enemy->animation.hit_timer_max;
-                enemy->health.current -= bullet->damage.amount;
+                enemy->animation.hit_timer_current = enemy->animation.hit_timer_max;
+                enemy->health.current -= bullet->damage.current;
 
-                bullet->lifetime.remaining = 0;
+                bullet->lifetime.current = 0;
                 break;
             }
         }

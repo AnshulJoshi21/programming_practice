@@ -27,11 +27,11 @@ void drop_init(Drop* drop, const DropType type, const Vector2 start_pos) {
             drop->state.active = false;
             return;
         case DROP_TYPE_XP:
-            drop->text.text = "XP";
+            drop->text.string= "XP";
             drop->amount    = 20;
             break;
         case DROP_TYPE_HP:
-            drop->text.text = "HP";
+            drop->text.string= "HP";
             drop->amount    = 10;
             break;
         default:

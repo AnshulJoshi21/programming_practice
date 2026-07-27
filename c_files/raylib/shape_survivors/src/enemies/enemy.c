@@ -41,7 +41,7 @@ void enemy_init(Enemy* enemy, const Vector2 target_pos) {
 
     enemy->color.tint = get_random_dark_color();
 
-    enemy->text.text      = "E";
+    enemy->text.string    = "E";
     enemy->text.font_size = 20.0f;
     enemy->text.spacing   = 0.0f;
     enemy->text.tint      = WHITE;
@@ -52,10 +52,10 @@ void enemy_init(Enemy* enemy, const Vector2 target_pos) {
     enemy->health.max     = 5;
     enemy->health.current = enemy->health.max;
 
-    enemy->damage.amount = 1;
+    enemy->damage.current = 1;
 
-    enemy->animation.hit_timer_max = 0.1f;
-    enemy->animation.hit_timer     = 0.0f;
+    enemy->animation.hit_timer_max     = 0.1f;
+    enemy->animation.hit_timer_current = 0.0f;
 }
 
 void enemy_update(Enemy* enemy, const float dt, const Vector2 target_pos) {

@@ -7,7 +7,7 @@
 
 typedef struct Player {
     CLevel     level;
-    CExp       exp;
+    CXp        xp;
     CPosition  position;
     CRect      rect;
     CRotation  rotation;

@@ -4,6 +4,10 @@
 #include "../components.h"
 #include <raylib.h>
 
+typedef enum EnemyType {
+    ENEMY_TYPE_,
+} EnemyType;
+
 typedef struct Enemy {
     CPosition  position;
     CRect      rect;

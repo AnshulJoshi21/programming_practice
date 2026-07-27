@@ -15,7 +15,8 @@ add_executable(game
   src/drops/drop.c
   src/drops/drop_manager.c
   src/collision_manager.c
-  src/ui.c
+  src/ui_manager.c
+  src/upgrade_manager.c
 )
 
 target_compile_features(game PRIVATE c_std_17)

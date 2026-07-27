@@ -23,12 +23,12 @@ int main(void) {
     while (!WindowShouldClose()) {
         const float dt = GetFrameTime();
 
-        game_manager_update(&game_manager, dt, world_mouse);
+        game_manager_update(&game_manager, dt);
 
         BeginTextureMode(canvas);
         ClearBackground(RAYWHITE);
 
-        game_manager_draw(&game_manager);
+        game_manager_draw(&game_manager, world_mouse);
 
         EndTextureMode();
 

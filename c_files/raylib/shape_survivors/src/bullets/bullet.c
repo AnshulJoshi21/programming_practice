@@ -3,26 +3,30 @@
 #include <assert.h>
 #include <raymath.h>
 
-void bullet_init(Bullet*            bullet,
-                 const BulletConfig config,
-                 const Vector2      start_pos,
-                 const Vector2      target_pos) {
+void bullet_init(Bullet*         bullet,
+                 const SkillType skill_type,
+                 const Vector2   start_pos,
+                 const Vector2   target_pos) {
     assert(bullet);
+
+    const SkillDef* skill_def = &skill_db[skill_type];
+
+    bullet->level = ;
 
     bullet->position.x = start_pos.x;
     bullet->position.y = start_pos.y;
 
-    bullet->circle.radius = 5.0f;
+    bullet->circle.radius = skill_def->radius;
 
-    bullet->color.tint = RED;
+    bullet->color.tint = skill_def->color;
 
-    bullet->movement.speed     = config.speed;
+    bullet->movement.speed     = ;
     bullet->movement.direction = (Vector2){0, 0};
 
-    bullet->damage.amount = config.damage;
+    bullet->damage.current = config.damage;
 
-    bullet->lifetime.max       = config.lifetime;
-    bullet->lifetime.remaining = config.lifetime;
+    bullet->lifetime.max     = config.lifetime;
+    bullet->lifetime.current = config.lifetime;
 
     system_set_direction(&bullet->position, &bullet->movement, target_pos);
 }

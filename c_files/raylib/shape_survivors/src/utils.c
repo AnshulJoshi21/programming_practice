@@ -21,16 +21,11 @@ float utils_randf(const float min, const float max) {
     return minimum + ((float) rand() / (float) RAND_MAX) * (maximum - minimum);
 }
 
-void utils_center_and_draw_text(const OriginType type,
-                                const char*      text,
-                                const Rectangle  bounds,
-                                const float      font_size,
-                                const float      spacing,
-                                const Color      tint) {
+void utils_center_and_draw_text(const OriginType type, const Rectangle bounds, const CText* text) {
     assert(text);
 
     const Font    font      = GetFontDefault();
-    const Vector2 text_size = MeasureTextEx(font, text, font_size, spacing);
+    const Vector2 text_size = MeasureTextEx(font, text->string, text->font_size, text->spacing);
     Vector2       pos;
 
     switch (type) {
@@ -50,7 +45,7 @@ void utils_center_and_draw_text(const OriginType type,
             return;
     }
 
-    DrawTextEx(font, text, pos, font_size, spacing, tint);
+    DrawTextEx(font, text->string, pos, text->font_size, text->spacing, text->tint);
 }
 
 void utils_draw_progress_bar(const int       min,
