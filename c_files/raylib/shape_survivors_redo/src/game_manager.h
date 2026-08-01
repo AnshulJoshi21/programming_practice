@@ -1,6 +1,7 @@
 #ifndef GAME_MANAGER_H
 #define GAME_MANAGER_H
 
+#include "bullets/bullet_manager.h"
 #include "enemies/enemy_manager.h"
 #include "player.h"
 #include <raylib.h>
@@ -13,9 +14,10 @@ typedef enum GameState {
 } GameState;
 
 typedef struct GameManager {
-    GameState    current_state;
-    Player       player;
-    EnemyManager enemy_manager;
+    GameState     current_state;
+    Player        player;
+    EnemyManager  enemy_manager;
+    BulletManager bullet_manager;
 
     Camera2D camera;
 } GameManager;

@@ -21,36 +21,39 @@ static void update_camera(GameManager* gm) {
     const float half_w = SCREEN_WIDTH / 2.0f;
     const float half_h = SCREEN_HEIGHT / 2.0f;
 
-    gm->camera.target.x = Clamp(gm->player.rect.x, half_w, MAP_SIZE - half_w);
-    gm->camera.target.y = Clamp(gm->player.rect.y, half_h, MAP_SIZE - half_h);
+    gm->camera.target.x = Clamp(gm->player.pos.x, half_w, MAP_SIZE - half_w);
+    gm->camera.target.y = Clamp(gm->player.pos.y, half_h, MAP_SIZE - half_h);
 }
 
-// static Vector2 get_player_target(GameManager* gm) {
-//     assert(gm);
+static Vector2 get_player_target(GameManager* gm) {
+    assert(gm);
 
-//     float   min_distance = MAP_SIZE * MAP_SIZE;
-//     Vector2 target_pos   = (Vector2){0, 0};
+    float   min_distance = MAP_SIZE * MAP_SIZE;
+    Vector2 target_pos   = (Vector2){0, 0};
 
-//     for (int i = 0; i < gm->enemy_manager.enemies_size; i++) {
-//         const Enemy* enemy = &gm->enemy_manager.enemies[i];
+    for (int i = 0; i < gm->enemy_manager.enemies_size; i++) {
+        const Enemy* enemy = &gm->enemy_manager.enemies[i];
 
-//         const float dx       = enemy->rect.x - gm->player.rect.x;
-//         const float dy       = enemy->rect.y - gm->player.rect.y;
-//         const float distance = sqrtf((dx * dx) + (dy * dy));
-//         if (distance < min_distance) {
-//             min_distance = distance;
-//             target_pos   = (Vector2){enemy->rect.x, enemy->rect.y};
-//         }
-//     }
-//     return target_pos;
-// }
+        const float dx       = enemy->pos.x - gm->player.pos.x;
+        const float dy       = enemy->pos.y - gm->player.pos.y;
+        const float distance = sqrtf((dx * dx) + (dy * dy));
+        if (distance < min_distance) {
+            min_distance = distance;
+            target_pos   = enemy->pos;
+        }
+    }
+    return target_pos;
+}
 
 void game_manager_update(GameManager* gm, const float dt, const Vector2* world_mouse) {
     assert(gm);
 
     player_update(&gm->player, dt);
-    enemy_manager_update(&gm->enemy_manager, dt, (Vector2){gm->player.rect.x, gm->player.rect.y});
+    enemy_manager_update(&gm->enemy_manager, dt, gm->player.pos);
+    bullet_manager_update(&gm->bullet_manager, dt);
     update_camera(gm);
+
+    // spawn bullets
 }
 
 static void draw_background_grid(void) {
@@ -73,6 +76,7 @@ void game_manager_draw(const GameManager* gm) {
 
     draw_background_grid();
 
+    bullet_manager_draw(&gm->bullet_manager);
     player_draw(&gm->player);
     enemy_manager_draw(&gm->enemy_manager);
 

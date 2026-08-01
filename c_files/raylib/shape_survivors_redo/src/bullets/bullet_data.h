@@ -1,44 +1,27 @@
 #ifndef BULLET_DATA_H
 #define BULLET_DATA_H
 
-#include <raylib.h>
+#include <stdbool.h>
 
 typedef enum BulletPattern {
     BULLET_PATTERN_PROJECTILE,
     BULLET_PATTERN_ORBITAL,
+    BULLET_PATTERN_AREA,
     BULLET_PATTERN_MAX,
 } BulletPattern;
 
-typedef enum BulletType {
-    BULLET_TYPE_MAGIC_MISSILES,
-    BULLET_TYPE_ORBITING_ORBS,
-    BULLET_TYPE_MAX,
-} BulletType;
+typedef enum DamageMode {
+    DAMAGE_MODE_INSTANT_HIT,
+    DAMAGE_MODE_TICK, // DOD DAMAGE
+    DAMAGE_MODE_ON_EXPIRE,
+    DAMAGE_MODE_MAX,
+} DamageMode;
 
-typedef struct BulletDef {
-    BulletType    type;
-    BulletPattern pattern;
-    const char*   name;
-    const char*   description;
-    float         radius;
-    Color         color;
-    float         damage;
-    float         lifetime;
-    int           max_count;
-
-    union {
-        struct {
-            float fire_rate;
-            float speed;
-        } projectile;
-
-        struct {
-            float orbital_radius;
-            float orbital_speed;
-        } orbital;
-    } data;
-} BulletDef;
-
-extern const BulletDef bullet_db[BULLET_TYPE_MAX];
+typedef struct EntityConfig {
+    int  type;
+    int  pattern;
+    int  level;
+    bool homing;
+} EntityConfig;
 
 #endif // BULLET_DATA_H

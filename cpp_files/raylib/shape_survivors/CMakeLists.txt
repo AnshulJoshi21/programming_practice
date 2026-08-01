@@ -4,12 +4,7 @@ project(game LANGUAGES CXX)
 
 add_executable(game
   src/main.cpp 
-  src/game_manager.cpp
-  src/player.cpp
-  src/utils.cpp
-  src/enemies/enemy.cpp
-  src/enemies/enemy_manager.cpp
-)
+  src/game_manager.cpp)
 
 target_compile_features(game PRIVATE cxx_std_20)
 target_compile_options(game PRIVATE -Wall -Wextra -Wpedantic -O2)

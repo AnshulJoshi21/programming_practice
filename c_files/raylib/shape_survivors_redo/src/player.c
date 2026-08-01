@@ -1,3 +1,5 @@
+#include "bullets/bullet_orbital.h"
+#include "bullets/bullet_projectile.h"
 #include "player.h"
 #include "settings.h"
 #include "utils.h"
@@ -7,12 +9,7 @@
 void player_init(Player* player) {
     assert(player);
 
-    player->rect = (Rectangle){
-        MAP_SIZE / 2.0f,
-        MAP_SIZE / 2.0f,
-        PLAYER_SIZE,
-        PLAYER_SIZE,
-    };
+    player->pos       = (Vector2){MAP_SIZE / 2.0f, MAP_SIZE / 2.0f};
     player->origin    = (Vector2){PLAYER_SIZE / 2.0f, PLAYER_SIZE / 2.0f};
     player->rotation  = 0.0f;
     player->color     = BLUE;
@@ -20,6 +17,15 @@ void player_init(Player* player) {
     player->direction = (Vector2){0, 0};
     player->hp        = PLAYER_MAX_HP;
     player->hit_timer = 0.0f;
+
+    player->weapons[0].weapon.magic_missiles = (EntityConfig){.type = PROJECTILE_TYPE_MAGIC_MISSILE,
+                                                              .pattern = BULLET_PATTERN_PROJECTILE,
+                                                              .level   = 1,
+                                                              .homing  = false};
+    player->weapons[1].weapon.orbiting_orbs  = (EntityConfig){.type    = ORBITAL_TYPE_ORBITING_ORBS,
+                                                              .pattern = BULLET_PATTERN_ORBITAL,
+                                                              .level   = 1,
+                                                              .homing  = false};
 }
 
 static void handle_input(Player* player) {
@@ -36,18 +42,18 @@ void player_update(Player* player, const float dt) {
     handle_input(player);
 
     // move
-    player->rect.x += player->direction.x * player->speed * dt;
-    player->rect.y += player->direction.y * player->speed * dt;
+    player->pos.x += player->direction.x * player->speed * dt;
+    player->pos.y += player->direction.y * player->speed * dt;
 
     // bounds
-    player->rect.x = Clamp(player->rect.x, player->origin.x, MAP_SIZE - player->origin.x);
-    player->rect.y = Clamp(player->rect.y, player->origin.y, MAP_SIZE - player->origin.y);
+    player->pos.x = Clamp(player->pos.x, player->origin.x, MAP_SIZE - player->origin.x);
+    player->pos.y = Clamp(player->pos.y, player->origin.y, MAP_SIZE - player->origin.y);
 }
 
 void player_draw(const Player* player) {
     assert(player);
+    const Rectangle dest = (Rectangle){player->pos.x, player->pos.y, PLAYER_SIZE, PLAYER_SIZE};
 
-    DrawRectanglePro(player->rect, player->origin, player->rotation, player->color);
-
-    utils_draw_centered_text(ORIGIN_TYPE_CENTER, "P", player->rect, 20.0f, 0.0f, WHITE);
+    DrawRectanglePro(dest, player->origin, player->rotation, player->color);
+    utils_draw_centered_text(ORIGIN_TYPE_CENTER, "P", dest, 20.0f, 0.0f, WHITE);
 }
