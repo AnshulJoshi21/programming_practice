@@ -1,0 +1,13 @@
+#ifndef CHARACTER_H
+#define CHARACTER_H
+
+typedef enum {
+    CHARACTER_NONE,
+    CHARACTER_IRONCLAD,
+    CHARACTER_SILENT,
+    CHARACTER_DEFECT,
+    CHARACTER_WATCHER,
+    CHARACTER_MAX,
+} CharacterType;
+
+#endif // CHARACTER_H

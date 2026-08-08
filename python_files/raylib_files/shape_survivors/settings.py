@@ -1,4 +1,0 @@
-BASE_WIDTH: int = 800
-BASE_HEIGHT: int = 600
-
-MAP_SIZE: int = 2000

@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define INITIAL_CAPACITY 4
-#define GROWTH_FACTOR 2
-#define SHRINK_FACTOR 2
+static const size_t INITIAL_CAPACITY = 4;
+static const size_t GROWTH_FACTOR    = 2;
+static const size_t SHRINK_FACTOR    = 2;
 
-typedef struct DynamicArray {
+typedef struct {
     int*   arr;
     size_t size;
     size_t capacity;
@@ -15,146 +15,158 @@ typedef struct DynamicArray {
 void da_init(DynamicArray* da) {
     assert(da);
 
-    da->size     = 0;
     da->capacity = INITIAL_CAPACITY;
-
-    da->arr = malloc(sizeof(*da->arr) * da->capacity);
-    assert(da->arr != NULL);
-}
-
-void da_resize(DynamicArray* da, size_t new_capacity) {
-    assert(da);
-
-    if (new_capacity < INITIAL_CAPACITY)
-        new_capacity = INITIAL_CAPACITY;
-
-    int* temp = realloc(da->arr, sizeof(*temp) * da->capacity);
-    assert(temp != NULL);
-
-    da->arr      = temp;
-    da->capacity = new_capacity;
+    da->size     = 0;
+    da->arr      = malloc(da->capacity * sizeof(int));
+    assert(da->arr);
 }
 
 void da_print(DynamicArray* da) {
     assert(da);
 
-    printf("[");
     for (size_t i = 0; i < da->size; i++) {
-        printf("%d", da->arr[i]);
-
-        if (i < (da->size - 1)) {
-            printf(",");
-        }
+        printf("%d -> ", da->arr[i]);
     }
 
-    printf("]\n");
+    printf("None\n");
+}
+
+void da_grow(DynamicArray* da) {
+    assert(da);
+    if (da->size >= da->capacity) {
+        size_t new_capacity = da->capacity;
+        new_capacity *= GROWTH_FACTOR;
+
+        int* temp = realloc(da->arr, new_capacity * sizeof(int));
+        assert(temp);
+
+        da->capacity = new_capacity;
+        da->arr      = temp;
+    }
+}
+
+void da_shrink(DynamicArray* da) {
+    assert(da);
+    if (da->size > da->capacity / 4)
+        return;
+
+    size_t new_capacity = da->capacity;
+    new_capacity /= SHRINK_FACTOR;
+
+    if (new_capacity < INITIAL_CAPACITY)
+        new_capacity = INITIAL_CAPACITY;
+
+    int* temp = realloc(da->arr, new_capacity * sizeof(int));
+    assert(temp);
+
+    da->capacity = new_capacity;
+    da->arr      = temp;
 }
 
 void da_prepend(DynamicArray* da, const int value) {
     assert(da);
 
-    if (da->size == da->capacity)
-        da_resize(da, da->capacity * GROWTH_FACTOR);
+    da->size++;
+    da_grow(da);
 
     for (size_t i = da->size; i > 0; i--) {
         da->arr[i] = da->arr[i - 1];
     }
     da->arr[0] = value;
-    da->size++;
 }
 
 void da_append(DynamicArray* da, const int value) {
     assert(da);
 
-    if (da->size == da->capacity)
-        da_resize(da, da->capacity * GROWTH_FACTOR);
-
-    da->arr[da->size] = value;
     da->size++;
+    da_grow(da);
+
+    da->arr[da->size - 1] = value;
 }
 
-void da_pop(DynamicArray* da) {
+void da_insert(DynamicArray* da, const size_t index, const int value) {
     assert(da);
+    assert(index < da->size);
 
-    da->size--;
-    if (da->size < da->capacity / 4)
-        da_resize(da, da->capacity / SHRINK_FACTOR);
+    da->size++;
+    da_grow(da);
+
+    for (size_t i = da->size; i > index; i--) {
+        da->arr[i] = da->arr[i - 1];
+    }
+    da->arr[index] = value;
+}
+
+void da_replace(DynamicArray* da, const size_t index, const int value) {
+    assert(da);
+    assert(index < da->size);
+
+    da->arr[index] = value;
 }
 
 void da_remove_index(DynamicArray* da, const size_t index) {
     assert(da);
     assert(index < da->size);
 
-    for (size_t i = 0; i < da->size; i++) {
-        if (i == index) {
-            for (size_t j = i; j < da->size - 1; j++) {
-                da->arr[j] = da->arr[j + 1];
-            }
-
-            da->size--;
-            if (da->size < da->capacity / 4)
-                da_resize(da, da->capacity / SHRINK_FACTOR);
-            return;
-        }
+    for (size_t i = index; i < da->size - 1; i++) {
+        da->arr[i] = da->arr[i + 1];
     }
-
-    printf("Index: %zu, not found in array\n", index);
+    da->size--;
+    da_shrink(da);
 }
 
 void da_remove_value(DynamicArray* da, const int value) {
     assert(da);
 
-    for (int i = 0; i < da->size; i++) {
+    for (size_t i = 0; i < da->size - 1; i++) {
         if (da->arr[i] == value) {
-            for (size_t j = i; j < da->size - 1; j++) {
+            for (size_t j = i; j < da->size; j++) {
                 da->arr[j] = da->arr[j + 1];
             }
-
             da->size--;
-            if (da->size < da->capacity / 4)
-                da_resize(da, da->capacity / SHRINK_FACTOR);
+            da_shrink(da);
             return;
         }
     }
 
-    printf("Value: %d, not found in array\n", value);
+    printf("Value not found\n");
 }
 
 void da_free(DynamicArray* da) {
-    if (da && da->arr) {
+    assert(da);
+
+    if (da->arr) {
         free(da->arr);
-        da->arr      = NULL;
-        da->size     = 0;
         da->capacity = 0;
+        da->size     = 0;
     }
 }
 
 int main(void) {
-    DynamicArray da;
-    da_init(&da);
+    DynamicArray dynamic_array;
+    da_init(&dynamic_array);
 
-    da_print(&da);
+    da_append(&dynamic_array, 10);
+    da_append(&dynamic_array, 20);
+    da_append(&dynamic_array, 30);
+    da_append(&dynamic_array, 40);
+    da_append(&dynamic_array, 50);
+    da_prepend(&dynamic_array, 00);
+    da_print(&dynamic_array);
 
-    da_append(&da, 2);
-    da_append(&da, 3);
-    da_append(&da, 4);
-    da_append(&da, 5);
-    da_append(&da, 6);
-    da_append(&da, 7);
-    da_append(&da, 8);
-    da_prepend(&da, 1);
-    da_print(&da);
+    da_insert(&dynamic_array, 2, 190);
+    da_print(&dynamic_array);
 
-    da_pop(&da);
-    da_print(&da);
+    da_replace(&dynamic_array, 2, 20);
+    da_print(&dynamic_array);
 
-    da_remove_index(&da, 2);
-    da_print(&da);
+    da_remove_index(&dynamic_array, 2);
+    da_print(&dynamic_array);
 
-    da_remove_value(&da, 5);
-    da_print(&da);
+    da_remove_value(&dynamic_array, 40);
+    da_print(&dynamic_array);
 
-    da_free(&da);
+    da_free(&dynamic_array);
 
     return 0;
 }

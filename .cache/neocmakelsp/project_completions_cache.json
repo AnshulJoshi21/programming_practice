@@ -1,0 +1,609 @@
+{
+  "date": "2026-08-07T08:58:09.616660155+05:30",
+  "data": {
+    "/home/anonymous/Downloads/programming_practice/cpp_files/qt_files/01_basic_window/CMakeLists.txt": [
+      {
+        "label": "CMAKE_CXX_STANDARD",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /home/anonymous/Downloads/programming_practice/cpp_files/qt_files/01_basic_window/CMakeLists.txt"
+      },
+      {
+        "label": "CMAKE_EXPORT_COMPILE_COMMANDS",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /home/anonymous/Downloads/programming_practice/cpp_files/qt_files/01_basic_window/CMakeLists.txt"
+      },
+      {
+        "label": "Qt6::Widgets",
+        "kind": 6,
+        "detail": "Variable",
+        "documentation": "package from: Qt6"
+      },
+      {
+        "label": "Qt6_LIBRARIES",
+        "kind": 6,
+        "detail": "Variable",
+        "documentation": "package: Qt6"
+      },
+      {
+        "label": "Qt6_INCLUDE_DIRS",
+        "kind": 6,
+        "detail": "Variable",
+        "documentation": "package: Qt6"
+      },
+      {
+        "label": "set_and_check",
+        "kind": 3,
+        "detail": "Function",
+        "documentation": "defined macro\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake"
+      },
+      {
+        "label": "check_required_components",
+        "kind": 3,
+        "detail": "Function",
+        "documentation": "defined macro\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake"
+      },
+      {
+        "label": "PACKAGE_PREFIX_DIR",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake"
+      },
+      {
+        "label": "${_var}",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake"
+      },
+      {
+        "label": "${_NAME}_FOUND",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake"
+      },
+      {
+        "label": "find_dependency",
+        "kind": 3,
+        "detail": "Command",
+        "documentation": "defined command from CMakeFindDependencyMacro.cmake\n.rst:\nCMakeFindDependencyMacro\n------------------------\n\n.. command:: find_dependency\n\n  The ``find_dependency()`` macro wraps a :command:`find_package` call for\n  a package dependency::\n\n    find_dependency(<dep> [...])\n\n  It is designed to be used in a\n  :ref:`Package Configuration File <Config File Packages>`\n  (``<PackageName>Config.cmake``).  ``find_dependency`` forwards the correct\n  parameters for ``QUIET`` and ``REQUIRED`` which were passed to\n  the original :command:`find_package` call.  Any additional arguments\n  specified are forwarded to :command:`find_package`.\n\n  If the dependency could not be found it sets an informative diagnostic\n  message and calls :command:`return` to end processing of the calling\n  package configuration file and return to the :command:`find_package`\n  command that loaded it.\n\n  .. note::\n\n    The call to :command:`return` makes this macro unsuitable to call\n    from :ref:`Find Modules`.\n\nPackage Dependency Search Optimizations\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nIf ``find_dependency`` is called with arguments identical to a previous\ncall in the same directory, perhaps due to diamond-shaped package\ndependencies, the underlying call to :command:`find_package` is optimized\nout.  This optimization is important to support large package dependency\ngraphs while avoiding a combinatorial explosion of repeated searches.\nHowever, the heuristic cannot account for ambient variables that\naffect package behavior, such as ``<PackageName>_USE_STATIC_LIBS``,\noffered by some packages.  Therefore package configuration files should\navoid setting such variables before their calls to ``find_dependency``.\n\n.. versionchanged:: 3.15\n  Previously, the underlying call to :command:`find_package` was always\n  optimized out if the package had already been found.  CMake 3.15\n  removed the optimization to support cases in which ``find_dependency``\n  call arguments request different components.\n\n.. versionchanged:: 3.26\n  The pre-3.15 optimization was restored, but with the above-described\n  heuristic to account for varying ``find_dependency`` call arguments.\n\n#"
+      },
+      {
+        "label": "find_dependency",
+        "kind": 3,
+        "detail": "Function",
+        "documentation": "defined macro\nfrom: /usr/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake"
+      },
+      {
+        "label": "cmake_fd_quiet_arg",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake"
+      },
+      {
+        "label": "cmake_fd_quiet_arg",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake"
+      },
+      {
+        "label": "cmake_fd_required_arg",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake"
+      },
+      {
+        "label": "cmake_fd_required_arg",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake"
+      },
+      {
+        "label": "${dep}_LIBRARIES",
+        "kind": 6,
+        "detail": "Variable",
+        "documentation": "package: ${dep}"
+      },
+      {
+        "label": "${dep}_INCLUDE_DIRS",
+        "kind": 6,
+        "detail": "Variable",
+        "documentation": "package: ${dep}"
+      },
+      {
+        "label": "\"_CMAKE_${dep}_${cmake_fd_call_hash}_FOUND\"",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake"
+      },
+      {
+        "label": "${CMAKE_FIND_PACKAGE_NAME}_NOT_FOUND_MESSAGE",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake"
+      },
+      {
+        "label": "${CMAKE_FIND_PACKAGE_NAME}_FOUND",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake"
+      },
+      {
+        "label": "\"Qt6Widgets_FOUND\"",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake"
+      },
+      {
+        "label": "Qt6Widgets_LIBRARIES",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake\n\nConsider using target_link_libraries(app PRIVATE Qt6Widgets) instead."
+      },
+      {
+        "label": "_Qt6Widgets_OWN_INCLUDE_DIRS",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake"
+      },
+      {
+        "label": "_Qt6Widgets_OWN_PRIVATE_INCLUDE_DIRS",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake"
+      },
+      {
+        "label": "Qt6Widgets_DEFINITIONS",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake"
+      },
+      {
+        "label": "Qt6Widgets_COMPILE_DEFINITIONS",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake"
+      },
+      {
+        "label": "Qt6Widgets_INCLUDE_DIRS",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake"
+      },
+      {
+        "label": "Qt6Widgets_PRIVATE_INCLUDE_DIRS",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake"
+      },
+      {
+        "label": "Qt6Widgets_FOUND",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake"
+      },
+      {
+        "label": "Qt6Widgets_NOT_FOUND_MESSAGE",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake"
+      },
+      {
+        "label": "__qt_disable_package_version_check",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersion.cmake"
+      },
+      {
+        "label": "__qt_disable_package_version_check",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersion.cmake"
+      },
+      {
+        "label": "__qt_package_version_incompatible",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersion.cmake"
+      },
+      {
+        "label": "__qt_package_version_incompatible",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersion.cmake"
+      },
+      {
+        "label": "QT_NO_PACKAGE_VERSION_INCOMPATIBLE_WARNING",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersion.cmake"
+      },
+      {
+        "label": "PACKAGE_VERSION_COMPATIBLE",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersion.cmake\n\nMark version as compatible. This is how we disable the version check."
+      },
+      {
+        "label": "__qt_package_version_message_prefix",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersion.cmake"
+      },
+      {
+        "label": "__qt_package_version_message_prefix",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersion.cmake"
+      },
+      {
+        "label": "PACKAGE_VERSION",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersionImpl.cmake"
+      },
+      {
+        "label": "PACKAGE_VERSION_COMPATIBLE",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersionImpl.cmake"
+      },
+      {
+        "label": "PACKAGE_VERSION_COMPATIBLE",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersionImpl.cmake"
+      },
+      {
+        "label": "PACKAGE_VERSION_COMPATIBLE",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersionImpl.cmake"
+      },
+      {
+        "label": "PACKAGE_VERSION_COMPATIBLE",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersionImpl.cmake"
+      },
+      {
+        "label": "PACKAGE_VERSION_EXACT",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersionImpl.cmake"
+      },
+      {
+        "label": "PACKAGE_VERSION",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersionImpl.cmake"
+      },
+      {
+        "label": "PACKAGE_VERSION_UNSUITABLE",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersionImpl.cmake"
+      },
+      {
+        "label": "Qt6Widgets_FOUND",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake\n\nMake sure Qt6 is found before anything else."
+      },
+      {
+        "label": "_qt_cmake_dir",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake"
+      },
+      {
+        "label": "__qt_use_no_default_path_for_qt_packages",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake"
+      },
+      {
+        "label": "__qt_use_no_default_path_for_qt_packages",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake"
+      },
+      {
+        "label": "${CMAKE_FIND_PACKAGE_NAME}_FIND_REQUIRED",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake\n\nset _NOT_FOUND_MESSAGE which will be displayed by the includer of the Dependencies file."
+      },
+      {
+        "label": "__qt_Widgets_third_party_deps",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake\n\nnote: _third_party_deps example: \"ICU\\\\;FALSE\\\\;1.0\\\\;i18n uc data;ZLIB\\\\;FALSE\\\\;\\\\;\""
+      },
+      {
+        "label": "__qt_Widgets_tool_deps",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake\n\nFind Qt tool package."
+      },
+      {
+        "label": "__qt_Widgets_target_deps",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake\n\nnote: target_deps example: \"Qt6Core\\;5.12.0;Qt6Gui\\;5.12.0\""
+      },
+      {
+        "label": "__qt_Widgets_find_dependency_paths",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake"
+      },
+      {
+        "label": "_Qt6Widgets_MODULE_DEPENDENCIES",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake"
+      },
+      {
+        "label": "Qt6Widgets_FOUND",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake"
+      },
+      {
+        "label": "CMAKE_IMPORT_FILE_VERSION",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets-none.cmake\n\nCommands may need to know the format version."
+      },
+      {
+        "label": "CMAKE_IMPORT_FILE_VERSION",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets-none.cmake\n\nCommands beyond this point should not need to know the version."
+      },
+      {
+        "label": "qt6_wrap_ui",
+        "kind": 3,
+        "detail": "Function",
+        "documentation": "defined function\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake"
+      },
+      {
+        "label": "qt_wrap_ui",
+        "kind": 3,
+        "detail": "Function",
+        "documentation": "defined function\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake"
+      },
+      {
+        "label": "options",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake"
+      },
+      {
+        "label": "oneValueArgs",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake"
+      },
+      {
+        "label": "multiValueArgs",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake"
+      },
+      {
+        "label": "ui_files",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake"
+      },
+      {
+        "label": "ui_options",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake"
+      },
+      {
+        "label": "outfile",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake"
+      },
+      {
+        "label": "${outfiles}",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake"
+      },
+      {
+        "label": "\"${outfiles}\"",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake"
+      },
+      {
+        "label": "CMAKE_IMPORT_FILE_VERSION",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsVersionlessTargets.cmake\n\nCommands may need to know the format version."
+      },
+      {
+        "label": "_cmake_targets_defined",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsVersionlessTargets.cmake\n\nProtect against multiple inclusion, which would fail when already imported targets are added once more."
+      },
+      {
+        "label": "_cmake_targets_not_defined",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsVersionlessTargets.cmake"
+      },
+      {
+        "label": "_cmake_expected_targets",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsVersionlessTargets.cmake"
+      },
+      {
+        "label": "_IMPORT_PREFIX",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsVersionlessTargets.cmake"
+      },
+      {
+        "label": "_IMPORT_PREFIX",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsVersionlessTargets.cmake"
+      },
+      {
+        "label": "_IMPORT_PREFIX",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsVersionlessTargets.cmake\n\nCleanup temporary variables."
+      },
+      {
+        "label": "${CMAKE_FIND_PACKAGE_NAME}_NOT_FOUND_MESSAGE_targets",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsVersionlessTargets.cmake"
+      },
+      {
+        "label": "${CMAKE_FIND_PACKAGE_NAME}_FOUND",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsVersionlessTargets.cmake"
+      },
+      {
+        "label": "${CMAKE_FIND_PACKAGE_NAME}_NOT_FOUND_MESSAGE",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsVersionlessTargets.cmake"
+      },
+      {
+        "label": "CMAKE_IMPORT_FILE_VERSION",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsVersionlessTargets.cmake\n\nCommands beyond this point should not need to know the version."
+      },
+      {
+        "label": "CMAKE_IMPORT_FILE_VERSION",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake\n\nCommands may need to know the format version."
+      },
+      {
+        "label": "_cmake_targets_defined",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake\n\nProtect against multiple inclusion, which would fail when already imported targets are added once more."
+      },
+      {
+        "label": "_cmake_targets_not_defined",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake"
+      },
+      {
+        "label": "_cmake_expected_targets",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake"
+      },
+      {
+        "label": "_IMPORT_PREFIX",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake"
+      },
+      {
+        "label": "_IMPORT_PREFIX",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake"
+      },
+      {
+        "label": "_IMPORT_PREFIX",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake\n\nCleanup temporary variables."
+      },
+      {
+        "label": "${CMAKE_FIND_PACKAGE_NAME}_NOT_FOUND_MESSAGE_targets",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake"
+      },
+      {
+        "label": "${CMAKE_FIND_PACKAGE_NAME}_FOUND",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake"
+      },
+      {
+        "label": "${CMAKE_FIND_PACKAGE_NAME}_NOT_FOUND_MESSAGE",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake"
+      },
+      {
+        "label": "CMAKE_IMPORT_FILE_VERSION",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake\n\nCommands beyond this point should not need to know the version."
+      },
+      {
+        "label": "QT_DEFAULT_IMPORT_CONFIGURATION",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsAdditionalTargetInfo.cmake"
+      }
+    ],
+    "/home/anonymous/Downloads/programming_practice/c_files/gtk/project1/CMakeLists.txt": [
+      {
+        "label": "CMAKE_C_STANDARD",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /home/anonymous/Downloads/programming_practice/c_files/gtk/project1/CMakeLists.txt"
+      },
+      {
+        "label": "CMAKE_EXPORT_COMPILE_COMMANDS",
+        "kind": 12,
+        "detail": "Value",
+        "documentation": "defined variable\nfrom: /home/anonymous/Downloads/programming_practice/c_files/gtk/project1/CMakeLists.txt"
+      },
+      {
+        "label": "PkgConfig_LIBRARIES",
+        "kind": 6,
+        "detail": "Variable",
+        "documentation": "package: PkgConfig"
+      },
+      {
+        "label": "PkgConfig_INCLUDE_DIRS",
+        "kind": 6,
+        "detail": "Variable",
+        "documentation": "package: PkgConfig"
+      },
+      {
+        "label": "PkgConfig::GTK4",
+        "kind": 6,
+        "detail": "Package",
+        "documentation": "package: GTK4"
+      },
+      {
+        "label": "GTK4_LIBRARIES",
+        "kind": 6,
+        "detail": "Package",
+        "documentation": "package: GTK4"
+      },
+      {
+        "label": "GTK4_INCLUDE_DIRS",
+        "kind": 6,
+        "detail": "Package",
+        "documentation": "package: GTK4"
+      }
+    ]
+  }
+}
