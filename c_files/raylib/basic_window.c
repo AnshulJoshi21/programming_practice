@@ -1,7 +1,7 @@
 #include <raylib.h>
 
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
+#define SCREEN_WIDTH 1280
+#define SCREEN_HEIGHT 720
 
 int main(void) {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "");
