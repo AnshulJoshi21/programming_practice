@@ -11,6 +11,7 @@ static const float JUMP_FORCE = 500;
 static const float GRAVITY    = 1200;
 
 #define MAX_ENEMIES 10
+static const float ENEMY_HORIZONTAL_GAP = SCREEN_WIDTH / 2.0f;
 
 static inline float randf(const float min, const float max) {
     if (min == max) return min;
@@ -99,7 +100,6 @@ static void enemy_init(Enemy* enemy) {
 typedef struct {
     Enemy enemies[MAX_ENEMIES];
     int   size;
-    float horizontal_gap;
     float speed;
     float speed_increment;
 } EnemyManager;
@@ -108,7 +108,6 @@ static void em_init(EnemyManager* em) {
     assert(em);
 
     em->size            = 0;
-    em->horizontal_gap  = GetScreenWidth() / 2.0f;
     em->speed           = 100.0f;
     em->speed_increment = 10.0f;
 }
@@ -122,7 +121,7 @@ static void em_update(EnemyManager* em, const float dt) {
     if (em->size < MAX_ENEMIES) {
         const Enemy* last_enemy = &em->enemies[em->size - 1];
         if (em->size == 0
-            || last_enemy->rect.x + last_enemy->rect.width + em->horizontal_gap
+            || last_enemy->rect.x + last_enemy->rect.width + ENEMY_HORIZONTAL_GAP
                    < GetScreenWidth()) {
             //
             enemy_init(&em->enemies[em->size]);
