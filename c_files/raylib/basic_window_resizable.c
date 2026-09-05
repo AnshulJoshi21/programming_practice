@@ -2,8 +2,8 @@
 #include <math.h>
 #include <raylib.h>
 
-#define SCREEN_WIDTH 1280
-#define SCREEN_HEIGHT 720
+static const int SCREEN_WIDTH  = 1280;
+static const int SCREEN_HEIGHT = 720;
 
 int main(void) {
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
@@ -12,6 +12,8 @@ int main(void) {
 
     RenderTexture canvas = LoadRenderTexture(SCREEN_WIDTH, SCREEN_HEIGHT);
     assert(IsRenderTextureValid(canvas));
+
+    Vector2 world_mouse;
 
     while (!WindowShouldClose()) {
         BeginTextureMode(canvas);
@@ -26,6 +28,9 @@ int main(void) {
         const Rectangle source = (Rectangle){0, 0, SCREEN_WIDTH, -SCREEN_HEIGHT};
         const Rectangle dest
             = (Rectangle){offset.x, offset.y, SCREEN_WIDTH * scale, SCREEN_HEIGHT * scale};
+
+        const Vector2 screen_mouse = GetMousePosition();
+        world_mouse                = (Vector2){screen_mouse.x * scale, screen_mouse.y * scale};
 
         BeginDrawing();
         ClearBackground(BLACK);

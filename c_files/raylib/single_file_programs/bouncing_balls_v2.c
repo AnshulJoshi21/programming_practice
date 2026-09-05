@@ -4,13 +4,12 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define SCREEN_WIDTH 1280
-#define SCREEN_HEIGHT 720
-#define MAX_BALLS 600
+static const int SCREEN_WIDTH  = 1280;
+static const int SCREEN_HEIGHT = 720;
+static const int MAX_BALLS     = 600;
 
 static inline float randf(const float min, const float max) {
-    if (min == max)
-        return min;
+    if (min == max) return min;
 
     const float minimum = (min < max) ? min : max;
     const float maximum = (min < max) ? max : min;
@@ -28,27 +27,32 @@ typedef struct {
 static void ball_init(Ball* ball) {
     assert(ball);
 
-    ball->radius      = randf(5, 30);
-    ball->center      = (Vector2){randf(ball->radius, GetScreenWidth() - ball->radius),
-                                  randf(ball->radius, GetScreenHeight() - ball->radius)};
+    ball->radius = randf(5, 40);
+    ball->center = (Vector2){
+        randf(ball->radius, GetScreenWidth() - ball->radius),
+        randf(ball->radius, GetScreenHeight() - ball->radius),
+    };
     const float speed = randf(100, 300);
     const float angle = randf(0, 2 * PI);
     ball->velocity    = (Vector2){
         cosf(angle) * speed,
         sinf(angle) * speed,
     };
-    ball->color
-        = (Color){GetRandomValue(0, 255), GetRandomValue(0, 255), GetRandomValue(0, 255), 255};
+    ball->color = (Color){
+        GetRandomValue(0, 255),
+        GetRandomValue(0, 255),
+        GetRandomValue(0, 255),
+        255,
+    };
 }
 
 static void ball_update(Ball* ball, const float dt) {
     assert(ball);
-
     // move
     ball->center.x += ball->velocity.x * dt;
     ball->center.y += ball->velocity.y * dt;
 
-    // bounds
+    // set bounds
     if (ball->center.x < ball->radius) {
         ball->center.x = ball->radius;
         ball->velocity.x *= -1;
@@ -77,8 +81,8 @@ static void ball_draw(const Ball* ball) {
 }
 
 int main(void) {
-    srand(time(NULL));
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Bouncing Balls");
+    srand((unsigned int) time(NULL));
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Boucing Balls");
 
     Ball balls[MAX_BALLS];
     for (int i = 0; i < MAX_BALLS; i++) {

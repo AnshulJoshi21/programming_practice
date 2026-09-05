@@ -4,13 +4,12 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define SCREEN_WIDTH 1280
-#define SCREEN_HEIGHT 720
-#define MAX_BALLS 600
+static const int SCREEN_WIDTH  = 1280;
+static const int SCREEN_HEIGHT = 720;
+static const int MAX_BALLS     = 600;
 
 static inline float randf(const float min, const float max) {
-    if (min == max)
-        return min;
+    if (min == max) return min;
 
     const float minimum = (min < max) ? min : max;
     const float maximum = (min < max) ? max : min;
@@ -29,16 +28,22 @@ typedef struct {
 static void ball_init(Ball* ball) {
     assert(ball);
 
-    ball->radius    = randf(5, 30);
-    ball->center    = (Vector2){randf(ball->radius, GetScreenWidth() - ball->radius),
-                                randf(ball->radius, GetScreenHeight() - ball->radius)};
+    ball->radius = randf(5, 40);
+    ball->center = (Vector2){
+        randf(ball->radius, GetScreenWidth() - ball->radius),
+        randf(ball->radius, GetScreenHeight() - ball->radius),
+    };
     ball->speed     = randf(100, 300);
     ball->direction = (Vector2){
         GetRandomValue(0, 1) == 0 ? -1 : 1,
         GetRandomValue(0, 1) == 0 ? -1 : 1,
     };
-    ball->color
-        = (Color){GetRandomValue(0, 255), GetRandomValue(0, 255), GetRandomValue(0, 255), 255};
+    ball->color = (Color){
+        GetRandomValue(0, 255),
+        GetRandomValue(0, 255),
+        GetRandomValue(0, 255),
+        255,
+    };
 }
 
 static void ball_update(Ball* ball, const float dt) {
@@ -50,7 +55,7 @@ static void ball_update(Ball* ball, const float dt) {
     ball->center.x += ball->direction.x * ball->speed * dt;
     ball->center.y += ball->direction.y * ball->speed * dt;
 
-    // bounds
+    // set bounds
     if (ball->center.x < ball->radius) {
         ball->center.x = ball->radius;
         ball->direction.x *= -1;
@@ -79,8 +84,8 @@ static void ball_draw(const Ball* ball) {
 }
 
 int main(void) {
-    srand(time(NULL));
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Bouncing Balls");
+    srand((unsigned int) time(NULL));
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Boucing Balls");
 
     Ball balls[MAX_BALLS];
     for (int i = 0; i < MAX_BALLS; i++) {
