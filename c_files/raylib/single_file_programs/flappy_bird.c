@@ -65,9 +65,16 @@ static void player_update(Player* player, const float dt) {
         player->change_y = -JUMP_FORCE;
     }
 
+    // jumping
     player->change_y += GRAVITY * dt;
     player->rect.y += player->change_y * dt;
 
+    // hit ground
+    if (player->rect.y + player->rect.height >= GetScreenHeight()) {
+        player->change_y = 0.0f;
+    }
+
+    // set bounds
     player->rect.y = fmaxf(0, fminf(player->rect.y, GetScreenHeight() - player->rect.height));
 }
 
