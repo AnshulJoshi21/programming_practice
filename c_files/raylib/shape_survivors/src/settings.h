@@ -1,9 +1,22 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
-static const int SCREEN_WIDTH  = 1280;
-static const int SCREEN_HEIGHT = 720;
+#include <raylib.h>
 
-static const int MAP_SIZE = 2000;
+extern const int SCREEN_WIDTH;
+extern const int SCREEN_HEIGHT;
+extern const int MAP_SIZE;
+
+#define MAX_BULLETS 10
+#define MAX_ORBITALS 10
+
+typedef struct {
+    Color dark;
+    Color purple;
+    Color beige;
+    Color white;
+} Palette;
+
+extern const Palette palette;
 
 #endif // SETTINGS_H

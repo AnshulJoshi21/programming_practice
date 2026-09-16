@@ -1,11 +1,14 @@
 #ifndef TIMER_H
 #define TIMER_H
 
+#include <raylib.h>
+
 typedef struct {
     float elapsed;
-    float duration;
-} Timer;
+    float interval;
+} IntervalTimer;
 
-int timer_tick(Timer* timer, const float dt);
+void interval_timer_init(IntervalTimer* timer, const float interval);
+bool interval_timer_tick(IntervalTimer* timer, const float dt);
 
 #endif // TIMER_H

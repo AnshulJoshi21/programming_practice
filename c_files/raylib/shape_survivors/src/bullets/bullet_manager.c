@@ -7,19 +7,17 @@ void bullet_manager_init(BulletManager* bm) {
     bm->size = 0;
 }
 
-void bullet_manager_spawn(BulletManager* bm, const Vector2 start_pos, const Vector2 target_pos) {
+void bullet_manager_spawn(BulletManager* bm, const BulletInitConfig config) {
     assert(bm);
 
     if (bm->size >= MAX_BULLETS) return;
 
-    bullet_init(&bm->bullets[bm->size], start_pos, target_pos);
-    bm->size++;
+    bullet_init(&bm->bullets[bm->size++], config);
 }
 
 void bullet_manager_update(BulletManager* bm, const float dt) {
     assert(bm);
 
-    // update
     for (int i = 0; i < bm->size; i++) {
         Bullet* bullet = &bm->bullets[i];
 

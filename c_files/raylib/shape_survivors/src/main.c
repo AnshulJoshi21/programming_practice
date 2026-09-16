@@ -1,9 +1,17 @@
 #include "game_manager.h"
 #include "settings.h"
+#include <assert.h>
+#include <math.h>
 #include <raylib.h>
 
 int main(void) {
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Shape Survivors");
+
+    RenderTexture canvas = LoadRenderTexture(SCREEN_WIDTH, SCREEN_HEIGHT);
+    assert(IsRenderTextureValid(canvas));
+
+    Vector2 world_mouse;
 
     GameManager game_manager;
     game_manager_init(&game_manager);
@@ -13,13 +21,34 @@ int main(void) {
 
         game_manager_update(&game_manager, dt);
 
-        BeginDrawing();
-        ClearBackground(RAYWHITE);
+        BeginTextureMode(canvas);
+        ClearBackground(palette.white);
 
         game_manager_draw(&game_manager);
 
+        EndTextureMode();
+
+        const float   scale  = fminf((float) GetScreenWidth() / (float) SCREEN_WIDTH,
+                                  (float) GetScreenHeight() / (float) SCREEN_HEIGHT);
+        const Vector2 offset = (Vector2){(GetScreenWidth() - (SCREEN_WIDTH * scale)) / 2.0f,
+                                         (GetScreenHeight() - (SCREEN_HEIGHT * scale)) / 2.0f};
+
+        const Rectangle source = (Rectangle){0, 0, SCREEN_WIDTH, -SCREEN_HEIGHT};
+        const Rectangle dest
+            = (Rectangle){offset.x, offset.y, SCREEN_WIDTH * scale, SCREEN_HEIGHT * scale};
+
+        const Vector2 screen_mouse = GetMousePosition();
+        world_mouse                = (Vector2){screen_mouse.x * scale, screen_mouse.y * scale};
+
+        BeginDrawing();
+        ClearBackground(palette.dark);
+
+        DrawTexturePro(canvas.texture, source, dest, (Vector2){0, 0}, 0.0f, WHITE);
+
         EndDrawing();
     }
+
+    UnloadRenderTexture(canvas);
 
     CloseWindow();
 

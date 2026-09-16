@@ -14,11 +14,13 @@ typedef enum {
 } GameState;
 
 typedef struct {
-    GameState     current_state;
+    GameState current_state;
+
     Player        player;
     EnemyManager  enemy_manager;
     BulletManager bullet_manager;
-    Camera2D      camera;
+
+    Camera2D camera;
 } GameManager;
 
 void game_manager_init(GameManager* gm);

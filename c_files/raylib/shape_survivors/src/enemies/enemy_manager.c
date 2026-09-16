@@ -1,34 +1,36 @@
+#include "enemy.h"
 #include "enemy_manager.h"
 #include <assert.h>
+
+static const float ENEMY_SPAWN_INTERVAL = 3.0f;
 
 void enemy_manager_init(EnemyManager* em) {
     assert(em);
 
-    em->size  = 0;
-    em->timer = (Timer){.elapsed = 0.0f, .duration = 3.0f};
+    em->size = 0;
+    interval_timer_init(&em->timer, ENEMY_SPAWN_INTERVAL);
 }
 
-void enemy_manager_spawn(EnemyManager* em, const float dt, const Vector2 target_pos) {
+void enemy_manager_spawn(EnemyManager* em, const float dt, const Player* player) {
     assert(em);
 
     if (em->size >= MAX_ENEMIES) return;
 
-    if (timer_tick(&em->timer, dt)) {
-        enemy_init(&em->enemies[em->size], target_pos);
-        em->size++;
+    if (em->size == 0 || interval_timer_tick(&em->timer, dt)) {
+        const EnemyType random_type = GetRandomValue(0, ENEMY_TYPE_MAX - 1);
+        enemy_init(&em->enemies[em->size++], random_type, player);
     }
 }
 
-void enemy_manager_update(EnemyManager* em, const float dt, const Vector2 target_pos) {
+void enemy_manager_update(EnemyManager* em, const float dt, const Player* player) {
     assert(em);
 
-    enemy_manager_spawn(em, dt, target_pos);
+    enemy_manager_spawn(em, dt, player);
 
-    // update
     for (int i = 0; i < em->size; i++) {
         Enemy* enemy = &em->enemies[i];
 
-        enemy_update(enemy, dt, target_pos);
+        enemy_update(enemy, dt);
 
         // despawn
         if (enemy->hp <= 0) {
