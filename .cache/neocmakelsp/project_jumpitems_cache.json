@@ -1,278 +1,6 @@
 {
-  "date": "2026-08-07T08:58:09.616982543+05:30",
+  "date": "2026-09-24T19:00:36.326935174+05:30",
   "data": {
-    "qt6_wrap_ui": {
-      "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake",
-        "range": {
-          "start": {
-            "line": 41,
-            "character": 9
-          },
-          "end": {
-            "line": 41,
-            "character": 20
-          }
-        }
-      },
-      "document_info": "defined function\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake",
-      "is_function": true
-    },
-    "_Qt6Widgets_MODULE_DEPENDENCIES": {
-      "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake",
-        "range": {
-          "start": {
-            "line": 41,
-            "character": 4
-          },
-          "end": {
-            "line": 41,
-            "character": 35
-          }
-        }
-      },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake",
-      "is_function": false
-    },
-    "_Qt6Widgets_OWN_PRIVATE_INCLUDE_DIRS": {
-      "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
-        "range": {
-          "start": {
-            "line": 83,
-            "character": 16
-          },
-          "end": {
-            "line": 83,
-            "character": 52
-          }
-        }
-      },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
-      "is_function": false
-    },
-    "check_required_components": {
-      "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
-        "range": {
-          "start": {
-            "line": 24,
-            "character": 6
-          },
-          "end": {
-            "line": 24,
-            "character": 31
-          }
-        }
-      },
-      "document_info": "defined macro\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
-      "is_function": true
-    },
-    "PACKAGE_PREFIX_DIR": {
-      "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
-        "range": {
-          "start": {
-            "line": 12,
-            "character": 6
-          },
-          "end": {
-            "line": 12,
-            "character": 24
-          }
-        }
-      },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
-      "is_function": false
-    },
-    "${_var}": {
-      "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
-        "range": {
-          "start": {
-            "line": 18,
-            "character": 6
-          },
-          "end": {
-            "line": 18,
-            "character": 13
-          }
-        }
-      },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
-      "is_function": false
-    },
-    "Qt6Widgets_NOT_FOUND_MESSAGE": {
-      "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
-        "range": {
-          "start": {
-            "line": 156,
-            "character": 12
-          },
-          "end": {
-            "line": 156,
-            "character": 40
-          }
-        }
-      },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
-      "is_function": false
-    },
-    "Qt6Widgets_COMPILE_DEFINITIONS": {
-      "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
-        "range": {
-          "start": {
-            "line": 98,
-            "character": 12
-          },
-          "end": {
-            "line": 98,
-            "character": 42
-          }
-        }
-      },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
-      "is_function": false
-    },
-    "_Qt6Widgets_OWN_INCLUDE_DIRS": {
-      "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
-        "range": {
-          "start": {
-            "line": 76,
-            "character": 12
-          },
-          "end": {
-            "line": 76,
-            "character": 40
-          }
-        }
-      },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
-      "is_function": false
-    },
-    "PACKAGE_VERSION": {
-      "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersionImpl.cmake",
-        "range": {
-          "start": {
-            "line": 40,
-            "character": 6
-          },
-          "end": {
-            "line": 40,
-            "character": 21
-          }
-        }
-      },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersionImpl.cmake",
-      "is_function": false
-    },
-    "\"${outfiles}\"": {
-      "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake",
-        "range": {
-          "start": {
-            "line": 76,
-            "character": 12
-          },
-          "end": {
-            "line": 76,
-            "character": 25
-          }
-        }
-      },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake",
-      "is_function": false
-    },
-    "__qt_Widgets_third_party_deps": {
-      "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake",
-        "range": {
-          "start": {
-            "line": 28,
-            "character": 4
-          },
-          "end": {
-            "line": 28,
-            "character": 33
-          }
-        }
-      },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake\n\nnote: _third_party_deps example: \"ICU\\\\;FALSE\\\\;1.0\\\\;i18n uc data;ZLIB\\\\;FALSE\\\\;\\\\;\"",
-      "is_function": false
-    },
-    "_IMPORT_PREFIX": {
-      "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake",
-        "range": {
-          "start": {
-            "line": 122,
-            "character": 4
-          },
-          "end": {
-            "line": 122,
-            "character": 18
-          }
-        }
-      },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake\n\nCleanup temporary variables.",
-      "is_function": false
-    },
-    "CMAKE_C_STANDARD": {
-      "location": {
-        "uri": "file:///home/anonymous/Downloads/programming_practice/c_files/gtk/project1/CMakeLists.txt",
-        "range": {
-          "start": {
-            "line": 4,
-            "character": 4
-          },
-          "end": {
-            "line": 4,
-            "character": 20
-          }
-        }
-      },
-      "document_info": "defined variable\nfrom: /home/anonymous/Downloads/programming_practice/c_files/gtk/project1/CMakeLists.txt",
-      "is_function": false
-    },
-    "__qt_Widgets_tool_deps": {
-      "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake",
-        "range": {
-          "start": {
-            "line": 32,
-            "character": 4
-          },
-          "end": {
-            "line": 32,
-            "character": 26
-          }
-        }
-      },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake\n\nFind Qt tool package.",
-      "is_function": false
-    },
-    "__qt_Widgets_target_deps": {
-      "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake",
-        "range": {
-          "start": {
-            "line": 36,
-            "character": 4
-          },
-          "end": {
-            "line": 36,
-            "character": 28
-          }
-        }
-      },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake\n\nnote: target_deps example: \"Qt6Core\\;5.12.0;Qt6Gui\\;5.12.0\"",
-      "is_function": false
-    },
     "\"Qt6Widgets_FOUND\"": {
       "location": {
         "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
@@ -290,225 +18,21 @@
       "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
       "is_function": false
     },
-    "${CMAKE_FIND_PACKAGE_NAME}_NOT_FOUND_MESSAGE_targets": {
+    "PACKAGE_VERSION_EXACT": {
       "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake",
+        "uri": "file:///usr/local/lib/cmake/raylib/raylib-config-version.cmake",
         "range": {
           "start": {
-            "line": 150,
-            "character": 8
+            "line": 3,
+            "character": 6
           },
           "end": {
-            "line": 150,
-            "character": 60
-          }
-        }
-      },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake",
-      "is_function": false
-    },
-    "${CMAKE_FIND_PACKAGE_NAME}_FIND_REQUIRED": {
-      "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake",
-        "range": {
-          "start": {
-            "line": 13,
-            "character": 4
-          },
-          "end": {
-            "line": 13,
-            "character": 44
-          }
-        }
-      },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake\n\nset _NOT_FOUND_MESSAGE which will be displayed by the includer of the Dependencies file.",
-      "is_function": false
-    },
-    "CMAKE_CXX_STANDARD": {
-      "location": {
-        "uri": "file:///home/anonymous/Downloads/programming_practice/cpp_files/qt_files/01_basic_window/CMakeLists.txt",
-        "range": {
-          "start": {
-            "line": 4,
-            "character": 4
-          },
-          "end": {
-            "line": 4,
-            "character": 22
-          }
-        }
-      },
-      "document_info": "defined variable\nfrom: /home/anonymous/Downloads/programming_practice/cpp_files/qt_files/01_basic_window/CMakeLists.txt",
-      "is_function": false
-    },
-    "${_NAME}_FOUND": {
-      "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
-        "range": {
-          "start": {
-            "line": 28,
-            "character": 12
-          },
-          "end": {
-            "line": 28,
-            "character": 26
-          }
-        }
-      },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
-      "is_function": false
-    },
-    "oneValueArgs": {
-      "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake",
-        "range": {
-          "start": {
-            "line": 43,
-            "character": 8
-          },
-          "end": {
-            "line": 43,
-            "character": 20
-          }
-        }
-      },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake",
-      "is_function": false
-    },
-    "Qt6Widgets_DEFINITIONS": {
-      "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
-        "range": {
-          "start": {
-            "line": 90,
-            "character": 12
-          },
-          "end": {
-            "line": 90,
-            "character": 34
-          }
-        }
-      },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
-      "is_function": false
-    },
-    "__qt_Widgets_find_dependency_paths": {
-      "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake",
-        "range": {
-          "start": {
-            "line": 37,
-            "character": 4
-          },
-          "end": {
-            "line": 37,
-            "character": 38
-          }
-        }
-      },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake",
-      "is_function": false
-    },
-    "_qt_cmake_dir": {
-      "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake",
-        "range": {
-          "start": {
-            "line": 4,
-            "character": 8
-          },
-          "end": {
-            "line": 4,
-            "character": 21
-          }
-        }
-      },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake",
-      "is_function": false
-    },
-    "_cmake_expected_targets": {
-      "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake",
-        "range": {
-          "start": {
-            "line": 20,
-            "character": 4
-          },
-          "end": {
-            "line": 20,
+            "line": 3,
             "character": 27
           }
         }
       },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake",
-      "is_function": false
-    },
-    "${CMAKE_FIND_PACKAGE_NAME}_FOUND": {
-      "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake",
-        "range": {
-          "start": {
-            "line": 156,
-            "character": 9
-          },
-          "end": {
-            "line": 156,
-            "character": 41
-          }
-        }
-      },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake",
-      "is_function": false
-    },
-    "set_and_check": {
-      "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
-        "range": {
-          "start": {
-            "line": 17,
-            "character": 6
-          },
-          "end": {
-            "line": 17,
-            "character": 19
-          }
-        }
-      },
-      "document_info": "defined macro\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
-      "is_function": true
-    },
-    "CMAKE_IMPORT_FILE_VERSION": {
-      "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake",
-        "range": {
-          "start": {
-            "line": 165,
-            "character": 4
-          },
-          "end": {
-            "line": 165,
-            "character": 29
-          }
-        }
-      },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake\n\nCommands beyond this point should not need to know the version.",
-      "is_function": false
-    },
-    "__qt_disable_package_version_check": {
-      "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersion.cmake",
-        "range": {
-          "start": {
-            "line": 7,
-            "character": 8
-          },
-          "end": {
-            "line": 7,
-            "character": 42
-          }
-        }
-      },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersion.cmake",
+      "document_info": "defined variable\nfrom: /usr/local/lib/cmake/raylib/raylib-config-version.cmake",
       "is_function": false
     },
     "${CMAKE_FIND_PACKAGE_NAME}_NOT_FOUND_MESSAGE": {
@@ -528,135 +52,339 @@
       "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake",
       "is_function": false
     },
-    "QT_NO_PACKAGE_VERSION_INCOMPATIBLE_WARNING": {
+    "FETCHCONTENT_UPDATES_DISCONNECTED": {
       "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersion.cmake",
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
         "range": {
           "start": {
-            "line": 23,
-            "character": 12
+            "line": 1685,
+            "character": 7
           },
           "end": {
-            "line": 23,
-            "character": 54
+            "line": 1685,
+            "character": 40
           }
         }
       },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersion.cmake",
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
       "is_function": false
     },
-    "Qt6Widgets_INCLUDE_DIRS": {
+    "_IMPORT_PREFIX": {
       "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
+        "uri": "file:///usr/local/lib/cmake/raylib/raylib-targets.cmake",
         "range": {
           "start": {
-            "line": 101,
-            "character": 8
+            "line": 79,
+            "character": 4
           },
           "end": {
-            "line": 101,
-            "character": 31
-          }
-        }
-      },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
-      "is_function": false
-    },
-    "__qt_package_version_incompatible": {
-      "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersion.cmake",
-        "range": {
-          "start": {
-            "line": 15,
-            "character": 8
-          },
-          "end": {
-            "line": 15,
-            "character": 41
-          }
-        }
-      },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersion.cmake",
-      "is_function": false
-    },
-    "__qt_package_version_message_prefix": {
-      "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersion.cmake",
-        "range": {
-          "start": {
-            "line": 47,
-            "character": 12
-          },
-          "end": {
-            "line": 47,
-            "character": 47
-          }
-        }
-      },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersion.cmake",
-      "is_function": false
-    },
-    "ui_options": {
-      "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake",
-        "range": {
-          "start": {
-            "line": 49,
-            "character": 8
-          },
-          "end": {
-            "line": 49,
+            "line": 79,
             "character": 18
           }
         }
       },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake",
+      "document_info": "defined variable\nfrom: /usr/local/lib/cmake/raylib/raylib-targets.cmake\n\nCleanup temporary variables.",
       "is_function": false
     },
-    "qt_wrap_ui": {
+    "PACKAGE_VERSION_UNSUITABLE": {
       "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake",
+        "uri": "file:///usr/local/lib/cmake/raylib/raylib-config-version.cmake",
         "range": {
           "start": {
-            "line": 70,
-            "character": 13
+            "line": 19,
+            "character": 6
           },
           "end": {
-            "line": 70,
-            "character": 23
+            "line": 19,
+            "character": 32
           }
         }
       },
-      "document_info": "defined function\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake",
-      "is_function": true
+      "document_info": "defined variable\nfrom: /usr/local/lib/cmake/raylib/raylib-config-version.cmake",
+      "is_function": false
     },
-    "_cmake_targets_defined": {
+    "ARG_DOWNLOAD_EXTRACT_TIMESTAMP": {
       "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake",
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
         "range": {
           "start": {
-            "line": 18,
+            "line": 1346,
+            "character": 14
+          },
+          "end": {
+            "line": 1346,
+            "character": 44
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "__cmake_srcdir": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 2044,
+            "character": 10
+          },
+          "end": {
+            "line": 2044,
+            "character": 24
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake\n\nignored there.",
+      "is_function": false
+    },
+    "__argsQuoted": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1361,
+            "character": 6
+          },
+          "end": {
+            "line": 1361,
+            "character": 18
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "__qt_Widgets_third_party_deps": {
+      "location": {
+        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake",
+        "range": {
+          "start": {
+            "line": 28,
             "character": 4
           },
           "end": {
-            "line": 18,
-            "character": 26
+            "line": 28,
+            "character": 33
           }
         }
       },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake\n\nProtect against multiple inclusion, which would fail when already imported targets are added once more.",
+      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake\n\nnote: _third_party_deps example: \"ICU\\\\;FALSE\\\\;1.0\\\\;i18n uc data;ZLIB\\\\;FALSE\\\\;\\\\;\"",
       "is_function": false
     },
-    "outfile": {
+    "__FetchContent_getSavedDetails": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1214,
+            "character": 9
+          },
+          "end": {
+            "line": 1214,
+            "character": 39
+          }
+        }
+      },
+      "document_info": "defined function\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake\n\nearlier call to __FetchContent_declareDetails().",
+      "is_function": true
+    },
+    "__findPackageArgs": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1171,
+            "character": 10
+          },
+          "end": {
+            "line": 1171,
+            "character": 27
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake\n\npackage name and there may not need to be any further arguments.",
+      "is_function": false
+    },
+    "prefix": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1445,
+            "character": 6
+          },
+          "end": {
+            "line": 1445,
+            "character": 12
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "FETCHCONTENT_BASE_DIR": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1687,
+            "character": 4
+          },
+          "end": {
+            "line": 1687,
+            "character": 25
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "__cmake_add_subdirectory_args": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 2055,
+            "character": 12
+          },
+          "end": {
+            "line": 2055,
+            "character": 41
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "${contentNameLower}_BINARY_DIR": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1844,
+            "character": 6
+          },
+          "end": {
+            "line": 1844,
+            "character": 36
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "__sawQuietKeyword": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1153,
+            "character": 12
+          },
+          "end": {
+            "line": 1153,
+            "character": 29
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "__FETCHCONTENT_CACHED_INFO": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1614,
+            "character": 6
+          },
+          "end": {
+            "line": 1614,
+            "character": 32
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "ARG_GIT_REPOSITORY": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1289,
+            "character": 10
+          },
+          "end": {
+            "line": 1289,
+            "character": 28
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "FETCHCONTENT_QUIET": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1686,
+            "character": 7
+          },
+          "end": {
+            "line": 1686,
+            "character": 25
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "_qt_cmake_dir": {
+      "location": {
+        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake",
+        "range": {
+          "start": {
+            "line": 4,
+            "character": 8
+          },
+          "end": {
+            "line": 4,
+            "character": 21
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake",
+      "is_function": false
+    },
+    "CMAKE_CXX_STANDARD_REQUIRED": {
+      "location": {
+        "uri": "file:///home/anonymous/Downloads/programming_practice/cpp_files/raylib/shape_survivors/CMakeLists.txt",
+        "range": {
+          "start": {
+            "line": 8,
+            "character": 4
+          },
+          "end": {
+            "line": 8,
+            "character": 31
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /home/anonymous/Downloads/programming_practice/cpp_files/raylib/shape_survivors/CMakeLists.txt",
+      "is_function": false
+    },
+    "${outfiles}": {
       "location": {
         "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake",
         "range": {
           "start": {
-            "line": 54,
-            "character": 12
+            "line": 65,
+            "character": 8
           },
           "end": {
-            "line": 54,
+            "line": 65,
             "character": 19
           }
         }
@@ -664,55 +392,361 @@
       "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake",
       "is_function": false
     },
-    "PACKAGE_VERSION_EXACT": {
-      "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersionImpl.cmake",
-        "range": {
-          "start": {
-            "line": 26,
-            "character": 10
-          },
-          "end": {
-            "line": 26,
-            "character": 31
-          }
-        }
-      },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersionImpl.cmake",
-      "is_function": false
-    },
-    "__qt_use_no_default_path_for_qt_packages": {
+    "__qt_Widgets_find_dependency_paths": {
       "location": {
         "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake",
         "range": {
           "start": {
-            "line": 8,
-            "character": 8
+            "line": 37,
+            "character": 4
           },
           "end": {
-            "line": 8,
-            "character": 48
+            "line": 37,
+            "character": 38
           }
         }
       },
       "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake",
       "is_function": false
     },
-    "PACKAGE_VERSION_UNSUITABLE": {
+    "Qt6Widgets_LIBRARIES": {
       "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersionImpl.cmake",
+        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
         "range": {
           "start": {
-            "line": 41,
+            "line": 71,
+            "character": 8
+          },
+          "end": {
+            "line": 71,
+            "character": 28
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake\n\nConsider using target_link_libraries(app PRIVATE Qt6Widgets) instead.",
+      "is_function": false
+    },
+    "FETCHCONTENT_FULLY_DISCONNECTED": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1684,
+            "character": 7
+          },
+          "end": {
+            "line": 1684,
+            "character": 38
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "inFileDir": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1871,
             "character": 6
           },
           "end": {
-            "line": 41,
+            "line": 1871,
+            "character": 15
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake\n\nnot the Config and ConfigVersion forms.",
+      "is_function": false
+    },
+    "__FetchContent_declareDetails": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1118,
+            "character": 9
+          },
+          "end": {
+            "line": 1118,
+            "character": 38
+          }
+        }
+      },
+      "document_info": "defined function\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake\n\nbuild will be in control).",
+      "is_function": true
+    },
+    "configFilePrefix2": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1873,
+            "character": 6
+          },
+          "end": {
+            "line": 1873,
+            "character": 23
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "__FetchContent_directPopulate": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1479,
+            "character": 9
+          },
+          "end": {
+            "line": 1479,
+            "character": 38
+          }
+        }
+      },
+      "document_info": "defined function\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake\n\nExternalProject_Add(), except for QUIET and SUBBUILD_DIR.",
+      "is_function": true
+    },
+    "CMAKE_CXX_STANDARD": {
+      "location": {
+        "uri": "file:///home/anonymous/Downloads/programming_practice/cpp_files/raylib/shape_survivors/CMakeLists.txt",
+        "range": {
+          "start": {
+            "line": 7,
+            "character": 4
+          },
+          "end": {
+            "line": 7,
+            "character": 22
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /home/anonymous/Downloads/programming_practice/cpp_files/raylib/shape_survivors/CMakeLists.txt",
+      "is_function": false
+    },
+    "_Qt6Widgets_OWN_PRIVATE_INCLUDE_DIRS": {
+      "location": {
+        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
+        "range": {
+          "start": {
+            "line": 83,
+            "character": 16
+          },
+          "end": {
+            "line": 83,
+            "character": 52
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
+      "is_function": false
+    },
+    "savedDetailsPropertyName": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1280,
+            "character": 8
+          },
+          "end": {
+            "line": 1280,
             "character": 32
           }
         }
       },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersionImpl.cmake",
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake\n\nthe parent project in an unexpected way, such as from a mirror or fork.",
+      "is_function": false
+    },
+    "FETCHCONTENT_UPDATES_DISCONNECTED_${contentNameUpper}": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1797,
+            "character": 11
+          },
+          "end": {
+            "line": 1797,
+            "character": 64
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake\n\nupdate test (either one being set disables updates for this content).",
+      "is_function": false
+    },
+    "check_required_components": {
+      "location": {
+        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
+        "range": {
+          "start": {
+            "line": 24,
+            "character": 6
+          },
+          "end": {
+            "line": 24,
+            "character": 31
+          }
+        }
+      },
+      "document_info": "defined macro\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
+      "is_function": true
+    },
+    "qt6_wrap_ui": {
+      "location": {
+        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake",
+        "range": {
+          "start": {
+            "line": 41,
+            "character": 9
+          },
+          "end": {
+            "line": 41,
+            "character": 20
+          }
+        }
+      },
+      "document_info": "defined function\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake",
+      "is_function": true
+    },
+    "CMAKE_IMPORT_FILE_VERSION": {
+      "location": {
+        "uri": "file:///usr/local/lib/cmake/raylib/raylib-targets.cmake",
+        "range": {
+          "start": {
+            "line": 106,
+            "character": 4
+          },
+          "end": {
+            "line": 106,
+            "character": 29
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/local/lib/cmake/raylib/raylib-targets.cmake\n\nCommands beyond this point should not need to know the version.",
+      "is_function": false
+    },
+    "CMAKE_VERIFY_INTERFACE_HEADER_SETS": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 2079,
+            "character": 6
+          },
+          "end": {
+            "line": 2079,
+            "character": 40
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "FetchContent_MakeAvailable": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1904,
+            "character": 6
+          },
+          "end": {
+            "line": 1904,
+            "character": 32
+          }
+        }
+      },
+      "document_info": "defined macro\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake\n\ncalls will be available to the caller.",
+      "is_function": true
+    },
+    "options": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1481,
+            "character": 6
+          },
+          "end": {
+            "line": 1481,
+            "character": 13
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "__passthrough_vars": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1615,
+            "character": 6
+          },
+          "end": {
+            "line": 1615,
+            "character": 24
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "__tryFindPackage": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1163,
+            "character": 12
+          },
+          "end": {
+            "line": 1163,
+            "character": 28
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "Qt6Widgets_NOT_FOUND_MESSAGE": {
+      "location": {
+        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
+        "range": {
+          "start": {
+            "line": 156,
+            "character": 12
+          },
+          "end": {
+            "line": 156,
+            "character": 40
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
+      "is_function": false
+    },
+    "\"${outfiles}\"": {
+      "location": {
+        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake",
+        "range": {
+          "start": {
+            "line": 76,
+            "character": 12
+          },
+          "end": {
+            "line": 76,
+            "character": 25
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake",
       "is_function": false
     },
     "Qt6Widgets_FOUND": {
@@ -732,34 +766,391 @@
       "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake",
       "is_function": false
     },
-    "PACKAGE_VERSION_COMPATIBLE": {
+    "FETCHCONTENT_SOURCE_DIR_${contentNameUpper}": {
       "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersionImpl.cmake",
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
         "range": {
           "start": {
-            "line": 24,
-            "character": 8
+            "line": 1745,
+            "character": 6
           },
           "end": {
-            "line": 24,
-            "character": 34
+            "line": 1745,
+            "character": 49
           }
         }
       },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersionImpl.cmake",
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
       "is_function": false
     },
-    "Qt6Widgets_PRIVATE_INCLUDE_DIRS": {
+    "__cmake_fcProvider_${__cmake_contentNameLower}": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1971,
+            "character": 12
+          },
+          "end": {
+            "line": 1971,
+            "character": 58
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "Qt6Widgets_INCLUDE_DIRS": {
       "location": {
         "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
         "range": {
           "start": {
-            "line": 104,
+            "line": 101,
             "character": 8
           },
           "end": {
-            "line": 104,
-            "character": 39
+            "line": 101,
+            "character": 31
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
+      "is_function": false
+    },
+    "subCMakeOpts": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1584,
+            "character": 8
+          },
+          "end": {
+            "line": 1584,
+            "character": 20
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "${contentName}_BINARY_DIR": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1537,
+            "character": 6
+          },
+          "end": {
+            "line": 1537,
+            "character": 31
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "oneValueArgs": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1489,
+            "character": 6
+          },
+          "end": {
+            "line": 1489,
+            "character": 18
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "PACKAGE_VERSION": {
+      "location": {
+        "uri": "file:///usr/local/lib/cmake/raylib/raylib-config-version.cmake",
+        "range": {
+          "start": {
+            "line": 18,
+            "character": 6
+          },
+          "end": {
+            "line": 18,
+            "character": 21
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/local/lib/cmake/raylib/raylib-config-version.cmake",
+      "is_function": false
+    },
+    "${contentName}_SOURCE_DIR": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1536,
+            "character": 6
+          },
+          "end": {
+            "line": 1536,
+            "character": 31
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake\n\nthe content details set by the project.",
+      "is_function": false
+    },
+    "sep": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1357,
+            "character": 10
+          },
+          "end": {
+            "line": 1357,
+            "character": 13
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "__detailsQuoted": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1812,
+            "character": 8
+          },
+          "end": {
+            "line": 1812,
+            "character": 23
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "GLOBAL": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1891,
+            "character": 6
+          },
+          "end": {
+            "line": 1891,
+            "character": 12
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "disconnectUpdates": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1803,
+            "character": 10
+          },
+          "end": {
+            "line": 1803,
+            "character": 27
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "__sawGlobalKeyword": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1155,
+            "character": 12
+          },
+          "end": {
+            "line": 1155,
+            "character": 30
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "ui_options": {
+      "location": {
+        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake",
+        "range": {
+          "start": {
+            "line": 49,
+            "character": 8
+          },
+          "end": {
+            "line": 49,
+            "character": 18
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake",
+      "is_function": false
+    },
+    "__cmake_providerArgs": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1936,
+            "character": 12
+          },
+          "end": {
+            "line": 1936,
+            "character": 32
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "__FETCHCONTENT_COPY_FILE": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1549,
+            "character": 8
+          },
+          "end": {
+            "line": 1549,
+            "character": 32
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "__qt_Widgets_tool_deps": {
+      "location": {
+        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake",
+        "range": {
+          "start": {
+            "line": 32,
+            "character": 4
+          },
+          "end": {
+            "line": 32,
+            "character": 26
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake\n\nFind Qt tool package.",
+      "is_function": false
+    },
+    "FetchContent_SetPopulated": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1381,
+            "character": 9
+          },
+          "end": {
+            "line": 1381,
+            "character": 34
+          }
+        }
+      },
+      "document_info": "defined function\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake\n\nplace to call it outside of the FetchContent module).",
+      "is_function": true
+    },
+    "CMAKE_CXX_EXTENSIONS": {
+      "location": {
+        "uri": "file:///home/anonymous/Downloads/programming_practice/cpp_files/raylib/shape_survivors/CMakeLists.txt",
+        "range": {
+          "start": {
+            "line": 9,
+            "character": 4
+          },
+          "end": {
+            "line": 9,
+            "character": 24
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /home/anonymous/Downloads/programming_practice/cpp_files/raylib/shape_survivors/CMakeLists.txt",
+      "is_function": false
+    },
+    "${outVar}": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1223,
+            "character": 6
+          },
+          "end": {
+            "line": 1223,
+            "character": 15
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "${CMAKE_FIND_PACKAGE_NAME}_FOUND": {
+      "location": {
+        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake",
+        "range": {
+          "start": {
+            "line": 156,
+            "character": 9
+          },
+          "end": {
+            "line": 156,
+            "character": 41
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake",
+      "is_function": false
+    },
+    "FetchContent_GetProperties": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1426,
+            "character": 9
+          },
+          "end": {
+            "line": 1426,
+            "character": 35
+          }
+        }
+      },
+      "document_info": "defined function\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake\n\nif they are using the populated content in that way.",
+      "is_function": true
+    },
+    "${_var}": {
+      "location": {
+        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
+        "range": {
+          "start": {
+            "line": 18,
+            "character": 6
+          },
+          "end": {
+            "line": 18,
+            "character": 13
           }
         }
       },
@@ -783,9 +1174,26 @@
       "document_info": "defined variable\nfrom: /home/anonymous/Downloads/programming_practice/c_files/gtk/project1/CMakeLists.txt",
       "is_function": false
     },
+    "__tryFindPackageAllowed": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1174,
+            "character": 10
+          },
+          "end": {
+            "line": 1174,
+            "character": 33
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
     "_cmake_targets_not_defined": {
       "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake",
+        "uri": "file:///usr/local/lib/cmake/raylib/raylib-targets.cmake",
         "range": {
           "start": {
             "line": 19,
@@ -797,41 +1205,296 @@
           }
         }
       },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake",
+      "document_info": "defined variable\nfrom: /usr/local/lib/cmake/raylib/raylib-targets.cmake",
       "is_function": false
     },
-    "Qt6Widgets_LIBRARIES": {
+    "${CMAKE_FIND_PACKAGE_NAME}_FIND_REQUIRED": {
+      "location": {
+        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake",
+        "range": {
+          "start": {
+            "line": 13,
+            "character": 4
+          },
+          "end": {
+            "line": 13,
+            "character": 44
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake\n\nset _NOT_FOUND_MESSAGE which will be displayed by the includer of the Dependencies file.",
+      "is_function": false
+    },
+    "_Qt6Widgets_MODULE_DEPENDENCIES": {
+      "location": {
+        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake",
+        "range": {
+          "start": {
+            "line": 41,
+            "character": 4
+          },
+          "end": {
+            "line": 41,
+            "character": 35
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake",
+      "is_function": false
+    },
+    "Qt6Widgets_DEFINITIONS": {
       "location": {
         "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
         "range": {
           "start": {
-            "line": 71,
-            "character": 8
+            "line": 90,
+            "character": 12
           },
           "end": {
-            "line": 71,
-            "character": 28
+            "line": 90,
+            "character": 34
           }
         }
       },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake\n\nConsider using target_link_libraries(app PRIVATE Qt6Widgets) instead.",
+      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
       "is_function": false
     },
-    "multiValueArgs": {
+    "${_NAME}_FOUND": {
       "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake",
+        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
         "range": {
           "start": {
-            "line": 44,
+            "line": 28,
+            "character": 12
+          },
+          "end": {
+            "line": 28,
+            "character": 26
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
+      "is_function": false
+    },
+    "ARG_SOURCE_DIR": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1523,
             "character": 8
           },
           "end": {
-            "line": 44,
+            "line": 1523,
             "character": 22
           }
         }
       },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "${ARG_SOURCE_DIR}": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1451,
+            "character": 10
+          },
+          "end": {
+            "line": 1451,
+            "character": 27
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "QT_NO_PACKAGE_VERSION_INCOMPATIBLE_WARNING": {
+      "location": {
+        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersion.cmake",
+        "range": {
+          "start": {
+            "line": 23,
+            "character": 12
+          },
+          "end": {
+            "line": 23,
+            "character": 54
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersion.cmake",
+      "is_function": false
+    },
+    "${contentNameLower}_POPULATED": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1845,
+            "character": 6
+          },
+          "end": {
+            "line": 1845,
+            "character": 35
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "Qt6Widgets_PRIVATE_INCLUDE_DIRS": {
+      "location": {
+        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
+        "range": {
+          "start": {
+            "line": 104,
+            "character": 8
+          },
+          "end": {
+            "line": 104,
+            "character": 39
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
+      "is_function": false
+    },
+    "_Qt6Widgets_OWN_INCLUDE_DIRS": {
+      "location": {
+        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
+        "range": {
+          "start": {
+            "line": 76,
+            "character": 12
+          },
+          "end": {
+            "line": 76,
+            "character": 40
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
+      "is_function": false
+    },
+    "__qt_Widgets_target_deps": {
+      "location": {
+        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake",
+        "range": {
+          "start": {
+            "line": 36,
+            "character": 4
+          },
+          "end": {
+            "line": 36,
+            "character": 28
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake\n\nnote: target_deps example: \"Qt6Core\\;5.12.0;Qt6Gui\\;5.12.0\"",
+      "is_function": false
+    },
+    "${CMAKE_FIND_PACKAGE_NAME}_NOT_FOUND_MESSAGE_targets": {
+      "location": {
+        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake",
+        "range": {
+          "start": {
+            "line": 150,
+            "character": 8
+          },
+          "end": {
+            "line": 150,
+            "character": 60
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsTargets.cmake",
+      "is_function": false
+    },
+    "outfile": {
+      "location": {
+        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake",
+        "range": {
+          "start": {
+            "line": 54,
+            "character": 12
+          },
+          "end": {
+            "line": 54,
+            "character": 19
+          }
+        }
+      },
       "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake",
+      "is_function": false
+    },
+    "__cmdArgs": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1144,
+            "character": 6
+          },
+          "end": {
+            "line": 1144,
+            "character": 15
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "${contentName}_DIR": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1892,
+            "character": 6
+          },
+          "end": {
+            "line": 1892,
+            "character": 24
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "CMAKE_C_STANDARD": {
+      "location": {
+        "uri": "file:///home/anonymous/Downloads/programming_practice/c_files/gtk/project1/CMakeLists.txt",
+        "range": {
+          "start": {
+            "line": 4,
+            "character": 4
+          },
+          "end": {
+            "line": 4,
+            "character": 20
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /home/anonymous/Downloads/programming_practice/c_files/gtk/project1/CMakeLists.txt",
+      "is_function": false
+    },
+    "${ARG_POPULATED}": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1466,
+            "character": 8
+          },
+          "end": {
+            "line": 1466,
+            "character": 24
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
       "is_function": false
     },
     "QT_DEFAULT_IMPORT_CONFIGURATION": {
@@ -851,6 +1514,295 @@
       "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsAdditionalTargetInfo.cmake",
       "is_function": false
     },
+    "multiValueArgs": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1509,
+            "character": 6
+          },
+          "end": {
+            "line": 1509,
+            "character": 20
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "__qt_package_version_incompatible": {
+      "location": {
+        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersion.cmake",
+        "range": {
+          "start": {
+            "line": 15,
+            "character": 8
+          },
+          "end": {
+            "line": 15,
+            "character": 41
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersion.cmake",
+      "is_function": false
+    },
+    "FetchContent_Populate": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1691,
+            "character": 9
+          },
+          "end": {
+            "line": 1691,
+            "character": 30
+          }
+        }
+      },
+      "document_info": "defined function\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake\n\nan earlier call to FetchContent_Declare().",
+      "is_function": true
+    },
+    "set_and_check": {
+      "location": {
+        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
+        "range": {
+          "start": {
+            "line": 17,
+            "character": 6
+          },
+          "end": {
+            "line": 17,
+            "character": 19
+          }
+        }
+      },
+      "document_info": "defined macro\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
+      "is_function": true
+    },
+    "configFilePrefix1": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1872,
+            "character": 6
+          },
+          "end": {
+            "line": 1872,
+            "character": 23
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "${ARG_BINARY_DIR}": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1459,
+            "character": 10
+          },
+          "end": {
+            "line": 1459,
+            "character": 27
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "quietFlag": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1807,
+            "character": 10
+          },
+          "end": {
+            "line": 1807,
+            "character": 19
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "propertyName": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1890,
+            "character": 6
+          },
+          "end": {
+            "line": 1890,
+            "character": 18
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake\n\nconfig files through its normal processing.",
+      "is_function": false
+    },
+    "__qt_disable_package_version_check": {
+      "location": {
+        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersion.cmake",
+        "range": {
+          "start": {
+            "line": 7,
+            "character": 8
+          },
+          "end": {
+            "line": 7,
+            "character": 42
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersion.cmake",
+      "is_function": false
+    },
+    "ARG_EXTRA": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1548,
+            "character": 8
+          },
+          "end": {
+            "line": 1548,
+            "character": 17
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "${contentNameLower}_SOURCE_DIR": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1843,
+            "character": 6
+          },
+          "end": {
+            "line": 1843,
+            "character": 36
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake\n\nwith just the content name.",
+      "is_function": false
+    },
+    "ARG_BINARY_DIR": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1529,
+            "character": 8
+          },
+          "end": {
+            "line": 1529,
+            "character": 22
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "__qt_use_no_default_path_for_qt_packages": {
+      "location": {
+        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake",
+        "range": {
+          "start": {
+            "line": 8,
+            "character": 8
+          },
+          "end": {
+            "line": 8,
+            "character": 48
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsDependencies.cmake",
+      "is_function": false
+    },
+    "PACKAGE_PREFIX_DIR": {
+      "location": {
+        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
+        "range": {
+          "start": {
+            "line": 12,
+            "character": 6
+          },
+          "end": {
+            "line": 12,
+            "character": 24
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
+      "is_function": false
+    },
+    "ARG_SUBBUILD_DIR": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1517,
+            "character": 8
+          },
+          "end": {
+            "line": 1517,
+            "character": 24
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "_cmake_expected_targets": {
+      "location": {
+        "uri": "file:///usr/local/lib/cmake/raylib/raylib-targets.cmake",
+        "range": {
+          "start": {
+            "line": 20,
+            "character": 4
+          },
+          "end": {
+            "line": 20,
+            "character": 27
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/local/lib/cmake/raylib/raylib-targets.cmake",
+      "is_function": false
+    },
+    "qt_wrap_ui": {
+      "location": {
+        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake",
+        "range": {
+          "start": {
+            "line": 70,
+            "character": 13
+          },
+          "end": {
+            "line": 70,
+            "character": 23
+          }
+        }
+      },
+      "document_info": "defined function\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake",
+      "is_function": true
+    },
     "ui_files": {
       "location": {
         "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake",
@@ -868,39 +1820,158 @@
       "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake",
       "is_function": false
     },
-    "${outfiles}": {
+    "FetchContent_Declare": {
       "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake",
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
         "range": {
           "start": {
-            "line": 65,
-            "character": 8
+            "line": 1230,
+            "character": 9
           },
           "end": {
-            "line": 65,
-            "character": 19
+            "line": 1230,
+            "character": 29
           }
         }
       },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake",
+      "document_info": "defined function\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake\n\nSOURCE_DIR and BUILD_DIR.",
+      "is_function": true
+    },
+    "outputOptions": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1579,
+            "character": 8
+          },
+          "end": {
+            "line": 1579,
+            "character": 21
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
       "is_function": false
     },
-    "options": {
+    "__qt_package_version_message_prefix": {
       "location": {
-        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake",
+        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersion.cmake",
         "range": {
           "start": {
-            "line": 42,
-            "character": 8
+            "line": 47,
+            "character": 12
           },
           "end": {
-            "line": 42,
-            "character": 15
+            "line": 47,
+            "character": 47
           }
         }
       },
-      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsMacros.cmake",
+      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfigVersion.cmake",
       "is_function": false
+    },
+    "PACKAGE_VERSION_COMPATIBLE": {
+      "location": {
+        "uri": "file:///usr/local/lib/cmake/raylib/raylib-config-version.cmake",
+        "range": {
+          "start": {
+            "line": 6,
+            "character": 6
+          },
+          "end": {
+            "line": 6,
+            "character": 32
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/local/lib/cmake/raylib/raylib-config-version.cmake",
+      "is_function": false
+    },
+    "Qt6Widgets_COMPILE_DEFINITIONS": {
+      "location": {
+        "uri": "file:///usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
+        "range": {
+          "start": {
+            "line": 98,
+            "character": 12
+          },
+          "end": {
+            "line": 98,
+            "character": 42
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/lib/x86_64-linux-gnu/cmake/Qt6Widgets/Qt6WidgetsConfig.cmake",
+      "is_function": false
+    },
+    "ARG_POPULATED": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1442,
+            "character": 8
+          },
+          "end": {
+            "line": 1442,
+            "character": 21
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "capturedOutput": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1578,
+            "character": 8
+          },
+          "end": {
+            "line": 1578,
+            "character": 22
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": false
+    },
+    "_cmake_targets_defined": {
+      "location": {
+        "uri": "file:///usr/local/lib/cmake/raylib/raylib-targets.cmake",
+        "range": {
+          "start": {
+            "line": 18,
+            "character": 4
+          },
+          "end": {
+            "line": 18,
+            "character": 26
+          }
+        }
+      },
+      "document_info": "defined variable\nfrom: /usr/local/lib/cmake/raylib/raylib-targets.cmake\n\nProtect against multiple inclusion, which would fail when already imported targets are added once more.",
+      "is_function": false
+    },
+    "__FetchContent_setupFindPackageRedirection": {
+      "location": {
+        "uri": "file:///usr/share/cmake-3.28/Modules/FetchContent.cmake",
+        "range": {
+          "start": {
+            "line": 1849,
+            "character": 9
+          },
+          "end": {
+            "line": 1849,
+            "character": 51
+          }
+        }
+      },
+      "document_info": "defined function\nfrom: /usr/share/cmake-3.28/Modules/FetchContent.cmake",
+      "is_function": true
     }
   }
 }
