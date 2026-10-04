@@ -454,12 +454,10 @@ class Register8:
 
         current: WORD = self.read()
 
-        next_value: WORD = [
-            mux_2x1(load, Mux2x1Input(current[i], data[i])) for i in range(MAX_BITS)
-        ]
+        for i in range(MAX_BITS):
+            next_bit: int = mux_2x1(load, Mux2x1Input(current[i], data[i]))
 
-        for i, dff in enumerate(self.reg):
-            dff.update(next_value[i], clk)
+            self.reg[i].update(next_bit, clk)
 
 
 class Ram8:
