@@ -1,5 +1,5 @@
 $date
-	Fri Sep 25 13:07:18 2026
+	Fri Sep 25 20:03:58 2026
 $end
 $version
 	Icarus Verilog
@@ -7,7 +7,7 @@ $end
 $timescale
 	1s
 $end
-$scope module tb_logic_gates $end
+$scope module tb_gates $end
 $var wire 1 ! xor_y $end
 $var wire 1 " xnor_y $end
 $var wire 1 # or_y $end
@@ -60,8 +60,8 @@ $scope module or1 $end
 $var wire 1 ( a $end
 $var wire 1 ) b $end
 $var wire 1 + y $end
-$var wire 1 , not_out2 $end
-$var wire 1 - not_out1 $end
+$var wire 1 , not_b $end
+$var wire 1 - not_a $end
 $scope module nand1 $end
 $var wire 1 + y $end
 $var wire 1 , b $end
@@ -100,8 +100,8 @@ $scope module or1 $end
 $var wire 1 ( a $end
 $var wire 1 ) b $end
 $var wire 1 # y $end
-$var wire 1 . not_out2 $end
-$var wire 1 / not_out1 $end
+$var wire 1 . not_b $end
+$var wire 1 / not_a $end
 $scope module nand1 $end
 $var wire 1 # y $end
 $var wire 1 . b $end
@@ -210,8 +210,8 @@ $scope module or1 $end
 $var wire 1 4 a $end
 $var wire 1 3 b $end
 $var wire 1 0 y $end
-$var wire 1 7 not_out2 $end
-$var wire 1 8 not_out1 $end
+$var wire 1 7 not_b $end
+$var wire 1 8 not_a $end
 $scope module nand1 $end
 $var wire 1 0 y $end
 $var wire 1 7 b $end
@@ -308,8 +308,8 @@ $scope module or1 $end
 $var wire 1 < a $end
 $var wire 1 ; b $end
 $var wire 1 ! y $end
-$var wire 1 ? not_out2 $end
-$var wire 1 @ not_out1 $end
+$var wire 1 ? not_b $end
+$var wire 1 @ not_a $end
 $scope module nand1 $end
 $var wire 1 ! y $end
 $var wire 1 ? b $end

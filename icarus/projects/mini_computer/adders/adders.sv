@@ -1,8 +1,6 @@
-// HALF ADDER
 module half_adder(
   input wire a,
   input wire b,
-
   output wire sum,
   output wire carry
 );
@@ -21,39 +19,36 @@ module half_adder(
 
 endmodule
 
-// FULL ADDER
 module full_adder(
   input wire a,
   input wire b,
   input wire cin,
-
   output wire sum,
   output wire carry
 );
 
-  wire h1_sum;
-  wire h1_carry;
-  wire h2_carry;
+  wire ha1_sum;
+  wire ha1_carry;
+  wire ha2_carry;
 
-  half_adder h1(
+  half_adder ha1(
     .a(a),
     .b(b),
-    .sum(h1_sum),
-    .carry(h1_carry)
+    .sum(ha1_sum),
+    .carry(ha1_carry)
   );
 
-  half_adder h2(
-    .a(h1_sum),
+  half_adder ha2(
+    .a(ha1_sum),
     .b(cin),
     .sum(sum),
-    .carry(h2_carry)
+    .carry(ha2_carry)
   );
 
   or_gate or1(
-    .a(h1_carry),
-    .b(h2_carry),
+    .a(ha1_carry),
+    .b(ha2_carry),
     .y(carry)
   );
 
 endmodule
-

@@ -1,5 +1,5 @@
 $date
-	Fri Sep 25 13:09:15 2026
+	Thu Oct  1 12:13:53 2026
 $end
 $version
 	Icarus Verilog
@@ -8,10 +8,10 @@ $timescale
 	1s
 $end
 $scope module tb_adders $end
-$var wire 1 ! ha_sum $end
-$var wire 1 " ha_carry $end
-$var wire 1 # fa_sum $end
-$var wire 1 $ fa_carry $end
+$var wire 1 ! ha_y $end
+$var wire 1 " ha_c $end
+$var wire 1 # fa_y $end
+$var wire 1 $ fa_c $end
 $var reg 1 % a $end
 $var reg 1 & b $end
 $var reg 1 ' cin $end
@@ -19,21 +19,21 @@ $scope module fa $end
 $var wire 1 % a $end
 $var wire 1 & b $end
 $var wire 1 ' cin $end
-$var wire 1 # sum $end
-$var wire 1 ( h2_carry $end
-$var wire 1 ) h1_sum $end
-$var wire 1 * h1_carry $end
-$var wire 1 $ carry $end
-$scope module h1 $end
+$var wire 1 # y $end
+$var wire 1 ( ha2_c $end
+$var wire 1 ) ha1_y $end
+$var wire 1 * ha1_c $end
+$var wire 1 $ c $end
+$scope module ha1 $end
 $var wire 1 % a $end
 $var wire 1 & b $end
-$var wire 1 ) sum $end
-$var wire 1 * carry $end
+$var wire 1 ) y $end
+$var wire 1 * c $end
 $scope module and1 $end
 $var wire 1 % a $end
 $var wire 1 & b $end
 $var wire 1 * y $end
-$var wire 1 + nand_out $end
+$var wire 1 + nand_y $end
 $scope module nand1 $end
 $var wire 1 % a $end
 $var wire 1 & b $end
@@ -55,12 +55,12 @@ $var wire 1 & b $end
 $var wire 1 ) y $end
 $var wire 1 , not_b $end
 $var wire 1 - not_a $end
-$var wire 1 . and_out2 $end
-$var wire 1 / and_out1 $end
+$var wire 1 . and2_y $end
+$var wire 1 / and1_y $end
 $scope module and1 $end
 $var wire 1 & b $end
 $var wire 1 / y $end
-$var wire 1 0 nand_out $end
+$var wire 1 0 nand_y $end
 $var wire 1 - a $end
 $scope module nand1 $end
 $var wire 1 & b $end
@@ -80,7 +80,7 @@ $upscope $end
 $scope module and2 $end
 $var wire 1 % a $end
 $var wire 1 . y $end
-$var wire 1 1 nand_out $end
+$var wire 1 1 nand_y $end
 $var wire 1 , b $end
 $scope module nand1 $end
 $var wire 1 % a $end
@@ -119,8 +119,8 @@ $scope module or1 $end
 $var wire 1 / a $end
 $var wire 1 . b $end
 $var wire 1 ) y $end
-$var wire 1 2 not_out2 $end
-$var wire 1 3 not_out1 $end
+$var wire 1 2 not_b $end
+$var wire 1 3 not_a $end
 $scope module nand1 $end
 $var wire 1 ) y $end
 $var wire 1 2 b $end
@@ -147,16 +147,16 @@ $upscope $end
 $upscope $end
 $upscope $end
 $upscope $end
-$scope module h2 $end
+$scope module ha2 $end
 $var wire 1 ) a $end
 $var wire 1 ' b $end
-$var wire 1 # sum $end
-$var wire 1 ( carry $end
+$var wire 1 # y $end
+$var wire 1 ( c $end
 $scope module and1 $end
 $var wire 1 ) a $end
 $var wire 1 ' b $end
 $var wire 1 ( y $end
-$var wire 1 4 nand_out $end
+$var wire 1 4 nand_y $end
 $scope module nand1 $end
 $var wire 1 ) a $end
 $var wire 1 ' b $end
@@ -178,12 +178,12 @@ $var wire 1 ' b $end
 $var wire 1 # y $end
 $var wire 1 5 not_b $end
 $var wire 1 6 not_a $end
-$var wire 1 7 and_out2 $end
-$var wire 1 8 and_out1 $end
+$var wire 1 7 and2_y $end
+$var wire 1 8 and1_y $end
 $scope module and1 $end
 $var wire 1 ' b $end
 $var wire 1 8 y $end
-$var wire 1 9 nand_out $end
+$var wire 1 9 nand_y $end
 $var wire 1 6 a $end
 $scope module nand1 $end
 $var wire 1 ' b $end
@@ -203,7 +203,7 @@ $upscope $end
 $scope module and2 $end
 $var wire 1 ) a $end
 $var wire 1 7 y $end
-$var wire 1 : nand_out $end
+$var wire 1 : nand_y $end
 $var wire 1 5 b $end
 $scope module nand1 $end
 $var wire 1 ) a $end
@@ -242,8 +242,8 @@ $scope module or1 $end
 $var wire 1 8 a $end
 $var wire 1 7 b $end
 $var wire 1 # y $end
-$var wire 1 ; not_out2 $end
-$var wire 1 < not_out1 $end
+$var wire 1 ; not_b $end
+$var wire 1 < not_a $end
 $scope module nand1 $end
 $var wire 1 # y $end
 $var wire 1 ; b $end
@@ -274,8 +274,8 @@ $scope module or1 $end
 $var wire 1 * a $end
 $var wire 1 ( b $end
 $var wire 1 $ y $end
-$var wire 1 = not_out2 $end
-$var wire 1 > not_out1 $end
+$var wire 1 = not_b $end
+$var wire 1 > not_a $end
 $scope module nand1 $end
 $var wire 1 $ y $end
 $var wire 1 = b $end
@@ -304,13 +304,13 @@ $upscope $end
 $scope module ha $end
 $var wire 1 % a $end
 $var wire 1 & b $end
-$var wire 1 ! sum $end
-$var wire 1 " carry $end
+$var wire 1 ! y $end
+$var wire 1 " c $end
 $scope module and1 $end
 $var wire 1 % a $end
 $var wire 1 & b $end
 $var wire 1 " y $end
-$var wire 1 ? nand_out $end
+$var wire 1 ? nand_y $end
 $scope module nand1 $end
 $var wire 1 % a $end
 $var wire 1 & b $end
@@ -332,12 +332,12 @@ $var wire 1 & b $end
 $var wire 1 ! y $end
 $var wire 1 @ not_b $end
 $var wire 1 A not_a $end
-$var wire 1 B and_out2 $end
-$var wire 1 C and_out1 $end
+$var wire 1 B and2_y $end
+$var wire 1 C and1_y $end
 $scope module and1 $end
 $var wire 1 & b $end
 $var wire 1 C y $end
-$var wire 1 D nand_out $end
+$var wire 1 D nand_y $end
 $var wire 1 A a $end
 $scope module nand1 $end
 $var wire 1 & b $end
@@ -357,7 +357,7 @@ $upscope $end
 $scope module and2 $end
 $var wire 1 % a $end
 $var wire 1 B y $end
-$var wire 1 E nand_out $end
+$var wire 1 E nand_y $end
 $var wire 1 @ b $end
 $scope module nand1 $end
 $var wire 1 % a $end
@@ -396,8 +396,8 @@ $scope module or1 $end
 $var wire 1 C a $end
 $var wire 1 B b $end
 $var wire 1 ! y $end
-$var wire 1 F not_out2 $end
-$var wire 1 G not_out1 $end
+$var wire 1 F not_b $end
+$var wire 1 G not_a $end
 $scope module nand1 $end
 $var wire 1 ! y $end
 $var wire 1 F b $end

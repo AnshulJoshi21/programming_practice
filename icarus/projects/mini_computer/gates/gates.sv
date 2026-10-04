@@ -1,4 +1,3 @@
-// NAND GATE
 module nand_gate(
   input wire a,
   input wire b,
@@ -9,7 +8,6 @@ module nand_gate(
 
 endmodule
 
-// NOT GATE
 module not_gate(
   input wire a,
   output wire y
@@ -23,15 +21,13 @@ module not_gate(
 
 endmodule
 
-// AND GATE
 module and_gate(
-  input wire a,
+ input wire a,
   input wire b,
   output wire y
 );
 
   wire nand_out;
-
   nand_gate nand1(
     .a(a),
     .b(b),
@@ -45,50 +41,46 @@ module and_gate(
 
 endmodule
 
-// OR GATE
 module or_gate(
-  input wire a,  
-  input wire b,  
-  output wire y 
+ input wire a,
+  input wire b,
+  output wire y
 );
 
-  wire not_out1;
-  wire not_out2;
+  wire not_a;
+  wire not_b;
 
   not_gate not1(
-    .a(a),    
-    .y(not_out1)
+    .a(a),
+    .y(not_a)
   );
 
   not_gate not2(
-    .a(b),    
-    .y(not_out2)
+    .a(b),
+    .y(not_b)
   );
 
   nand_gate nand1(
-    .a(not_out1),
-    .b(not_out2),
+    .a(not_a),
+    .b(not_b),
     .y(y)
-  );
+  );  
 
 endmodule
 
-// NOR GATE
 module nor_gate(
-  input wire a,
+ input wire a,
   input wire b,
   output wire y
 );
 
   wire or_out;
-
   or_gate or1(
     .a(a),
     .b(b),
     .y(or_out)
   );
 
-  
   not_gate not1(
     .a(or_out),
     .y(y)
@@ -96,9 +88,8 @@ module nor_gate(
 
 endmodule
 
-// XOR GATE
 module xor_gate(
-  input wire a,
+ input wire a,
   input wire b,
   output wire y
 );
@@ -120,13 +111,13 @@ module xor_gate(
   wire and_out2;
 
   and_gate and1(
-    .a(not_a),  
+    .a(not_a),
     .b(b),
     .y(and_out1)
   );
 
   and_gate and2(
-    .a(a),  
+    .a(a),
     .b(not_b),
     .y(and_out2)
   );
@@ -139,7 +130,6 @@ module xor_gate(
 
 endmodule
 
-// XNOR GATE
 module xnor_gate(
   input wire a,
   input wire b,
@@ -160,4 +150,3 @@ module xnor_gate(
   );
 
 endmodule
-

@@ -1,0 +1,633 @@
+$date
+	Thu Oct  1 13:28:05 2026
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module tb_gates $end
+$var wire 1 ! xor_y $end
+$var wire 1 " xnor_y $end
+$var wire 1 # or_y $end
+$var wire 1 $ not_y $end
+$var wire 1 % nor_y $end
+$var wire 1 & nand_y $end
+$var wire 1 ' and_y $end
+$var parameter 32 ( WIDTH $end
+$var reg 1 ) a $end
+$var reg 1 * a1 $end
+$var reg 1 + b $end
+$var reg 1 , b1 $end
+$scope module and1 $end
+$var wire 1 ) a $end
+$var wire 1 + b $end
+$var wire 1 ' y $end
+$var wire 1 - nand_out $end
+$var parameter 32 . WIDTH $end
+$scope begin gen_and[0] $end
+$var parameter 2 / i $end
+$scope module nand1 $end
+$var wire 1 ) a $end
+$var wire 1 + b $end
+$var wire 1 - y $end
+$upscope $end
+$scope module not1 $end
+$var wire 1 - a $end
+$var wire 1 ' y $end
+$var parameter 32 0 WIDTH $end
+$scope begin gen_not[0] $end
+$var parameter 2 1 i $end
+$scope module nand1 $end
+$var wire 1 - a $end
+$var wire 1 - b $end
+$var wire 1 ' y $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module nand1 $end
+$var wire 1 * a $end
+$var wire 1 , b $end
+$var wire 1 & y $end
+$upscope $end
+$scope module nor1 $end
+$var wire 1 ) a $end
+$var wire 1 + b $end
+$var wire 1 % y $end
+$var wire 1 2 or_out $end
+$var parameter 32 3 WIDTH $end
+$scope module not1 $end
+$var wire 1 % y $end
+$var wire 1 2 a $end
+$var parameter 32 4 WIDTH $end
+$scope begin gen_not[0] $end
+$var parameter 2 5 i $end
+$scope module nand1 $end
+$var wire 1 % y $end
+$var wire 1 2 b $end
+$var wire 1 2 a $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module or1 $end
+$var wire 1 ) a $end
+$var wire 1 + b $end
+$var wire 1 2 y $end
+$var wire 1 6 not_b $end
+$var wire 1 7 not_a $end
+$var parameter 32 8 WIDTH $end
+$scope begin gen_or[0] $end
+$var parameter 2 9 i $end
+$scope module nand1 $end
+$var wire 1 2 y $end
+$var wire 1 6 b $end
+$var wire 1 7 a $end
+$upscope $end
+$upscope $end
+$scope module not1 $end
+$var wire 1 ) a $end
+$var wire 1 7 y $end
+$var parameter 32 : WIDTH $end
+$scope begin gen_not[0] $end
+$var parameter 2 ; i $end
+$scope module nand1 $end
+$var wire 1 ) a $end
+$var wire 1 ) b $end
+$var wire 1 7 y $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module not2 $end
+$var wire 1 + a $end
+$var wire 1 6 y $end
+$var parameter 32 < WIDTH $end
+$scope begin gen_not[0] $end
+$var parameter 2 = i $end
+$scope module nand1 $end
+$var wire 1 + a $end
+$var wire 1 + b $end
+$var wire 1 6 y $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module not1 $end
+$var wire 1 ) a $end
+$var wire 1 $ y $end
+$var parameter 32 > WIDTH $end
+$scope begin gen_not[0] $end
+$var parameter 2 ? i $end
+$scope module nand1 $end
+$var wire 1 ) a $end
+$var wire 1 ) b $end
+$var wire 1 $ y $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module or1 $end
+$var wire 1 ) a $end
+$var wire 1 + b $end
+$var wire 1 # y $end
+$var wire 1 @ not_b $end
+$var wire 1 A not_a $end
+$var parameter 32 B WIDTH $end
+$scope begin gen_or[0] $end
+$var parameter 2 C i $end
+$scope module nand1 $end
+$var wire 1 # y $end
+$var wire 1 @ b $end
+$var wire 1 A a $end
+$upscope $end
+$upscope $end
+$scope module not1 $end
+$var wire 1 ) a $end
+$var wire 1 A y $end
+$var parameter 32 D WIDTH $end
+$scope begin gen_not[0] $end
+$var parameter 2 E i $end
+$scope module nand1 $end
+$var wire 1 ) a $end
+$var wire 1 ) b $end
+$var wire 1 A y $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module not2 $end
+$var wire 1 + a $end
+$var wire 1 @ y $end
+$var parameter 32 F WIDTH $end
+$scope begin gen_not[0] $end
+$var parameter 2 G i $end
+$scope module nand1 $end
+$var wire 1 + a $end
+$var wire 1 + b $end
+$var wire 1 @ y $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module xnor1 $end
+$var wire 1 ) a $end
+$var wire 1 + b $end
+$var wire 1 " y $end
+$var wire 1 H xor_out $end
+$var parameter 32 I WIDTH $end
+$scope module not1 $end
+$var wire 1 " y $end
+$var wire 1 H a $end
+$var parameter 32 J WIDTH $end
+$scope begin gen_not[0] $end
+$var parameter 2 K i $end
+$scope module nand1 $end
+$var wire 1 " y $end
+$var wire 1 H b $end
+$var wire 1 H a $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module xor1 $end
+$var wire 1 ) a $end
+$var wire 1 + b $end
+$var wire 1 H y $end
+$var wire 1 L not_b $end
+$var wire 1 M not_a $end
+$var wire 1 N and2_out $end
+$var wire 1 O and1_out $end
+$var parameter 32 P WIDTH $end
+$scope module and1 $end
+$var wire 1 + b $end
+$var wire 1 O y $end
+$var wire 1 Q nand_out $end
+$var wire 1 M a $end
+$var parameter 32 R WIDTH $end
+$scope begin gen_and[0] $end
+$var parameter 2 S i $end
+$scope module nand1 $end
+$var wire 1 + b $end
+$var wire 1 Q y $end
+$var wire 1 M a $end
+$upscope $end
+$scope module not1 $end
+$var wire 1 Q a $end
+$var wire 1 O y $end
+$var parameter 32 T WIDTH $end
+$scope begin gen_not[0] $end
+$var parameter 2 U i $end
+$scope module nand1 $end
+$var wire 1 Q a $end
+$var wire 1 Q b $end
+$var wire 1 O y $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module and2 $end
+$var wire 1 ) a $end
+$var wire 1 N y $end
+$var wire 1 V nand_out $end
+$var wire 1 L b $end
+$var parameter 32 W WIDTH $end
+$scope begin gen_and[0] $end
+$var parameter 2 X i $end
+$scope module nand1 $end
+$var wire 1 ) a $end
+$var wire 1 V y $end
+$var wire 1 L b $end
+$upscope $end
+$scope module not1 $end
+$var wire 1 V a $end
+$var wire 1 N y $end
+$var parameter 32 Y WIDTH $end
+$scope begin gen_not[0] $end
+$var parameter 2 Z i $end
+$scope module nand1 $end
+$var wire 1 V a $end
+$var wire 1 V b $end
+$var wire 1 N y $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module not1 $end
+$var wire 1 ) a $end
+$var wire 1 M y $end
+$var parameter 32 [ WIDTH $end
+$scope begin gen_not[0] $end
+$var parameter 2 \ i $end
+$scope module nand1 $end
+$var wire 1 ) a $end
+$var wire 1 ) b $end
+$var wire 1 M y $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module not2 $end
+$var wire 1 + a $end
+$var wire 1 L y $end
+$var parameter 32 ] WIDTH $end
+$scope begin gen_not[0] $end
+$var parameter 2 ^ i $end
+$scope module nand1 $end
+$var wire 1 + a $end
+$var wire 1 + b $end
+$var wire 1 L y $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module or1 $end
+$var wire 1 O a $end
+$var wire 1 N b $end
+$var wire 1 H y $end
+$var wire 1 _ not_b $end
+$var wire 1 ` not_a $end
+$var parameter 32 a WIDTH $end
+$scope begin gen_or[0] $end
+$var parameter 2 b i $end
+$scope module nand1 $end
+$var wire 1 H y $end
+$var wire 1 _ b $end
+$var wire 1 ` a $end
+$upscope $end
+$upscope $end
+$scope module not1 $end
+$var wire 1 O a $end
+$var wire 1 ` y $end
+$var parameter 32 c WIDTH $end
+$scope begin gen_not[0] $end
+$var parameter 2 d i $end
+$scope module nand1 $end
+$var wire 1 O a $end
+$var wire 1 O b $end
+$var wire 1 ` y $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module not2 $end
+$var wire 1 N a $end
+$var wire 1 _ y $end
+$var parameter 32 e WIDTH $end
+$scope begin gen_not[0] $end
+$var parameter 2 f i $end
+$scope module nand1 $end
+$var wire 1 N a $end
+$var wire 1 N b $end
+$var wire 1 _ y $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module xor1 $end
+$var wire 1 ) a $end
+$var wire 1 + b $end
+$var wire 1 ! y $end
+$var wire 1 g not_b $end
+$var wire 1 h not_a $end
+$var wire 1 i and2_out $end
+$var wire 1 j and1_out $end
+$var parameter 32 k WIDTH $end
+$scope module and1 $end
+$var wire 1 + b $end
+$var wire 1 j y $end
+$var wire 1 l nand_out $end
+$var wire 1 h a $end
+$var parameter 32 m WIDTH $end
+$scope begin gen_and[0] $end
+$var parameter 2 n i $end
+$scope module nand1 $end
+$var wire 1 + b $end
+$var wire 1 l y $end
+$var wire 1 h a $end
+$upscope $end
+$scope module not1 $end
+$var wire 1 l a $end
+$var wire 1 j y $end
+$var parameter 32 o WIDTH $end
+$scope begin gen_not[0] $end
+$var parameter 2 p i $end
+$scope module nand1 $end
+$var wire 1 l a $end
+$var wire 1 l b $end
+$var wire 1 j y $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module and2 $end
+$var wire 1 ) a $end
+$var wire 1 i y $end
+$var wire 1 q nand_out $end
+$var wire 1 g b $end
+$var parameter 32 r WIDTH $end
+$scope begin gen_and[0] $end
+$var parameter 2 s i $end
+$scope module nand1 $end
+$var wire 1 ) a $end
+$var wire 1 q y $end
+$var wire 1 g b $end
+$upscope $end
+$scope module not1 $end
+$var wire 1 q a $end
+$var wire 1 i y $end
+$var parameter 32 t WIDTH $end
+$scope begin gen_not[0] $end
+$var parameter 2 u i $end
+$scope module nand1 $end
+$var wire 1 q a $end
+$var wire 1 q b $end
+$var wire 1 i y $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module not1 $end
+$var wire 1 ) a $end
+$var wire 1 h y $end
+$var parameter 32 v WIDTH $end
+$scope begin gen_not[0] $end
+$var parameter 2 w i $end
+$scope module nand1 $end
+$var wire 1 ) a $end
+$var wire 1 ) b $end
+$var wire 1 h y $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module not2 $end
+$var wire 1 + a $end
+$var wire 1 g y $end
+$var parameter 32 x WIDTH $end
+$scope begin gen_not[0] $end
+$var parameter 2 y i $end
+$scope module nand1 $end
+$var wire 1 + a $end
+$var wire 1 + b $end
+$var wire 1 g y $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module or1 $end
+$var wire 1 j a $end
+$var wire 1 i b $end
+$var wire 1 ! y $end
+$var wire 1 z not_b $end
+$var wire 1 { not_a $end
+$var parameter 32 | WIDTH $end
+$scope begin gen_or[0] $end
+$var parameter 2 } i $end
+$scope module nand1 $end
+$var wire 1 ! y $end
+$var wire 1 z b $end
+$var wire 1 { a $end
+$upscope $end
+$upscope $end
+$scope module not1 $end
+$var wire 1 j a $end
+$var wire 1 { y $end
+$var parameter 32 ~ WIDTH $end
+$scope begin gen_not[0] $end
+$var parameter 2 !" i $end
+$scope module nand1 $end
+$var wire 1 j a $end
+$var wire 1 j b $end
+$var wire 1 { y $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module not2 $end
+$var wire 1 i a $end
+$var wire 1 z y $end
+$var parameter 32 "" WIDTH $end
+$scope begin gen_not[0] $end
+$var parameter 2 #" i $end
+$scope module nand1 $end
+$var wire 1 i a $end
+$var wire 1 i b $end
+$var wire 1 z y $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+b0 #"
+b1 ""
+b0 !"
+b1 ~
+b0 }
+b1 |
+b0 y
+b1 x
+b0 w
+b1 v
+b0 u
+b1 t
+b0 s
+b1 r
+b0 p
+b1 o
+b0 n
+b1 m
+b1 k
+b0 f
+b1 e
+b0 d
+b1 c
+b0 b
+b1 a
+b0 ^
+b1 ]
+b0 \
+b1 [
+b0 Z
+b1 Y
+b0 X
+b1 W
+b0 U
+b1 T
+b0 S
+b1 R
+b1 P
+b0 K
+b1 J
+b1 I
+b0 G
+b1 F
+b0 E
+b1 D
+b0 C
+b1 B
+b0 ?
+b1 >
+b0 =
+b1 <
+b0 ;
+b1 :
+b0 9
+b1 8
+b0 5
+b1 4
+b1 3
+b0 1
+b1 0
+b0 /
+b1 .
+b1 (
+$end
+#0
+$dumpvars
+1{
+1z
+1q
+1l
+0j
+0i
+1h
+1g
+1`
+1_
+1V
+1Q
+0O
+0N
+1M
+1L
+0H
+1A
+1@
+17
+16
+02
+1-
+0,
+0+
+0*
+0)
+0'
+1&
+1%
+1$
+0#
+1"
+0!
+$end
+#10
+0"
+1H
+1!
+0%
+0`
+0{
+12
+1#
+1O
+1j
+06
+0@
+0Q
+0L
+0l
+0g
+1+
+1,
+#20
+0"
+1H
+0_
+1!
+0z
+1`
+1N
+1{
+1i
+0O
+0V
+0j
+0q
+16
+1@
+1Q
+1L
+1l
+1g
+07
+0$
+0A
+0M
+0h
+0+
+1)
+0,
+1*
+#30
+1"
+0H
+0!
+1_
+1z
+0N
+0i
+1'
+1V
+1q
+0-
+06
+0@
+0L
+0g
+0&
+1+
+1,
+#40
